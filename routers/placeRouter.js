@@ -22,7 +22,13 @@ router.get(
     passport.authenticate("guide", { session: false }),
   getAllPlaces
 );
-router.get("/:placeID", getSinglePlace);
+router.get(
+  "/:placeID",
+  passport.authenticate("visitor", { session: false }) ||
+    passport.authenticate("admin", { session: false }) ||
+    passport.authenticate("guide", { session: false }),
+  getSinglePlace
+);
 router.put(
   "/update/:placeID",
   passport.authenticate("guide", { session: false }),
@@ -30,7 +36,7 @@ router.put(
 );
 router.delete(
   "/delete/:placeID",
-  passport.authenticate("guide", { session: false }),
+  passport.authenticate("admin", { session: false }),
   deletePlace
 );
 router.put("/:PlaceID", ratePlace);
