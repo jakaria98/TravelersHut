@@ -1,0 +1,85 @@
+import Axios from "axios";
+import * as Types from "./types";
+
+export const loadPlaces = () => (dispatch) => {
+  Axios.get("api/places/")
+    .then((response) => {
+      dispatch({
+        type: Types.LOAD_PLACE,
+        payload: {
+          places: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+export const addPlace = (place) => (dispatch) => {
+  Axios.post("/api/places/add_place", place)
+    .then((response) => {
+      dispatch({
+        type: Types.ADD_PLACE,
+        payload: {
+          place: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.PLACE_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};
+export const getSinglePlace = (_id) => (dispatch) => {
+  Axios.get(`/api/places/${_id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.GET_A_PLACE,
+        payload: {
+          place: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const removePlace = (id) => (dispatch) => {
+  Axios.delete(`/api/places/delete/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.REMOVE_PLACE,
+        payload: {
+          id: response.data._id,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+export const updatePlace = (id, place) => (dispatch) => {
+  Axios.put(`/api/places/update/${id}`, place)
+    .then((response) => {
+      dispatch({
+        type: Types.UPDATE_PLACE,
+        payload: {
+          place: response.data.place,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.PLACE_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};

@@ -1,0 +1,244 @@
+import React, { Component } from "react";
+import Dataset from "../utils/Data";
+import { connect } from "react-redux";
+import { addPlace } from "../store/actions/placeAction";
+class AddPlace extends Component {
+  state = {
+    name: "",
+    division: "",
+    district: "",
+    upazila: "",
+    coverPhoto: "",
+    detailsPhoto: [],
+    error: {},
+  };
+
+  changeHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  getPhoto = (event) => {
+    //console.log(files);
+    let selectedFiles = [];
+    for (let i = 0; i < event.target.files.length; i++) {
+      selectedFiles.push(URL.createObjectURL(event.target.files[i]));
+    }
+    this.setState({
+      [event.target.name]: selectedFiles,
+    });
+  };
+
+  getDivision = (division) => {
+    division = Dataset.division.filter((dvs) => dvs.name === division);
+    return division;
+  };
+
+  getDistrict = (district, division) => {
+    division = Dataset.division.filter((dvs) => dvs.name === division);
+    district = division[0].district.filter((dis) => dis.name === district);
+    return district;
+  };
+
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    this.props.addPlace(this.state);
+  };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (
+      JSON.stringify(nextProps.place.error) !== JSON.stringify(prevState.error)
+    ) {
+      return {
+        error: nextProps.place.error.message,
+      };
+    }
+    return null;
+  }
+
+  render() {
+    let { name, division, district, error } = this.state;
+    let divisionObject, districtObject;
+    return this.props.guide.isAuthenticated ? (
+      <div className="row">
+        <div className="col-md-6 offset-md-3">
+          <h1 className="text-center display-4">Add A Place</h1>
+          <form onSubmit={this.submitHandler}>
+            <div className="form-group">
+              <label htmlFor="name">Name:</label>
+              <input
+                type="text"
+                placeholder="Enter The Place Name"
+                name="name"
+                className={
+                  error?.name ? "form-control is-invalid" : "form-control"
+                }
+                id="name"
+                value={name}
+                onChange={this.changeHandler}
+              />
+              {error?.name && (
+                <div className="invalid-feedback">{error?.name}</div>
+              )}
+            </div>
+            <div className="form-group my-3">
+              <label htmlFor="coverPhoto">Cover Photo: </label>
+
+              <input
+                type="file"
+                name="coverPhoto"
+                className={
+                  error?.coverPhoto ? "form-control is-invalid" : "form-control"
+                }
+                onChange={this.getPhoto}
+              />
+              {error?.coverPhoto && (
+                <div className="invalid-feedback">{error?.coverPhoto}</div>
+              )}
+            </div>
+            <div className="form-group">
+              <label htmlFor="detailsPhoto">Add Some Additional Photos: </label>
+
+              <input
+                type="file"
+                name="detailsPhoto"
+                className={
+                  error?.detailsPhoto
+                    ? "form-control is-invalid"
+                    : "form-control"
+                }
+                multiple
+                onChange={this.getPhoto}
+              />
+              {error?.detailsPhoto && (
+                <div className="invalid-feedback">{error?.detailsPhoto}</div>
+              )}
+            </div>
+            <div className="form-group my-3">
+              <label htmlFor="division">Division:</label>
+              <select
+                name="division"
+                className={
+                  error?.division ? "form-control is-invalid" : "form-control"
+                }
+                id="division"
+                onChange={this.changeHandler}
+              >
+                <option value="">Default</option>
+                {Dataset.division.map((division, i) => (
+                  <option key={i} value={division.name}>
+                    {division.name}
+                  </option>
+                ))}
+              </select>
+              {error?.division && (
+                <div className="invalid-feedback">{error.division}</div>
+              )}
+            </div>
+            {division.length === 0 ? (
+              <div className="form-group">
+                <label htmlFor="district">District:</label>
+                <select
+                  disabled
+                  className={
+                    error?.district ? "form-control is-invalid" : "form-control"
+                  }
+                >
+                  <option>Add Division First</option>
+                </select>
+                {error?.district && (
+                  <div className="invalid-feedback">{error?.district}</div>
+                )}
+              </div>
+            ) : (
+              ((divisionObject = this.getDivision(division)),
+              (
+                <div className="form-group">
+                  <label htmlFor="district">District:</label>
+                  <select
+                    name="district"
+                    className={
+                      error?.district
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    id="district"
+                    onChange={this.changeHandler}
+                  >
+                    <option value="">Default</option>
+                    {divisionObject[0].district.map((dst, i) => (
+                      <option key={i} value={dst.name}>
+                        {dst.name}
+                      </option>
+                    ))}
+                  </select>
+                  {error?.district && (
+                    <div className="invalid-feedback">{error?.district}</div>
+                  )}
+                </div>
+              ))
+            )}
+            {division.length === 0 || district.length === 0 ? (
+              <div className="form-group my-3">
+                <label htmlFor="upazila">Upazila:</label>
+                <select
+                  className={
+                    error?.upazila ? "form-control is-invalid" : "form-control"
+                  }
+                  disabled
+                >
+                  <option>Add Division and District First</option>
+                </select>
+                {error?.upazila && (
+                  <div className="invalid-feedback">{error?.upazila}</div>
+                )}
+              </div>
+            ) : (
+              ((districtObject = this.getDistrict(district, division)),
+              (
+                <div className="form-group my-3">
+                  <label htmlFor="upazila">Upazila:</label>
+                  <select
+                    name="upazila"
+                    id="upazila"
+                    className={
+                      error?.upazila
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    onChange={this.changeHandler}
+                  >
+                    <option value="">Default</option>
+                    {districtObject[0].upazila.map((upz, i) => (
+                      <option key={i} value={upz}>
+                        {upz}
+                      </option>
+                    ))}
+                  </select>
+                  {error?.upazila && (
+                    <div className="invalid-feedback">{error?.upazila}</div>
+                  )}
+                </div>
+              ))
+            )}
+            <button className="btn btn-primary apply d-block center">
+              ADD
+            </button>
+          </form>
+        </div>
+      </div>
+    ) : (
+      <h1>Login as guide</h1>
+    );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    place: state.place,
+    guide: state.guide,
+  };
+};
+export default connect(mapStateToProps, { addPlace })(AddPlace);
