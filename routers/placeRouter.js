@@ -15,10 +15,24 @@ router.post(
   passport.authenticate("guide", { session: false }),
   createPlace
 );
-router.get("/", getAllPlaces);
+router.get(
+  "/",
+  passport.authenticate("visitor", { session: false }) ||
+    passport.authenticate("admin", { session: false }) ||
+    passport.authenticate("guide", { session: false }),
+  getAllPlaces
+);
 router.get("/:placeID", getSinglePlace);
-router.put("/update/:placeID", updatePlace);
-router.delete("/delete/:placeID", deletePlace);
+router.put(
+  "/update/:placeID",
+  passport.authenticate("guide", { session: false }),
+  updatePlace
+);
+router.delete(
+  "/delete/:placeID",
+  passport.authenticate("guide", { session: false }),
+  deletePlace
+);
 router.put("/:PlaceID", ratePlace);
 
 module.exports = router;
