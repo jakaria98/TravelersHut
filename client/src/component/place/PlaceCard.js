@@ -8,7 +8,12 @@ const PlaceCard = ({ place }) => (
         <h6>rating {place.ratedBy} </h6>
       </div>
       <Link
-        to={{ pathname: `/places/${place.name}`, state: { keyVal: place._id } }}
+        to={{
+          pathname: `/places/${place.name}`,
+          state: {
+            keyVal: place._id,
+          },
+        }}
         className="btn btn-primary place-link"
       >
         visit

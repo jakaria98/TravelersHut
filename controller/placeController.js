@@ -70,8 +70,9 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   getSinglePlace(req, res) {
-    let { _id } = req.params;
-    Places.findOne(_id)
+    let { placeID } = req.params;
+    
+    Places.findById(placeID)
       .then((place) => {
         if (!place) {
           badRequest(res, "No Place Found");

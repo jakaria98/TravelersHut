@@ -60,8 +60,8 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   getAllPost(req, res) {
-    let { placeID } = req.body;
-    Posts.find({ place: placeID })
+    console.log("hi");
+    Posts.find()
       .then((posts) => everythingOk(res, posts))
       .catch((error) => serverError(res, error));
   },

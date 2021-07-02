@@ -17,12 +17,6 @@
 }
 
 /* globals */
-.test {
-  width: 180px;
-  height: 250px;
-  float: left;
-  margin: 10px;
-}
 
 body {
   padding-top: 66px;
@@ -220,6 +214,9 @@ h6 {
   float: left;
   width: 450px;
   font-size: 15px;
+}
+.basic-info-reposition {
+  margin-left: 500px;
 }
 .apply {
   width: 100%;

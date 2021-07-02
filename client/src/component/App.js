@@ -12,9 +12,9 @@ import adminLogin from "../pages/adminLoginAndRegistrationSystem/Login";
 import GuideLogin from "../pages/guideLoginAndRegisterSystem/Login";
 import GuideRegister from "../pages/guideLoginAndRegisterSystem/Register";
 
-import AddPlace from "../pages/addPlace";
-import AllPlaces from "../pages/allPlaces";
-import CreatePost from "../pages/createPost";
+import AllPlaces from "../pages/place/allPlaces";
+import SinglePlace from "../pages/place/SinglePlace";
+import CreatePost from "../pages/post/createPost";
 class App extends Component {
   render() {
     return (
@@ -27,10 +27,11 @@ class App extends Component {
           <Route path="/admin/login" component={adminLogin} />
 
           <Route path="/all-places" component={AllPlaces} />
+          <Route path="/places/:placeName" component={SinglePlace} />
 
-          <Route path="/guide/add-a-place" component={AddPlace} />
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
+
           <Route path="/guide/create-post" component={CreatePost} />
 
           <Route exact path="/" component={Home} />

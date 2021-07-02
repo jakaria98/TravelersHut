@@ -3,7 +3,7 @@ const CoverPhotoCard = (photo) => {
   return (
     <div className="placeDetailsContainer">
       <div className="mainImg">
-        <img src={`${photo}`} alt="" />
+        <img src={`${photo}`} alt="coverphoto" />
       </div>
     </div>
   );

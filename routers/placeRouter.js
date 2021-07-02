@@ -17,18 +17,10 @@ router.post(
 );
 router.get(
   "/",
-  passport.authenticate("visitor", { session: false }) ||
-    passport.authenticate("admin", { session: false }) ||
-    passport.authenticate("guide", { session: false }),
+
   getAllPlaces
 );
-router.get(
-  "/:placeID",
-  passport.authenticate("visitor", { session: false }) ||
-    passport.authenticate("admin", { session: false }) ||
-    passport.authenticate("guide", { session: false }),
-  getSinglePlace
-);
+router.get("/:placeID", getSinglePlace);
 router.put(
   "/update/:placeID",
   passport.authenticate("guide", { session: false }),

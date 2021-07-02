@@ -1,8 +1,8 @@
 import Axios from "axios";
 import * as Types from "./types";
 
-export const loadPost = (placeID) => (dispatch) => {
-  Axios.get("/api/posts/", placeID)
+export const loadPost = () => (dispatch) => {
+  Axios.get("/api/posts/")
     .then((response) => {
       dispatch({
         type: Types.LOAD_POST,
@@ -15,7 +15,7 @@ export const loadPost = (placeID) => (dispatch) => {
 };
 
 export const addPost = (post, placeId) => (dispatch) => {
-  Axios.post(`/api/posts/${placeID}`, post)
+  Axios.post(`/api/posts/${placeId}`, post)
     .then((response) => {
       dispatch({
         type: Types.ADD_POST,

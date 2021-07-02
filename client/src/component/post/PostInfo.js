@@ -1,13 +1,17 @@
 import CoverPhotoCard from "../CoverPhotoCard";
 import PhotoCard from "../PhotoCard";
-const PostInfo = (post) => {
-  return (
+const PostInfo = ({ post }) => {
+  return post.length <= 0 ? (
+    <h1>Loading</h1>
+  ) : (
     <div className="placeDetailsContainer">
-      <CoverPhotoCard coverPhoto={post.coverPhoto} />
+      <CoverPhotoCard photo={post.coverPhoto} />
       <div className="images">
-        {post.images.map((photo) => (
-          <PhotoCard photo={photo} />
-        ))}
+        {post.images ? (
+          post.images.map((photo, i) => <PhotoCard photo={photo} key={i} />)
+        ) : (
+          <h1>Loading</h1>
+        )}
       </div>
       <div className="info">
         <h1>From: {post.visitingFrom}</h1>
