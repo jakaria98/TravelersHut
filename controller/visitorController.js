@@ -36,7 +36,7 @@ module.exports = {
               email: user.email,
             },
             "VISITOR",
-            { expiresIn: 60 * 60 * 24 }
+            { expiresIn: 60 * 60 * 24 * 7 }
           );
           res.status(200).json({
             message: "Login Successful",

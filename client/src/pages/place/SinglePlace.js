@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { getSinglePlace } from "../../store/actions/placeAction";
 import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
+import PostCard from "../../component/post/PostCard";
 
 class SinglePlace extends Component {
   componentDidMount() {
@@ -15,7 +16,16 @@ class SinglePlace extends Component {
     let { place, post } = this.props;
     console.log(post.length);
 
-    return place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />;
+    return (
+      <>
+        {place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />}
+        {post.length == null ? (
+          <h1>Loading</h1>
+        ) : (
+          post.map((post, i) => <PostCard post={post} />)
+        )}
+      </>
+    );
   }
 }
 

@@ -38,7 +38,7 @@ export const login = (visitor, history) => (dispatch) => {
           visitor: decode,
         },
       });
-      history.push("/");
+      history.push("/all-places");
     })
     .catch((error) => {
       dispatch({

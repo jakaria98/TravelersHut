@@ -56,10 +56,19 @@ class AddPlace extends Component {
   };
 
   submitHandler = (e) => {
-    e.preventDefault();
+    let { name, division, district, upazila, coverPhoto, detailsPhoto } =
+      this.state;
+    if (
+      name.length === 0 ||
+      division.length === 0 ||
+      district.length === 0 ||
+      upazila.length === 0 ||
+      coverPhoto.length === 0 ||
+      detailsPhoto.length === 0
+    )
+      e.preventDefault();
 
     this.props.addPlace(this.state);
-
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -252,9 +261,7 @@ class AddPlace extends Component {
                   </div>
                 ))
               )}
-              <button className="btn btn-primary apply ">
-                ADD
-              </button>
+              <button className="btn btn-primary apply ">ADD</button>
             </form>
           </div>
         </div>

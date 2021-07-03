@@ -42,7 +42,7 @@ module.exports = {
               posts: user.posts,
             },
             "GUIDE",
-            { expiresIn: 60 * 60 * 2 }
+            { expiresIn: 60 * 60 * 24 * 7 }
           );
           res.status(200).json({
             message: "Login Successful",

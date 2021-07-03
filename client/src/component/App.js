@@ -14,7 +14,7 @@ import GuideRegister from "../pages/guideLoginAndRegisterSystem/Register";
 
 import AllPlaces from "../pages/place/allPlaces";
 import SinglePlace from "../pages/place/SinglePlace";
-import CreatePost from "../pages/post/createPost";
+
 class App extends Component {
   render() {
     return (
@@ -31,8 +31,6 @@ class App extends Component {
 
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
-
-          <Route path="/guide/create-post" component={CreatePost} />
 
           <Route exact path="/" component={Home} />
         </Switch>

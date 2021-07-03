@@ -15,11 +15,9 @@ router.post(
   passport.authenticate("guide", { session: false }),
   createPlace
 );
-router.get(
-  "/",
 
-  getAllPlaces
-);
+router.get("/", getAllPlaces);
+
 router.get("/:placeID", getSinglePlace);
 router.put(
   "/update/:placeID",

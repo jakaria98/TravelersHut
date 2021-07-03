@@ -39,7 +39,7 @@ export const login = (guide, history) => (dispatch) => {
           guide: decode,
         },
       });
-      history.push("/guide/add-a-place");
+      history.push("/all-places");
     })
     .catch((error) => {
       dispatch({
