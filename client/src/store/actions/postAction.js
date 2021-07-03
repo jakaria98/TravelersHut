@@ -14,9 +14,10 @@ export const loadPost = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const addPost = (post, placeId) => (dispatch) => {
-  Axios.post(`/api/posts/${placeId}`, post)
+export const addPost = (post, placeID) => (dispatch) => {
+  Axios.post(`/api/posts/${placeID}`, post)
     .then((response) => {
+      console.log("called action");
       dispatch({
         type: Types.ADD_POST,
         payload: {

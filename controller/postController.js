@@ -5,42 +5,59 @@ const { badRequest, serverError, everythingOk } = require("../utils/error");
 const postValidator = require("../validator/postValidator");
 module.exports = {
   createPost(req, res) {
-    let { visitingFrom, minimumCost, residence, images, details } = req.body;
-    let userId = req.user._id;
-    let { placeId } = req.params;
-    let validate = postValidator({
-      visitingFrom,
+    let {
+      division,
+      district,
+      upazila,
       minimumCost,
       residence,
-      images,
+      coverPhoto,
+      detailsPhoto,
+      details,
+    } = req.body;
+
+    let userId = req.user._id;
+    console.log(req.params);
+    let { placeID } = req.params;
+    let validate = postValidator({
+      division,
+      district,
+      upazila,
+      minimumCost,
+      coverPhoto,
+      detailsPhoto,
       details,
     });
     if (!validate.isValid) {
       return badRequest(res, validate.error);
     }
-    Guide.findOne({ userId })
+    Guide.findOne(userId)
       .then((user) => {
         if (user) {
+          console.log("user found");
           let post = new Posts({
-            visitingFrom,
+            division,
+            district,
+            upazila,
             minimumCost,
             residence,
             coverPhoto,
-            images,
+            detailsPhoto,
             ratedBy: 0,
             ratingCount: 0,
             details,
             creatorGuide: userId,
-            place: placeId,
+            place: placeID,
             createdAt: new Date().toISOString(),
           });
           post
             .save()
             .then((pst) => {
+              console.log("post saved");
               let updatedGuide = { ...req.user._doc };
               updatedGuide.contribution = updatedGuide.contribution + 1;
               updatedGuide.posts.unshift(plc._id);
-              Guide.findByOneAndUpdate(
+              Guide.findOneAndUpdate(
                 updatedGuide._id,
                 { $set: updatedGuide },
                 { new: true }
@@ -48,13 +65,13 @@ module.exports = {
                 .then((result) => {
                   res.status(201).json({
                     message: "Post created successfully",
-                    ...place._doc,
+                    ...pst._doc,
                     user: result,
                   });
                 })
                 .catch((err) => serverError(res, err));
             })
-            .catch((error) => serverError(res.error));
+            .catch((error) => serverError(res,error));
         }
       })
       .catch((error) => serverError(res, error));

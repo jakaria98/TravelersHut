@@ -2,7 +2,15 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const postsSchema = new Schema({
-  visitingFrom: {
+  division: {
+    type: String,
+    required: true,
+  },
+  district: {
+    type: String,
+    required: true,
+  },
+  upazila: {
     type: String,
     required: true,
   },
@@ -11,8 +19,8 @@ const postsSchema = new Schema({
     required: true,
   },
   residence: Boolean,
-  coverPhoto: String,
-  images: [String],
+  coverPhoto: [String],
+  detailsPhoto: [String],
   ratedBy: Number,
   ratingCount: Number,
   details: {
