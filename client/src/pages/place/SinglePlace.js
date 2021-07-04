@@ -23,16 +23,20 @@ class SinglePlace extends Component {
   };
   componentDidMount() {
     const { keyVal } = this.props.location.state;
+    console.log(keyVal);
     this.setState({
       placeID: keyVal,
     });
     this.props.getSinglePlace(keyVal);
-    this.props.loadPost();
+    this.props.loadPost(keyVal);
   }
+
+  postFilter = (post) => {
+    post.filter((pst) => pst.place == this.state.placeId);
+  };
   render() {
     let { place, post } = this.props;
-    console.log(post.length);
-
+    //  post = this.postFilter(post);
     return (
       <>
         {place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />}
@@ -50,7 +54,9 @@ class SinglePlace extends Component {
           <h1 className="placeName">All Posts</h1>
         </div>
         {post.length == null ? (
-          <h1>Loading</h1>
+          <div className="info">
+            <h1 className="placeName">Loading</h1>
+          </div>
         ) : (
           post.map((post, i) => <PostCard post={post} />)
         )}

@@ -56,7 +56,7 @@ module.exports = {
               console.log("post saved");
               let updatedGuide = { ...req.user._doc };
               updatedGuide.contribution = updatedGuide.contribution + 1;
-              updatedGuide.posts.unshift(plc._id);
+              updatedGuide.posts.unshift(pst._id);
               Guide.findOneAndUpdate(
                 updatedGuide._id,
                 { $set: updatedGuide },
@@ -71,14 +71,14 @@ module.exports = {
                 })
                 .catch((err) => serverError(res, err));
             })
-            .catch((error) => serverError(res,error));
+            .catch((error) => serverError(res, error));
         }
       })
       .catch((error) => serverError(res, error));
   },
   getAllPost(req, res) {
-    console.log("hi");
-    Posts.find()
+    let { placeID } = req.params;
+    Posts.find({ place: placeID })
       .then((posts) => everythingOk(res, posts))
       .catch((error) => serverError(res, error));
   },

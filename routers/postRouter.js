@@ -14,7 +14,7 @@ router.post(
   passport.authenticate("guide", { session: false }),
   createPost
 );
-router.get("/", getAllPost);
+router.get("/post/:placeID", getAllPost);
 router.get("/:postID", getSinglePost);
 router.delete("/:postID", deletePost);
 router.put("/:postID", ratePost);

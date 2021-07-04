@@ -1,8 +1,8 @@
 import Axios from "axios";
 import * as Types from "./types";
 
-export const loadPost = () => (dispatch) => {
-  Axios.get("/api/posts/")
+export const loadPost = (placeID) => (dispatch) => {
+  Axios.get(`/api/posts/post/${placeID}`)
     .then((response) => {
       dispatch({
         type: Types.LOAD_POST,

@@ -88,15 +88,15 @@ class CreatePost extends Component {
     } = this.state;
     let { placeID } = this.props;
 
-    if (
-      division.length === 0 ||
-      district.length === 0 ||
-      upazila.length === 0 ||
-      minimumCost.length === 0 ||
-      coverPhoto.length === 0 ||
-      detailsPhoto.length === 0 ||
-      details.length === 0
-    )
+    // if (
+    //   division.length === 0 ||
+    //   district.length === 0 ||
+    //   upazila.length === 0 ||
+    //   minimumCost.length === 0 ||
+    //   coverPhoto.length === 0 ||
+    //   detailsPhoto.length === 0 ||
+    //   details.length === 0
+    // )
     e.preventDefault();
     this.props.addPost(
       {
