@@ -218,6 +218,10 @@ h6 {
 .basic-info-reposition {
   margin-left: 500px;
 }
+.post-basic-info-reposition {
+  margin-left: 200px;
+  margin-top: 200px;
+}
 .apply {
   width: 100%;
 }

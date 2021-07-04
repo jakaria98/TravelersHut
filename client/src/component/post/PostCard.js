@@ -9,7 +9,7 @@ const PostCard = ({ post }) => (
       </div>
       <Link
         to={{
-          pathname: `/blog/${post.place}`,
+          pathname: `/blog/${post._id}`,
           state: {
             postId: post._id,
           },

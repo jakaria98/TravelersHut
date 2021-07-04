@@ -83,8 +83,8 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   getSinglePost(req, res) {
-    let { _id } = req.params;
-    Posts.findOne(_id)
+    let { postID } = req.params;
+    Posts.findById(postID)
       .then((post) => {
         if (!post) {
           return badRequest(res, "No blog found");
@@ -95,17 +95,17 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   deletePost(req, res) {
-    let { _id } = req.params;
-    Posts.findOneAndDelete(_id)
+    let { postID } = req.params;
+    Posts.findOneAndDelete(postID)
       .then((post) => everythingOk(res, post))
       .catch((error) => serverError(res, error));
   },
   ratePost(req, res) {
-    let { _id, rating } = req.params;
-    Posts.findOne(_id)
+    let { postID, rating } = req.params;
+    Posts.findOne(postID)
       .then((post) => {
         Posts.findOneAndUpdate(
-          _id,
+          postID,
           {
             ratedBy: post.ratedBy + 1,
             ratingCount: post.ratingCount + rating,

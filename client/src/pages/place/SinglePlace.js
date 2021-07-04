@@ -23,7 +23,7 @@ class SinglePlace extends Component {
   };
   componentDidMount() {
     const { keyVal } = this.props.location.state;
-    console.log(keyVal);
+    
     this.setState({
       placeID: keyVal,
     });

@@ -15,6 +15,8 @@ import GuideRegister from "../pages/guideLoginAndRegisterSystem/Register";
 import AllPlaces from "../pages/place/allPlaces";
 import SinglePlace from "../pages/place/SinglePlace";
 
+import SinglePost from "../pages/post/SinglePost";
+
 class App extends Component {
   render() {
     return (
@@ -28,6 +30,7 @@ class App extends Component {
 
           <Route path="/all-places" component={AllPlaces} />
           <Route path="/places/:placeName" component={SinglePlace} />
+          <Route path="/blog/:_id" component={SinglePost} />
 
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
