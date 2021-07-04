@@ -1,5 +1,6 @@
 const JwtStrategy = require("passport-jwt").Strategy;
 const ExtractJwt = require("passport-jwt").ExtractJwt;
+
 const Visitor = require("./model/Visitor");
 const Guide = require("./model/Guide");
 const Admin = require("./model/Admin");
@@ -70,6 +71,4 @@ module.exports = (passport) => {
         });
     })
   );
-
-  
 };
