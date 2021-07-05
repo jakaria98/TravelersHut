@@ -3,7 +3,12 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../model/Admin");
 const adminRegister = require("../validator/adminRegister");
 const loginValidator = require("../validator/loginValidator");
-const { badRequest, serverError, notFound } = require("../utils/error");
+const {
+  badRequest,
+  serverError,
+  notFound,
+  everythingOk,
+} = require("../utils/error");
 
 module.exports = {
   login(req, res) {
@@ -101,5 +106,10 @@ module.exports = {
           serverError(res, error);
         });
     }
+  },
+  allAdmin(req, res) {
+    Admin.find()
+      .then((users) => everythingOk(res, users))
+      .catch((error) => serverError(res, error));
   },
 };
