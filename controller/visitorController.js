@@ -8,6 +8,7 @@ const {
   serverError,
   notFound,
   createdSuccessfully,
+  everythingOk,
 } = require("../utils/error");
 
 module.exports = {
@@ -89,5 +90,12 @@ module.exports = {
           serverError(res, error);
         });
     }
+  },
+  allVisitor(req, res) {
+    Visitor.find()
+      .then((users) => {
+        return everythingOk(res, users);
+      })
+      .catch((error) => serverError(res, error));
   },
 };
