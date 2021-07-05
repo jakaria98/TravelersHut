@@ -60,4 +60,19 @@ export const logout = (history) => (dispatch) => {
       guide: {},
     },
   };
+  
+};
+export const loadGuide = () => (dispatch) => {
+  Axios.get("/api/guide/allGuide")
+    .then((response) => {
+      dispatch({
+        type: Types.GET_GUIDE,
+        payload: {
+          guide: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
