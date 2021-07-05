@@ -3,14 +3,14 @@ import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "../pages/Home";
-import visitorRegister from "../pages/visitorLoginAndRegisterSystem/Register";
-import visitorLogin from "../pages/visitorLoginAndRegisterSystem/Login";
+import visitorRegister from "../pages/Visitor/Register";
+import visitorLogin from "../pages/Visitor/Login";
 
-import adminRegister from "../pages/adminLoginAndRegistrationSystem/Register";
-import adminLogin from "../pages/adminLoginAndRegistrationSystem/Login";
+import adminRegister from "../pages/Admin/Register";
+import adminLogin from "../pages/Admin/Login";
 
-import GuideLogin from "../pages/guideLoginAndRegisterSystem/Login";
-import GuideRegister from "../pages/guideLoginAndRegisterSystem/Register";
+import GuideLogin from "../pages/Guide/Login";
+import GuideRegister from "../pages/Guide/Register";
 
 import AllPlaces from "../pages/place/allPlaces";
 import SinglePlace from "../pages/place/SinglePlace";
