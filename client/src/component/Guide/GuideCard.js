@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const GuideCard = ({ guide }) => {
+  console.log(guide.name);
   return (
     <article className="place">
       <div className="img-container">
-        <img src={guide.profilePhoto} />
+        <img src={guide.profilePhoto} alt="" />
         <Link
           to={{
             pathname: `/guide/${guide.name}`,

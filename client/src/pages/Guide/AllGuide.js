@@ -8,7 +8,16 @@ class AllGuide extends Component {
   }
   render() {
     let { guide } = this.props;
-    return <GuideCard guide={guide} />;
+    console.log(guide);
+    return (
+      <>
+        {guide.length > 0 ? (
+          guide.map((gd) => <GuideCard guide={gd} key={gd._id} />)
+        ) : (
+          <h1>Loading</h1>
+        )}
+      </>
+    );
   }
 }
 const mapStateToProps = (state) => {
