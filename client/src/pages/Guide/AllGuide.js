@@ -11,6 +11,9 @@ class AllGuide extends Component {
     console.log(guide);
     return (
       <>
+        <div className="info">
+          <h1 className="placeName">All Guides</h1>
+        </div>
         {guide.length > 0 ? (
           guide.map((gd) => <GuideCard guide={gd} key={gd._id} />)
         ) : (
