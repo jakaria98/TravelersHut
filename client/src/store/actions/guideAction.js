@@ -60,7 +60,6 @@ export const logout = (history) => (dispatch) => {
       guide: {},
     },
   };
-  
 };
 export const loadGuide = () => (dispatch) => {
   Axios.get("/api/guide/allGuide")
@@ -75,4 +74,16 @@ export const loadGuide = () => (dispatch) => {
     .catch((error) => {
       console.log(error);
     });
+};
+export const getAGuide = (id) => (dispatch) => {
+  Axios.get(`/api/guide/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.SINGLE_GUIDE,
+        payload: {
+          guide: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
 };

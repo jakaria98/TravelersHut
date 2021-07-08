@@ -25,6 +25,9 @@ const guideReducer = (state = init, action) => {
     case Types.GET_GUIDE: {
       return action.payload.guide;
     }
+    case Types.SINGLE_GUIDE: {
+      return action.payload.guide;
+    }
     default:
       return state;
   }
