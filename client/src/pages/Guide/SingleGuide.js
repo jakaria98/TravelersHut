@@ -1,9 +1,20 @@
 import React, { Component } from "react";
-
+import { connect } from "react-redux";
+import { getAGuide } from "../../store/actions/guideAction";
+import GuideInfo from "../../component/Guide/GuideInfo";
 class SingleGuide extends Component {
-    componentDidMount
+  componentDidMount() {
+    let { guideID } = this.props.location.state;
+    this.props.getAGuide(guideID);
+  }
   render() {
-    return <div></div>;
+    let { guide } = this.props;
+    return guide.length <= 0 ? <h1>Loading</h1> : <GuideInfo guide={guide} />;
   }
 }
-export default SingleGuide;
+const mapStateToProps = (state) => {
+  return {
+    guide: state.guide,
+  };
+};
+export default connect(mapStateToProps, { getAGuide })(SingleGuide);

@@ -21,7 +21,7 @@ class Register extends React.Component {
       JSON.stringify(nextProps.admin.error) !== JSON.stringify(prevState.error)
     ) {
       return {
-        error: nextProps.admin.error,
+        error: nextProps.admin.error.message,
       };
     }
     return null;
@@ -73,7 +73,7 @@ class Register extends React.Component {
   render() {
     let { name, email, mobileNumber, password, confirmPassword, error } =
       this.state;
-    error = error?.message;
+    console.log(error);
     return (
       <div className="row">
         <div className="col-md-6 offset-md-3">

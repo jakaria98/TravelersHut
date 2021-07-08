@@ -12,6 +12,7 @@ export const register = (admin, history) => (dispatch) => {
           error: {},
         },
       });
+      history.push("/admin/login");
     })
     .catch((error) => {
       dispatch({
@@ -37,6 +38,7 @@ export const login = (admin, history) => (dispatch) => {
           admin: decode,
         },
       });
+      history.push("/guide/allGuide");
     })
     .catch((error) => {
       dispatch({

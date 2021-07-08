@@ -9,7 +9,7 @@ router.post(
 );
 router.post(
   "/register",
-  passport.authenticate("admin", { session: false }),
+  passport.authenticate("guide", { session: false }),
   register
 );
 router.get(

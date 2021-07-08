@@ -20,7 +20,7 @@ class Login extends React.Component {
       JSON.stringify(nextProps.admin.error) !== JSON.stringify(prevState.error)
     ) {
       return {
-        error: nextProps.admin.error,
+        error: nextProps.admin.error.message,
       };
     }
     return null;
@@ -34,7 +34,7 @@ class Login extends React.Component {
 
   render() {
     let { email, password, error } = this.state;
-    error = error?.message;
+
     return (
       <div className="row">
         <div className="col-md-6 offset-md-3">

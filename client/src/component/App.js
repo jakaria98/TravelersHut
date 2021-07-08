@@ -12,6 +12,7 @@ import adminLogin from "../pages/Admin/Login";
 import GuideLogin from "../pages/Guide/Login";
 import GuideRegister from "../pages/Guide/Register";
 import AllGuide from "../pages/Guide/AllGuide";
+import SingleGuide from "../pages/Guide/SingleGuide";
 
 import AllPlaces from "../pages/place/allPlaces";
 import SinglePlace from "../pages/place/SinglePlace";
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
           <Route path="/guide/allGuide" component={AllGuide} />
+          <Route path="/guide/:name" component={SingleGuide} />
 
           <Route exact path="/" component={Home} />
         </Switch>

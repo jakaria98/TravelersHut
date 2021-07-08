@@ -19,10 +19,7 @@ const adminSchema = new Schema({
     type: String,
     require: true,
   },
-  profilePhoto: {
-    type: String,
-    required: true,
-  },
+  profilePhoto: [String],
   nid: [String],
 });
 
