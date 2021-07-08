@@ -4,6 +4,7 @@ export const VISITOR_ERROR = "VISITOR_ERROR";
 export const SET_GUIDE = "SET_GUIDE";
 export const GUIDE_ERROR = "GUIDE_ERROR";
 export const GET_GUIDE = "GET_GUIDE";
+export const SINGLE_GUIDE = "SINGLE_GUIDE";
 
 export const SET_ADMIN = "SET_ADMIN";
 export const ADMIN_ERROR = "ADMIN_ERROR";

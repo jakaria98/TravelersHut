@@ -119,4 +119,16 @@ module.exports = {
       .then((users) => everythingOk(res, users))
       .catch((error) => serverError(res, error));
   },
+  getSingleGuide(req, res) {
+    let { guideID } = req.params;
+    Guide.findById(guideID)
+      .then((guide) => {
+        if (!guide) {
+          return badRequest(res, "No Guide Found");
+        } else {
+          return everythingOk(res, guide);
+        }
+      })
+      .catch((error) => serverError(res, error));
+  },
 };
