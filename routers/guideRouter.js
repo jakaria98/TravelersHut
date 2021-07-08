@@ -1,4 +1,9 @@
-const { login, register, allGuide } = require("../controller/guideController");
+const {
+  login,
+  register,
+  allGuide,
+  getSingleGuide,
+} = require("../controller/guideController");
 const router = require("express").Router();
 const passport = require("passport");
 
@@ -18,6 +23,11 @@ router.get(
   "/allGuide",
   passport.authenticate("admin", { session: false }),
   allGuide
+);
+router.get(
+  "/:guideID",
+  passport.authenticate("admin", { session: false }),
+  getSingleGuide
 );
 
 module.exports = router;
