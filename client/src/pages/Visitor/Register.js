@@ -62,7 +62,7 @@ class Register extends React.Component {
                 <div className="invalid-feedback">{error?.name}</div>
               )}
             </div>
-            <div className="form-group">
+            <div className="form-group my-2">
               <label htmlFor="email">Email: </label>
               <input
                 type="email"
@@ -96,7 +96,7 @@ class Register extends React.Component {
                 <div className="invalid-feedback">{error?.password}</div>
               )}
             </div>
-            <div className="form-group">
+            <div className="form-group my-2">
               <label htmlFor="confirmPassword">Confirm Password: </label>
               <input
                 type="password"
