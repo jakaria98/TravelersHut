@@ -19,10 +19,13 @@ import SinglePlace from "../pages/place/SinglePlace";
 
 import SinglePost from "../pages/post/SinglePost";
 
+import Navbar from "./Navbar";
+
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
+        <Navbar />
         <Switch>
           <Route path="/register" component={visitorRegister} />
           <Route path="/login" component={visitorLogin} />
