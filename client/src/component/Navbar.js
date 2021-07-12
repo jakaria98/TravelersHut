@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import logo from "../Travelers Hut.png";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+
 class Navbar extends Component {
   state = {
     isOpen: false,
@@ -17,17 +19,30 @@ class Navbar extends Component {
               <img src={logo} alt="Travelers HUt" />
             </Link>
           </div>
-          <ul className="nav-links">
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </ul>
+          {this.props.visitor.isAuthenticated ? (
+            <ul className="nav-links">
+              <li>
+                <Link to="/all-places">All Places</Link>
+              </li>
+            </ul>
+          ) : (
+            <ul className="nav-links">
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </ul>
+          )}
         </div>
       </nav>
     );
   }
 }
-export default Navbar;
+const mapStateToProps = (state) => {
+  return {
+    visitor: state.visitor,
+  };
+};
+export default connect(mapStateToProps)(Navbar);
