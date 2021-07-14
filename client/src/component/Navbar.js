@@ -26,7 +26,7 @@ class Navbar extends Component {
               </li>
             </ul>
           ) : (
-            <ul className="nav-links">
+            <ul className="nav-links nav-none-logged">
               <li>
                 <Link to="/login">Login</Link>
               </li>

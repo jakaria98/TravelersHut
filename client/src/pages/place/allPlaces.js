@@ -27,6 +27,7 @@ class AllPlaces extends Component {
     console.log(place);
     return (
       <>
+        <div className='my-5'></div>
         {this.props.guide.isAuthenticated ? (
           <button
             className="btn btn-primary d-block center container"

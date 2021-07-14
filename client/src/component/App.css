@@ -335,3 +335,6 @@ h6 {
   margin-right: 80px;
   padding: 0.5rem 0;
 }
+.nav-none-logged {
+  margin-left: 900px;
+}
