@@ -51,8 +51,9 @@ export const login = (visitor, history) => (dispatch) => {
 };
 
 export const visitorLogout = () => (dispatch) => {
+  localStorage.removeItem("visitor_token");
   dispatch({
-    type: Types.REMOVE_VISITOR,
+    type: Types.SET_VISITOR,
     payload: {
       visitor: {},
     },

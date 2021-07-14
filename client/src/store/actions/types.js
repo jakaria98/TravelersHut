@@ -1,5 +1,4 @@
 export const SET_VISITOR = "SET_VISITOR";
-export const REMOVE_VISITOR = "REMOVE_VISITOR";
 export const VISITOR_ERROR = "VISITOR_ERROR";
 
 export const SET_GUIDE = "SET_GUIDE";
