@@ -2,14 +2,8 @@ import React, { Component } from "react";
 import logo from "../Travelers Hut.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-
+import { visitorLogout } from "../store/actions/visitorAction";
 class Navbar extends Component {
-  state = {
-    isOpen: false,
-  };
-  handleToggle = () => {
-    this.setState({ isOpen: !this.state.isOpen });
-  };
   render() {
     return (
       <nav className="navbar">
@@ -23,6 +17,11 @@ class Navbar extends Component {
             <ul className="nav-links">
               <li>
                 <Link to="/all-places">All Places</Link>
+              </li>
+              <li>
+                <Link to="/" onClick={() => this.props.visitorLogout()}>
+                  Logout
+                </Link>
               </li>
             </ul>
           ) : (
@@ -43,6 +42,8 @@ class Navbar extends Component {
 const mapStateToProps = (state) => {
   return {
     visitor: state.visitor,
+    guide: state.guide,
+    admin: state.admin,
   };
 };
-export default connect(mapStateToProps)(Navbar);
+export default connect(mapStateToProps, { visitorLogout })(Navbar);

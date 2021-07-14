@@ -15,6 +15,15 @@ const visitorReducer = (state = init, action) => {
         error: {},
       };
     }
+    case Types.REMOVE_VISITOR:{
+      localStorage.removeItem("visitor_token");
+       return {
+         visitor: action.payload.visitor,
+         isAuthenticated: Object.keys(action.payload.visitor).length !== 0,
+         error: {},
+       };
+       
+    }
     case Types.VISITOR_ERROR: {
       return {
         ...state,

@@ -4,7 +4,6 @@ class Home extends Component {
     singleFile: [],
   };
   fileUpload = (event) => {
-    console.log(event.target.files);
     let selectedFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
       selectedFiles.push(URL.createObjectURL(event.target.files[i]));
@@ -14,12 +13,9 @@ class Home extends Component {
     });
   };
   render() {
-    console.log(this.state);
     return (
       <div className="container">
-        <h1>
-          Home 
-        </h1>
+        <h1>Home</h1>
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <form>
