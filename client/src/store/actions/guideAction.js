@@ -51,15 +51,15 @@ export const login = (guide, history) => (dispatch) => {
     });
 };
 
-export const logout = (history) => (dispatch) => {
+export const guideLogout = (history) => (dispatch) => {
   localStorage.removeItem("guide_token");
   history.push("/");
-  return {
+  dispatch({
     type: Types.SET_GUIDE,
     payload: {
       guide: {},
     },
-  };
+  });
 };
 export const loadGuide = () => (dispatch) => {
   Axios.get("/api/guide/allGuide")
