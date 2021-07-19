@@ -1,5 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+
+const config = require("../config");
+const client = require("twilio")(config.accountSID, config.authToken);
+
 const Guide = require("../model/Guide");
 const adminRegister = require("../validator/adminRegister");
 const loginValidator = require("../validator/loginValidator");
@@ -51,6 +55,17 @@ module.exports = {
           });
         });
       })
+      .catch((error) => serverError(res, error));
+  },
+  registerRequest(req, res) {
+    let { phoneNumber } = req.body;
+    client.verify
+      .services(config.serviceID)
+      .verifications.create({
+        to: `+88${phoneNumber}`,
+        channel: "sms",
+      })
+      .then((data) => everythingOk(res, data))
       .catch((error) => serverError(res, error));
   },
   register(req, res) {

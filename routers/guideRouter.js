@@ -3,6 +3,7 @@ const {
   register,
   allGuide,
   getSingleGuide,
+  registerRequest,
 } = require("../controller/guideController");
 const router = require("express").Router();
 const passport = require("passport");
@@ -13,6 +14,7 @@ router.post(
   login
 );
 
+router.post("/registerRequest", registerRequest);
 router.post(
   "/register",
   passport.authenticate("visitor", { session: false }),
