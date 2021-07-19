@@ -50,13 +50,13 @@ export const login = (admin, history) => (dispatch) => {
     });
 };
 
-export const logout = (history) => (dispatch) => {
+export const adminLogout = (history) => (dispatch) => {
   localStorage.removeItem("admin_token");
   history.push("/");
-  return {
+  dispatch({
     type: Types.SET_ADMIN,
     payload: {
       admin: {},
     },
-  };
+  });
 };
