@@ -16,7 +16,6 @@ const guideReducer = (state = init, action) => {
       };
     }
     case Types.GUIDE_ERROR: {
-      console.log(action.payload.error);
       return {
         ...state,
         error: action.payload.error,

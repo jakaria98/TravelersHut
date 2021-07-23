@@ -2,7 +2,25 @@ import * as Types from "./types";
 import Axios from "axios";
 import jwtDecode from "jwt-decode";
 import setToken from "../../utils/setToken";
-
+export const registerRequest = (guide) => (dispatch) => {
+  Axios.post("/api/guide/registerRequest", guide)
+    .then((res) => {
+      dispatch({
+        type: Types.GUIDE_ERROR,
+        payload: {
+          error: {},
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.GUIDE_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};
 export const register = (guide, history) => (dispatch) => {
   Axios.post("/api/guide/register", guide)
     .then((res) => {
@@ -12,7 +30,6 @@ export const register = (guide, history) => (dispatch) => {
           error: {},
         },
       });
-      console.log(res);
       history.push("/guide/login");
     })
     .catch((error) => {
