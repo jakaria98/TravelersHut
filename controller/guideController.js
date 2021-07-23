@@ -90,45 +90,55 @@ module.exports = {
     }
   },
   register(req, res) {
-    let { name, email, mobileNumber, password, profilePhoto, nid } = req.body;
+    let { name, email, mobileNumber, password, profilePhoto, nid, code } =
+      req.body;
 
-    Guide.findOne({ email })
-      .then((user) => {
-        if (user) {
-          return badRequest(res, "guide already exists");
-        }
-
-        bcrypt.hash(password, 11, (err, hash) => {
-          if (err) {
-            return serverError(res, err);
-          }
-          let user = new Guide({
-            name,
-            email,
-            mobileNumber,
-            password: hash,
-            profilePhoto,
-            nid,
-            contribution: 0,
-            places: [],
-            posts: [],
-          });
-          user
-            .save()
-            .then((user) => {
-              res.status(201).json({
-                message: "guide saved",
-                user,
-              });
-            })
-            .catch((error) => {
-              serverError(res, error);
-            });
-        });
+    client.verify
+      .services(config.serviceID)
+      .verificationChecks.create({
+        to: `+88${mobileNumber}`,
+        code: code,
       })
-      .catch((error) => {
-        serverError(res, error);
-      });
+      .then((data) => {
+        Guide.findOne({ email })
+          .then((user) => {
+            if (user) {
+              return badRequest(res, "guide already exists");
+            }
+
+            bcrypt.hash(password, 11, (err, hash) => {
+              if (err) {
+                return serverError(res, err);
+              }
+              let user = new Guide({
+                name,
+                email,
+                mobileNumber,
+                password: hash,
+                profilePhoto,
+                nid,
+                contribution: 0,
+                places: [],
+                posts: [],
+              });
+              user
+                .save()
+                .then((user) => {
+                  res.status(201).json({
+                    message: "guide saved",
+                    user,
+                  });
+                })
+                .catch((error) => {
+                  serverError(res, error);
+                });
+            });
+          })
+          .catch((error) => {
+            serverError(res, error);
+          });
+      })
+      .catch((error) => serverError(res, error));
   },
   allGuide(req, res) {
     Guide.find()
