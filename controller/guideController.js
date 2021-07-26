@@ -7,6 +7,9 @@ const client = require("twilio")(config.accountSID, config.authToken);
 const Guide = require("../model/Guide");
 const adminRegister = require("../validator/adminRegister");
 const loginValidator = require("../validator/loginValidator");
+const codeValidator = require("../validator/codeValidator");
+const codeMismatch = require("../validator/codeMismatch");
+
 const {
   badRequest,
   serverError,
@@ -82,17 +85,22 @@ module.exports = {
       client.verify
         .services(config.serviceID)
         .verifications.create({
-          to: `+88${phoneNumber}`,
+          to: `+88${mobileNumber}`,
           channel: "sms",
         })
-        .then((data) => everythingOk(res, data))
+        .then((data) => {
+          everythingOk(res, data);
+        })
         .catch((error) => serverError(res, error));
     }
   },
   register(req, res) {
     let { name, email, mobileNumber, password, profilePhoto, nid, code } =
       req.body;
-
+    let validate = codeValidator(code);
+    if (!validate.isValid) {
+      return badRequest(res, validate.error);
+    }
     client.verify
       .services(config.serviceID)
       .verificationChecks.create({
@@ -100,45 +108,54 @@ module.exports = {
         code: code,
       })
       .then((data) => {
-        Guide.findOne({ email })
-          .then((user) => {
-            if (user) {
-              return badRequest(res, "guide already exists");
-            }
-
-            bcrypt.hash(password, 11, (err, hash) => {
-              if (err) {
-                return serverError(res, err);
+        if (data.valid) {
+          Guide.findOne({ email })
+            .then((user) => {
+              if (user) {
+                return badRequest(res, "guide already exists");
               }
-              let user = new Guide({
-                name,
-                email,
-                mobileNumber,
-                password: hash,
-                profilePhoto,
-                nid,
-                contribution: 0,
-                places: [],
-                posts: [],
-              });
-              user
-                .save()
-                .then((user) => {
-                  res.status(201).json({
-                    message: "guide saved",
-                    user,
-                  });
-                })
-                .catch((error) => {
-                  serverError(res, error);
+
+              bcrypt.hash(password, 11, (err, hash) => {
+                if (err) {
+                  return serverError(res, err);
+                }
+                let user = new Guide({
+                  name,
+                  email,
+                  mobileNumber,
+                  password: hash,
+                  profilePhoto,
+                  nid,
+                  contribution: 0,
+                  places: [],
+                  posts: [],
                 });
+                user
+                  .save()
+                  .then((user) => {
+                    res.status(201).json({
+                      message: "guide saved",
+                      user,
+                    });
+                  })
+                  .catch((error) => {
+                    serverError(res, error);
+                  });
+              });
+            })
+            .catch((error) => {
+              serverError(res, error);
             });
-          })
-          .catch((error) => {
-            serverError(res, error);
-          });
+        } else {
+          console.log("mismatch");
+          let mismatch = codeMismatch();
+          return badRequest(res, mismatch.error);
+        }
       })
-      .catch((error) => serverError(res, error));
+      .catch((error) => {
+        console.log("direct error");
+        serverError(res, error);
+      });
   },
   allGuide(req, res) {
     Guide.find()

@@ -14,7 +14,11 @@ router.post(
   login
 );
 
-router.post("/registerRequest", registerRequest);
+router.post(
+  "/registerRequest",
+  passport.authenticate("visitor", { session: false }),
+  registerRequest
+);
 router.post(
   "/register",
   passport.authenticate("visitor", { session: false }),

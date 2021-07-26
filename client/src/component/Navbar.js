@@ -19,6 +19,12 @@ class Navbar extends Component {
                 <Link to="/all-places">All Places</Link>
               </li>
               <li>
+                <Link to="/guide/login">Login as Guide</Link>
+              </li>
+              <li>
+                <Link to="/guide/register">Register as Guide</Link>
+              </li>
+              <li>
                 <Link to="/" onClick={() => this.props.visitorLogout()}>
                   Logout
                 </Link>

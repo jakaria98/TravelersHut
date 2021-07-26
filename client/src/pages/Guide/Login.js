@@ -34,6 +34,7 @@ class Login extends React.Component {
 
   render() {
     let { email, password, error } = this.state;
+    
     error = error?.message;
     return (
       <div className="row">
