@@ -147,13 +147,11 @@ module.exports = {
               serverError(res, error);
             });
         } else {
-          console.log("mismatch");
           let mismatch = codeMismatch();
           return badRequest(res, mismatch.error);
         }
       })
       .catch((error) => {
-        console.log("direct error");
         serverError(res, error);
       });
   },
