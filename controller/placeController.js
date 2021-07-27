@@ -100,7 +100,7 @@ module.exports = {
   },
   ratePlace(req, res) {
     let { _id } = req.params;
-    let { rating } = req.params;
+    let { rating } = req.body;
     Places.findOne(_id)
       .then((place) => {
         Places.findOneAndUpdate(
