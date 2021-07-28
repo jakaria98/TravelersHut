@@ -6,6 +6,7 @@ import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
 import { FaStar, FaRegStar, FaUser } from "react-icons/fa";
+import { FcRating } from "react-icons/fc";
 
 class SinglePlace extends Component {
   state = {
@@ -33,9 +34,11 @@ class SinglePlace extends Component {
     this.props.loadPost(keyVal);
   }
 
-  onStarClick(nextValue, prevValue, name) {
-    this.setState({ rating: nextValue });
-  }
+  ratingChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  };
 
   postFilter = (post) => {
     post.filter((pst) => pst.place == this.state.placeId);
@@ -43,129 +46,194 @@ class SinglePlace extends Component {
   render() {
     let { place, post } = this.props;
     let { rating } = this.state;
-    //  post = this.postFilter(post);
+    console.log(this.state.rating);
     return (
       <>
         {place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />}
-        <div className="container">
-          <div className="row">
-            <div className="col-xs-12 col-md-6">
-              <div className="well well-sm">
-                <div className="row">
-                  <div className="col-xs-12 col-md-6 text-center">
-                    <h1 className="rating-num">4.0</h1>
-                    <div className="rating">
-                      <FaStar />
-                      <FaRegStar />
-                      <div className="rating-box">
-                        <FaUser className="mt-1" />
-                        <p className="rating-number">1,050,008 total</p>
+        <div className="display-center mt-4 mb-5">
+          <div className="container">
+            <div className="row">
+              <div className="col-xs-12 col-md-6">
+                <div className="well well-sm">
+                  <div className="row">
+                    <div className="col-xs-12 col-md-6 text-center mt-5">
+                      <h1 className="rating-num">4.0</h1>
+                      <div className="rating">
+                        <FaStar />
+                        <FaRegStar />
+                      </div>
+                      <div>
+                        <FaUser className="mx-1 mb-1" />
+                        1,050,008 total
                       </div>
                     </div>
-                  </div>
-                  <div className="col-xs-12 col-md-6">
-                    <div className="row rating-desc">
-                      <div className="col-xs-3 col-md-3 text-right">
-                        <div className="rating-box">
-                          <FaStar className="mt-1" />
-                          <div className="rating-number">5</div>
+                    <div className="col-xs-12 col-md-6">
+                      <h6 className="mt-4 mb-2 mx-5">
+                        Rate The Place <FcRating size="20px" />
+                      </h6>
+                      <div className="row rating-desc">
+                        <div className="col-xs-3 col-md-3 text-right">
+                          <label>
+                            <div className="rating-box">
+                              <FaStar
+                                className="mt-1"
+                                color={rating >= 5 ? "#ffc107" : "#cfcfcf"}
+                              />
+                              <div className="rating-number">5</div>
+                            </div>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={5}
+                              className="d-none"
+                              onClick={this.ratingChange}
+                            />
+                          </label>
                         </div>
-                      </div>
-                      <div className="col-xs-8 col-md-9">
-                        <div className="progress progress-striped mt-1">
-                          <div
-                            className="progress-bar progress-bar-success"
-                            role="progressbar"
-                            aria-valuenow="20"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: "100%" }}
-                          >
-                            <span className="sr-only">Excellent</span>
+                        <div className="col-xs-8 col-md-9">
+                          <div className="progress progress-striped mt-1">
+                            <div
+                              className="progress-bar progress-bar-success"
+                              role="progressbar"
+                              aria-valuenow="20"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: "100%" }}
+                            >
+                              <span className="sr-only">Excellent</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="col-xs-3 col-md-3 text-right">
-                        <div className="rating-box">
-                          <FaStar className="mt-1" />
-                          <div className="rating-number">4</div>
+                        <div className="col-xs-3 col-md-3 text-right">
+                          <label>
+                            <div className="rating-box">
+                              <FaStar
+                                className="mt-1"
+                                color={rating >= 4 ? "#ffc107" : "#cfcfcf"}
+                              />
+                              <div className="rating-number">4</div>
+                            </div>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={4}
+                              className="d-none"
+                              onClick={this.ratingChange}
+                            />
+                          </label>
                         </div>
-                      </div>
-                      <div className="col-xs-8 col-md-9">
-                        <div className="progress progress-striped mt-1">
-                          <div
-                            className="progress-bar progress-bar-success"
-                            role="progressbar"
-                            aria-valuenow="20"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: "70%" }}
-                          >
-                            <span className="sr-only">Good</span>
+                        <div className="col-xs-8 col-md-9">
+                          <div className="progress progress-striped mt-1">
+                            <div
+                              className="progress-bar progress-bar-success"
+                              role="progressbar"
+                              aria-valuenow="20"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: "70%" }}
+                            >
+                              <span className="sr-only">Good</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="col-xs-3 col-md-3 text-right">
-                        <div className="rating-box">
-                          <FaStar className="mt-1" />
-                          <div className="rating-number">3</div>
+                        <div className="col-xs-3 col-md-3 text-right">
+                          <label>
+                            <div className="rating-box">
+                              <FaStar
+                                className="mt-1"
+                                color={rating >= 3 ? "#ffc107" : "#cfcfcf"}
+                              />
+                              <div className="rating-number">3</div>
+                            </div>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={3}
+                              className="d-none"
+                              onClick={this.ratingChange}
+                            />
+                          </label>
                         </div>
-                      </div>
-                      <div className="col-xs-8 col-md-9">
-                        <div className="progress progress-striped mt-1">
-                          <div
-                            className="progress-bar progress-bar-info"
-                            role="progressbar"
-                            aria-valuenow="20"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: "50%" }}
-                          >
-                            <span className="sr-only">Average</span>
+                        <div className="col-xs-8 col-md-9">
+                          <div className="progress progress-striped mt-1">
+                            <div
+                              className="progress-bar progress-bar-info"
+                              role="progressbar"
+                              aria-valuenow="20"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: "50%" }}
+                            >
+                              <span className="sr-only">Average</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="col-xs-3 col-md-3 text-right">
-                        <div className="rating-box">
-                          <FaStar className="mt-1" />
-                          <div className="rating-number">2</div>
+                        <div className="col-xs-3 col-md-3 text-right">
+                          <label>
+                            <div className="rating-box">
+                              <FaStar
+                                className="mt-1"
+                                color={rating >= 2 ? "#ffc107" : "#cfcfcf"}
+                              />
+                              <div className="rating-number">2</div>
+                            </div>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={2}
+                              className="d-none"
+                              onClick={this.ratingChange}
+                            />
+                          </label>
                         </div>
-                      </div>
-                      <div className="col-xs-8 col-md-9">
-                        <div className="progress progress-striped mt-1">
-                          <div
-                            className="progress-bar progress-bar-warning"
-                            role="progressbar"
-                            aria-valuenow="20"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: "40%" }}
-                          >
-                            <span className="sr-only">Ordinary</span>
+                        <div className="col-xs-8 col-md-9">
+                          <div className="progress progress-striped mt-1">
+                            <div
+                              className="progress-bar progress-bar-warning"
+                              role="progressbar"
+                              aria-valuenow="20"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: "40%" }}
+                            >
+                              <span className="sr-only">Ordinary</span>
+                            </div>
                           </div>
                         </div>
-                      </div>
 
-                      <div className="col-xs-3 col-md-3 text-right">
-                        <div className="rating-box">
-                          <FaStar className="mt-1" />
-                          <div className="rating-number">1</div>
+                        <div className="col-xs-3 col-md-3 text-right">
+                          <label>
+                            <div className="rating-box">
+                              <FaStar
+                                className="mt-1"
+                                color={rating >= 1 ? "#ffc107" : "#cfcfcf"}
+                              />
+                              <div className="rating-number">1</div>
+                            </div>
+                            <input
+                              type="radio"
+                              name="rating"
+                              value={1}
+                              className="d-none"
+                              onClick={this.ratingChange}
+                            />
+                          </label>
                         </div>
-                      </div>
-                      <div className="col-xs-8 col-md-9">
-                        <div className="progress progress-striped mt-1">
-                          <div
-                            className="progress-bar progress-bar-danger"
-                            role="progressbar"
-                            aria-valuenow="80"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                            style={{ width: "20%" }}
-                          >
-                            <span className="sr-only">Poor</span>
+                        <div className="col-xs-8 col-md-9">
+                          <div className="progress progress-striped mt-1">
+                            <div
+                              className="progress-bar progress-bar-danger"
+                              role="progressbar"
+                              aria-valuenow="80"
+                              aria-valuemin="0"
+                              aria-valuemax="100"
+                              style={{ width: "20%" }}
+                            >
+                              <span className="sr-only">Poor</span>
+                            </div>
                           </div>
                         </div>
                       </div>

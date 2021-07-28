@@ -344,6 +344,7 @@ h6 {
 .rating-num {
   margin-top: 0px;
   font-size: 54px;
+  margin-bottom: 10px;
 }
 .progress {
   margin-bottom: 5px;
@@ -366,4 +367,9 @@ h6 {
 .rating-number {
   float: left;
   margin-left: 5px;
+}
+.display-center {
+  left: 20%;
+  position: relative;
+ 
 }
