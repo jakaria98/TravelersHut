@@ -15,9 +15,12 @@ class Home extends Component {
   render() {
     return (
       <div className="container">
+        <i className="bi bi-star"></i>
         <h1>Home</h1>
         <div className="row">
           <div className="col-md-6 offset-md-3">
+            <i className="bi bi-star"></i>
+            <i class="bi bi-star"></i>
             <form>
               <div className="form-group">
                 <label htmlFor="file">File:</label>
