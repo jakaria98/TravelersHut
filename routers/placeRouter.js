@@ -9,6 +9,7 @@ const {
 } = require("../controller/placeController");
 
 const passport = require("passport");
+const { authenticate } = require("passport");
 
 router.post(
   "/add_place",
@@ -29,6 +30,10 @@ router.delete(
   passport.authenticate("admin", { session: false }),
   deletePlace
 );
-router.put("/:PlaceID", ratePlace);
+router.put(
+  "/:PlaceID",
+  passport.authenticate("visitor", { session: false }),
+  ratePlace
+);
 
 module.exports = router;

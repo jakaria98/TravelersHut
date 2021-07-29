@@ -31,7 +31,7 @@ module.exports = {
             upazila,
             coverPhoto,
             detailsPhoto,
-            ratedBy: 0,
+            ratedBy: [],
             ratingCount: 0,
             creatorGuide: userId,
             posts: [],
@@ -44,7 +44,7 @@ module.exports = {
               updatedGuide.contribution = updatedGuide.contribution + 1;
               updatedGuide.places.unshift(plc._id);
               Guide.findOneAndUpdate(
-                updatedGuide._id,
+                { _id: userId },
                 { $set: updatedGuide },
                 { new: true }
               )
@@ -71,7 +71,7 @@ module.exports = {
   },
   getSinglePlace(req, res) {
     let { placeID } = req.params;
-    
+
     Places.findById(placeID)
       .then((place) => {
         if (!place) {
@@ -99,16 +99,20 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   ratePlace(req, res) {
-    let { _id } = req.params;
+    let { PlaceID } = req.params;
     let { rating } = req.body;
-    Places.findOne(_id)
+    let userId = req.user._id;
+    Places.findOne({ _id: PlaceID })
       .then((place) => {
+        let updatedPlace = place;
+        updatedPlace.ratedBy.push({
+          author: userId,
+          ratings: rating,
+        });
+        updatedPlace.ratingCount += 1;
         Places.findOneAndUpdate(
-          _id,
-          {
-            ratedBy: place.ratedBy + 1,
-            ratingCount: place.ratingCount + rating,
-          },
+          { _id: PlaceID },
+          { $set: updatedPlace },
           { new: true }
         )
           .then((plc) => everythingOk(res, plc))

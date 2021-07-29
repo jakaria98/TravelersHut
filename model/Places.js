@@ -20,7 +20,12 @@ const placesSchema = new Schema({
   },
   coverPhoto: [String],
   detailsPhoto: [String],
-  ratedBy: Number,
+  ratedBy: [
+    {
+      author: String,
+      ratings: Number,
+    },
+  ],
   ratingCount: Number,
   creatorGuide: {
     type: Schema.Types.ObjectId,
