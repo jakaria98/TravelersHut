@@ -16,6 +16,8 @@ export const REMOVE_PLACE = "REMOVE_PLACE";
 export const UPDATE_PLACE = "UPDATE_PLACE";
 export const PLACE_ERROR = "PLACE_ERROR";
 
+export const RATINGS = "RATINGS";
+
 export const LOAD_POST = "LOAD_POST";
 export const ADD_POST = "ADD_POST";
 export const POST_ERROR = "POST_ERROR";

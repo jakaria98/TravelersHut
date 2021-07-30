@@ -38,7 +38,7 @@ export const login = (admin, history) => (dispatch) => {
           admin: decode,
         },
       });
-      history.push("/guide/allGuide");
+       history.push("/all-places");
     })
     .catch((error) => {
       dispatch({

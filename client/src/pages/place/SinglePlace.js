@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSinglePlace } from "../../store/actions/placeAction";
+import { getSinglePlace, ratePlace } from "../../store/actions/placeAction";
 import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
@@ -30,6 +30,7 @@ class SinglePlace extends Component {
     this.setState({
       placeID: keyVal,
     });
+
     this.props.getSinglePlace(keyVal);
     this.props.loadPost(keyVal);
   }
@@ -40,13 +41,19 @@ class SinglePlace extends Component {
     });
   };
 
+  ratingSubmit = (e) => {
+    e.preventDefault();
+    this.props.ratePlace(this.state.placeID, this.state);
+  };
+
   postFilter = (post) => {
     post.filter((pst) => pst.place == this.state.placeId);
   };
+
   render() {
     let { place, post } = this.props;
     let { rating } = this.state;
-    console.log(this.state.rating);
+    console.log(rating);
     return (
       <>
         {place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />}
@@ -238,6 +245,12 @@ class SinglePlace extends Component {
                         </div>
                       </div>
                     </div>
+                    <button
+                      className="btn btn-success mt-2"
+                      onClick={this.ratingSubmit}
+                    >
+                      Submit
+                    </button>
                   </div>
                 </div>
               </div>
@@ -256,15 +269,11 @@ class SinglePlace extends Component {
           ""
         )}
         <div className="info">
-          <h1 className="placeName">All Posts</h1>
+          <h1 className="placeName">
+            {post.length ? "All Reviews" : "No Reviews"}
+          </h1>
         </div>
-        {post.length == null ? (
-          <div className="info">
-            <h1 className="placeName">Loading</h1>
-          </div>
-        ) : (
-          post.map((post, i) => <PostCard post={post} />)
-        )}
+        {post.length ? post.map((post, i) => <PostCard post={post} />) : ""}
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
@@ -282,6 +291,8 @@ const mapStateToProps = (state) => {
     guide: state.guide,
   };
 };
-export default connect(mapStateToProps, { getSinglePlace, loadPost })(
-  SinglePlace
-);
+export default connect(mapStateToProps, {
+  getSinglePlace,
+  loadPost,
+  ratePlace,
+})(SinglePlace);

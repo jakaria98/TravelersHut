@@ -4,13 +4,12 @@ import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import AddPlace from "../../component/place/AddPlace";
 class AllPlaces extends Component {
-  componentDidMount() {
-    console.log(this.props);
-    this.props.loadPlaces();
-  }
   state = {
     createModalOpen: false,
   };
+  componentDidMount() {
+    this.props.loadPlaces();
+  }
   openCreateModal = () => {
     this.setState({
       createModalOpen: true,
@@ -24,10 +23,10 @@ class AllPlaces extends Component {
 
   render() {
     let { place } = this.props;
-    console.log(place);
+    let placeRating = 0;
     return (
       <>
-        <div className='my-5'></div>
+        <div className="my-5"></div>
         {this.props.guide.isAuthenticated ? (
           <button
             className="btn btn-primary d-block center container"
@@ -39,7 +38,20 @@ class AllPlaces extends Component {
           ""
         )}
         {place.length > 0 ? (
-          place.map((plc) => <PlaceCard place={plc} key={plc._id} />)
+          place.map(
+            (plc) => (
+              (placeRating = Math.round(plc.ratingCount / plc.ratedBy.length)),
+              (
+                <PlaceCard
+                  name={plc.name}
+                  coverPhoto={plc.coverPhoto}
+                  placeRating={placeRating}
+                  _id={plc._id}
+                  key={plc._id}
+                />
+              )
+            )
+          )
         ) : (
           <h1>LOADING</h1>
         )}

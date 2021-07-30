@@ -66,7 +66,9 @@ module.exports = {
   },
   getAllPlaces(req, res) {
     Places.find()
-      .then((places) => everythingOk(res, places))
+      .then((places) => {
+        everythingOk(res, places);
+      })
       .catch((error) => serverError(res, error));
   },
   getSinglePlace(req, res) {
@@ -105,11 +107,10 @@ module.exports = {
     Places.findOne({ _id: PlaceID })
       .then((place) => {
         let updatedPlace = place;
-        updatedPlace.ratedBy.push({
-          author: userId,
-          ratings: rating,
-        });
-        updatedPlace.ratingCount += 1;
+        updatedPlace.ratedBy.push({ critics: userId, ratings: rating });
+        updatedPlace.ratingCount += Number(rating);
+        console.log(typeof rating);
+        console.log(typeof updatedPlace.ratingCount);
         Places.findOneAndUpdate(
           { _id: PlaceID },
           { $set: updatedPlace },

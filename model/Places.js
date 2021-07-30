@@ -20,12 +20,7 @@ const placesSchema = new Schema({
   },
   coverPhoto: [String],
   detailsPhoto: [String],
-  ratedBy: [
-    {
-      author: String,
-      ratings: Number,
-    },
-  ],
+  ratedBy: [mongoose.Schema.Types.Mixed],
   ratingCount: Number,
   creatorGuide: {
     type: Schema.Types.ObjectId,

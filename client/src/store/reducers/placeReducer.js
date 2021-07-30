@@ -40,6 +40,9 @@ const placeReducer = (state = init, action) => {
     case Types.GET_A_PLACE: {
       return action.payload.place;
     }
+    case Types.RATINGS: {
+      return action.payload.place;
+    }
     default:
       return state;
   }

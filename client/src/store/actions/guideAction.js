@@ -45,7 +45,6 @@ export const register = (guide, history) => (dispatch) => {
 export const login = (guide, history) => (dispatch) => {
   Axios.post("/api/guide/login", guide)
     .then((res) => {
-      //localStorage.removeItem("visitor_token");
       let token = res.data.token;
       localStorage.setItem("guide_token", token);
       let decode = jwtDecode(token);
