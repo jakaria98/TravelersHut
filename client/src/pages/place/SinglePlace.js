@@ -53,10 +53,23 @@ class SinglePlace extends Component {
   render() {
     let { place, post } = this.props;
     let { rating } = this.state;
-    console.log(rating);
+    let averageRating;
+    console.log(place.ratedBy);
     return (
       <>
-        {place.length <= 0 ? <h1>Loading</h1> : <PlaceInfo place={place} />}
+        {place.length <= 0 ? (
+          <h1>Loading</h1>
+        ) : (
+          <PlaceInfo
+            coverPhoto={place.coverPhoto}
+            name={place.name}
+            division={place.division}
+            district={place.district}
+            upazila={place.upazila}
+            createdAt={place.upazila}
+            detailsPhoto={place.detailsPhoto}
+          />
+        )}
         <div className="display-center mt-4 mb-5">
           <div className="container">
             <div className="row">
@@ -64,14 +77,18 @@ class SinglePlace extends Component {
                 <div className="well well-sm">
                   <div className="row">
                     <div className="col-xs-12 col-md-6 text-center mt-5">
-                      <h1 className="rating-num">4.0</h1>
+                      <h1 className="rating-num">
+                        {!place.ratedBy
+                          ? 0
+                          : place.ratingCount / place.ratedBy.length}
+                      </h1>
                       <div className="rating">
                         <FaStar />
                         <FaRegStar />
                       </div>
                       <div>
                         <FaUser className="mx-1 mb-1" />
-                        1,050,008 total
+                        {place.ratedBy ? place.ratedBy.length : 0} total
                       </div>
                     </div>
                     <div className="col-xs-12 col-md-6">
@@ -93,7 +110,13 @@ class SinglePlace extends Component {
                               name="rating"
                               value={5}
                               className="d-none"
-                              onClick={this.ratingChange}
+                              onClick={
+                                this.props.visitor.isAuthenticated &&
+                                !this.props.guide.isAuthenticated &&
+                                !this.props.admin.isAuthenticated
+                                  ? this.ratingChange
+                                  : null
+                              }
                             />
                           </label>
                         </div>
@@ -126,7 +149,13 @@ class SinglePlace extends Component {
                               name="rating"
                               value={4}
                               className="d-none"
-                              onClick={this.ratingChange}
+                              onClick={
+                                this.props.visitor.isAuthenticated &&
+                                !this.props.guide.isAuthenticated &&
+                                !this.props.admin.isAuthenticated
+                                  ? this.ratingChange
+                                  : null
+                              }
                             />
                           </label>
                         </div>
@@ -159,7 +188,13 @@ class SinglePlace extends Component {
                               name="rating"
                               value={3}
                               className="d-none"
-                              onClick={this.ratingChange}
+                              onClick={
+                                this.props.visitor.isAuthenticated &&
+                                !this.props.guide.isAuthenticated &&
+                                !this.props.admin.isAuthenticated
+                                  ? this.ratingChange
+                                  : null
+                              }
                             />
                           </label>
                         </div>
@@ -192,7 +227,13 @@ class SinglePlace extends Component {
                               name="rating"
                               value={2}
                               className="d-none"
-                              onClick={this.ratingChange}
+                              onClick={
+                                this.props.visitor.isAuthenticated &&
+                                !this.props.guide.isAuthenticated &&
+                                !this.props.admin.isAuthenticated
+                                  ? this.ratingChange
+                                  : null
+                              }
                             />
                           </label>
                         </div>
@@ -225,7 +266,13 @@ class SinglePlace extends Component {
                               name="rating"
                               value={1}
                               className="d-none"
-                              onClick={this.ratingChange}
+                              onClick={
+                                this.props.visitor.isAuthenticated &&
+                                !this.props.guide.isAuthenticated &&
+                                !this.props.admin.isAuthenticated
+                                  ? this.ratingChange
+                                  : null
+                              }
                             />
                           </label>
                         </div>
@@ -289,6 +336,8 @@ const mapStateToProps = (state) => {
     place: state.place,
     post: state.post,
     guide: state.guide,
+    admin: state.admin,
+    visitor: state.visitor,
   };
 };
 export default connect(mapStateToProps, {
