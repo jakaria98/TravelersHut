@@ -106,18 +106,61 @@ module.exports = {
     let userId = req.user._id;
     Places.findOne({ _id: PlaceID })
       .then((place) => {
+        // const per = place.ratedBy.find((person) => {
+        //   if (String(person.critics) === String(userId)) console.log("HI");
+        //   return String(person.critics) === String(userId);
+        // });
+        // let updatedPlace = place;
+        // if (per) {
+        //   for (let i = 0; i < updatedPlace.ratedBy.length; i++) {
+        //     if (per.critics == updatedPlace.ratedBy[i].critics);
+        //   }
+        // } else {
+        //   updatedPlace.ratedBy.push({ critics: userId, ratings: rating });
+        //   updatedPlace.ratingCount += Number(rating);
+        //   Places.findOneAndUpdate(
+        //     { _id: PlaceID },
+        //     { $set: updatedPlace },
+        //     { new: true }
+        //   )
+        //     .then((plc) => everythingOk(res, plc))
+        //     .catch((err) => serverError(res, err));
+        // }
+
         let updatedPlace = place;
-        updatedPlace.ratedBy.push({ critics: userId, ratings: rating });
-        updatedPlace.ratingCount += Number(rating);
-        console.log(typeof rating);
-        console.log(typeof updatedPlace.ratingCount);
-        Places.findOneAndUpdate(
-          { _id: PlaceID },
-          { $set: updatedPlace },
-          { new: true }
-        )
-          .then((plc) => everythingOk(res, plc))
-          .catch((err) => serverError(res, err));
+        let personNotFound = true;
+        for (let i = 0; i < updatedPlace.ratedBy.length; i++) {
+          if (String(userId) === String(updatedPlace.ratedBy[i].critics)) {
+            personNotFound = false;
+            let temp = Number(updatedPlace.ratedBy[i].ratings);
+            updatedPlace.ratedBy[i].ratings = Number(rating);
+            updatedPlace.ratingCount -= temp;
+            updatedPlace.ratingCount += Number(rating);
+            Places.findOneAndUpdate(
+              { _id: PlaceID },
+              { $set: updatedPlace },
+              { new: true }
+            )
+              .then((plc) => {
+                return everythingOk(res, plc);
+              })
+              .catch((err) => {
+                return serverError(res, err);
+              });
+          }
+        }
+
+        if (personNotFound) {
+          updatedPlace.ratedBy.push({ critics: userId, ratings: rating });
+          updatedPlace.ratingCount += Number(rating);
+          Places.findOneAndUpdate(
+            { _id: PlaceID },
+            { $set: updatedPlace },
+            { new: true }
+          )
+            .then((plc) => everythingOk(res, plc))
+            .catch((err) => serverError(res, err));
+        }
       })
       .catch((error) => serverError(res, error));
   },
