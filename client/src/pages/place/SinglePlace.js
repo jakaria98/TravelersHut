@@ -13,6 +13,7 @@ class SinglePlace extends Component {
     createModalOpen: false,
     placeID: "",
     rating: 0,
+    previousRating: 0,
   };
   openCreateModal = () => {
     this.setState({
@@ -37,7 +38,8 @@ class SinglePlace extends Component {
 
   ratingChange = (event) => {
     this.setState({
-      [event.target.name]: event.target.value,
+      rating: event.target.value,
+      previousRating: 0,
     });
   };
 
@@ -45,16 +47,31 @@ class SinglePlace extends Component {
     e.preventDefault();
     this.props.ratePlace(this.state.placeID, this.state);
   };
+  pushStar = (num1, num2) => {
+    let elements = [];
+    for (let i = 0; i < num1; i++) elements.push(<FaStar />);
+    for (let i = 0; i < num2; i++) elements.push(<FaRegStar />);
+    return elements;
+  };
 
   postFilter = (post) => {
     post.filter((pst) => pst.place == this.state.placeId);
   };
+  personFilter = (obj, id) => {
+    obj.filter((info) => {
+      if (info.critics === id) return info.ratings;
+      return 0;
+    });
+  };
 
   render() {
-    let { place, post } = this.props;
-    let { rating } = this.state;
-    let averageRating;
-    console.log(place.ratedBy);
+    let { place, post, visitor } = this.props;
+    visitor = visitor.visitor;
+    let { rating, previousRating } = this.state;
+    let averageRating = 0;
+    let remainingRating = 5;
+    // let previousRating = 0;
+    let ratedPerson;
     return (
       <>
         {place.length <= 0 ? (
@@ -70,6 +87,24 @@ class SinglePlace extends Component {
             detailsPhoto={place.detailsPhoto}
           />
         )}
+        {
+          (place.length <= 0 ? (
+            <h1>Load</h1>
+          ) : place.ratedBy ? (
+            place.ratedBy.length > 0 ? (
+              ((ratedPerson = place.ratedBy.filter(
+                (info) => info.critics === visitor._id
+              )),
+              ((averageRating = Math.round(
+                place.ratingCount / place.ratedBy.length
+              )),
+              (remainingRating =
+                5 - Math.round(place.ratingCount / place.ratedBy.length))))
+            ) : null
+          ) : null,
+          ratedPerson ? (previousRating = ratedPerson[0].ratings) : null,
+          previousRating && rating == 0 ? (rating = previousRating) : null)
+        }
         <div className="display-center mt-4 mb-5">
           <div className="container">
             <div className="row">
@@ -80,11 +115,14 @@ class SinglePlace extends Component {
                       <h1 className="rating-num">
                         {!place.ratedBy
                           ? 0
-                          : place.ratingCount / place.ratedBy.length}
+                          : place.ratedBy.length > 0
+                          ? Math.round(place.ratingCount / place.ratedBy.length)
+                          : 0}
                       </h1>
                       <div className="rating">
-                        <FaStar />
-                        <FaRegStar />
+                        {place.ratedBy
+                          ? this.pushStar(averageRating, remainingRating)
+                          : this.pushStar(averageRating, remainingRating)}
                       </div>
                       <div>
                         <FaUser className="mx-1 mb-1" />
@@ -294,7 +332,13 @@ class SinglePlace extends Component {
                     </div>
                     <button
                       className="btn btn-success mt-2"
-                      onClick={this.ratingSubmit}
+                      onClick={
+                        this.props.visitor.isAuthenticated &&
+                        !this.props.guide.isAuthenticated &&
+                        !this.props.admin.isAuthenticated
+                          ? this.ratingSubmit
+                          : null
+                      }
                     >
                       Submit
                     </button>
