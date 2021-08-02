@@ -6,6 +6,7 @@ const {
   updatePlace,
   deletePlace,
   ratePlace,
+  reportPlace,
 } = require("../controller/placeController");
 
 const passport = require("passport");
@@ -35,5 +36,6 @@ router.put(
   passport.authenticate("visitor", { session: false }),
   ratePlace
 );
+router.post("/:PlaceID", reportPlace);
 
 module.exports = router;

@@ -1,9 +1,9 @@
 const placeValidator = require("../validator/placeValidator");
-const ratingValidator = require("../validator/ratingValidator");
 const { badRequest, serverError, everythingOk } = require("../utils/error");
-const Admin = require("../model/Admin");
+const ReportedPlace = require("../model/ReportedPlace");
 const Guide = require("../model/Guide");
 const Places = require("../model/Places");
+
 module.exports = {
   createPlace(req, res) {
     let { name, division, district, upazila, coverPhoto, detailsPhoto } =
@@ -110,27 +110,6 @@ module.exports = {
     let userId = req.user._id;
     Places.findOne({ _id: PlaceID })
       .then((place) => {
-        // const per = place.ratedBy.find((person) => {
-        //   if (String(person.critics) === String(userId)) console.log("HI");
-        //   return String(person.critics) === String(userId);
-        // });
-        // let updatedPlace = place;
-        // if (per) {
-        //   for (let i = 0; i < updatedPlace.ratedBy.length; i++) {
-        //     if (per.critics == updatedPlace.ratedBy[i].critics);
-        //   }
-        // } else {
-        //   updatedPlace.ratedBy.push({ critics: userId, ratings: rating });
-        //   updatedPlace.ratingCount += Number(rating);
-        //   Places.findOneAndUpdate(
-        //     { _id: PlaceID },
-        //     { $set: updatedPlace },
-        //     { new: true }
-        //   )
-        //     .then((plc) => everythingOk(res, plc))
-        //     .catch((err) => serverError(res, err));
-        // }
-
         let updatedPlace = place;
         let personNotFound = true;
         for (let i = 0; i < updatedPlace.ratedBy.length; i++) {
@@ -165,6 +144,36 @@ module.exports = {
             .then((plc) => everythingOk(res, plc))
             .catch((err) => serverError(res, err));
         }
+      })
+      .catch((error) => serverError(res, error));
+  },
+
+  reportPlace(req, res) {
+    let { PlaceID } = req.params;
+    let { reportProblem } = req.body;
+    if (!reportProblem) {
+      let error = {};
+      error.reportProblem = "Please Write The Issue";
+      return badRequest(res, error);
+    }
+    Places.findById(PlaceID)
+      .then((place) => {
+        let reported_place = new ReportedPlace({
+          name: place.name,
+          division: place.division,
+          district: place.district,
+          upazila: place.upazila,
+          coverPhoto: place.coverPhoto,
+          detailsPhoto: place.detailsPhoto,
+          placeID: place._id,
+          reportProblem,
+        });
+        reported_place
+          .save()
+          .then((plc) => {
+            everythingOk(res, ...plc._doc);
+          })
+          .catch((error) => serverError(res, error));
       })
       .catch((error) => serverError(res, error));
   },
