@@ -82,6 +82,18 @@ h6 {
   text-transform: uppercase;
   cursor: pointer;
 }
+.btn-danger {
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: #f81c4c;
+  padding: 0.4rem 0.9rem;
+  border: 3px solid #ff9292;
+  transition: var(--mainTransition);
+  text-transform: uppercase;
+  cursor: pointer;
+}
 .placeDetails {
   box-shadow: var(--lightShadow);
   transition: var(--mainTransition);

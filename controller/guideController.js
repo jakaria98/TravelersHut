@@ -8,7 +8,6 @@ const Guide = require("../model/Guide");
 const adminRegister = require("../validator/adminRegister");
 const loginValidator = require("../validator/loginValidator");
 const codeValidator = require("../validator/codeValidator");
-const codeMismatch = require("../validator/codeMismatch");
 
 const {
   badRequest,
@@ -97,10 +96,11 @@ module.exports = {
   register(req, res) {
     let { name, email, mobileNumber, password, profilePhoto, nid, code } =
       req.body;
-    let validate = codeValidator(code);
-    if (!validate.isValid) {
+    if (code.length !== 6) {
+      let validate = codeValidator();
       return badRequest(res, validate.error);
     }
+
     client.verify
       .services(config.serviceID)
       .verificationChecks.create({
@@ -147,7 +147,7 @@ module.exports = {
               serverError(res, error);
             });
         } else {
-          let mismatch = codeMismatch();
+          let mismatch = codeValidator();
           return badRequest(res, mismatch.error);
         }
       })

@@ -7,7 +7,7 @@ export const loadPlaces = () => (dispatch) => {
       dispatch({
         type: Types.LOAD_PLACE,
         payload: {
-          places:response.data,
+          places: response.data,
         },
       });
     })
@@ -95,5 +95,7 @@ export const ratePlace = (id, rating) => (dispatch) => {
         },
       });
     })
-    .catch((error) => console.log(error));
+    .catch((error) => {
+      console.log(error);
+    });
 };

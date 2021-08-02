@@ -1,4 +1,5 @@
 const placeValidator = require("../validator/placeValidator");
+const ratingValidator = require("../validator/ratingValidator");
 const { badRequest, serverError, everythingOk } = require("../utils/error");
 const Admin = require("../model/Admin");
 const Guide = require("../model/Guide");
@@ -103,6 +104,9 @@ module.exports = {
   ratePlace(req, res) {
     let { PlaceID } = req.params;
     let { rating } = req.body;
+    if (rating === 0) {
+      return badRequest(res, "invalid rating");
+    }
     let userId = req.user._id;
     Places.findOne({ _id: PlaceID })
       .then((place) => {

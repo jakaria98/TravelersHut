@@ -5,8 +5,9 @@ import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
-import { FaStar, FaRegStar, FaUser } from "react-icons/fa";
+import { FaStar, FaRegStar, FaUser, FaCheckCircle } from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
+import { VscReport } from "react-icons/vsc";
 
 class SinglePlace extends Component {
   state = {
@@ -67,7 +68,7 @@ class SinglePlace extends Component {
   render() {
     let { place, post, visitor } = this.props;
     visitor = visitor.visitor;
-    let { rating, previousRating } = this.state;
+    let { rating, previousRating, error } = this.state;
     let averageRating = 0;
     let remainingRating = 5;
     // let previousRating = 0;
@@ -330,6 +331,7 @@ class SinglePlace extends Component {
                         </div>
                       </div>
                     </div>
+
                     <button
                       className="btn btn-success mt-2"
                       onClick={
@@ -340,8 +342,16 @@ class SinglePlace extends Component {
                           : null
                       }
                     >
-                      Submit
+                      Submit <FaCheckCircle size={20} />
                     </button>
+                    {this.props.visitor.isAuthenticated ||
+                    this.props.guide.isAuthenticated ? (
+                      <button className="btn btn-danger d-block center container mt-2">
+                        Report <VscReport size={20} />
+                      </button>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
               </div>
@@ -349,12 +359,12 @@ class SinglePlace extends Component {
           </div>
         </div>
 
-        {this.props.guide.isAuthenticated ? (
+        {this.props.visitor.isAuthenticated ? (
           <button
             className="btn btn-primary d-block center container my-4"
             onClick={this.openCreateModal}
           >
-            Add A Post
+            Add A Review
           </button>
         ) : (
           ""
