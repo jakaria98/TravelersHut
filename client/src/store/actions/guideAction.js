@@ -67,9 +67,8 @@ export const login = (guide, history) => (dispatch) => {
     });
 };
 
-export const guideLogout = (history) => (dispatch) => {
+export const guideLogout = () => (dispatch) => {
   localStorage.removeItem("guide_token");
-  history.push("/");
   dispatch({
     type: Types.SET_GUIDE,
     payload: {

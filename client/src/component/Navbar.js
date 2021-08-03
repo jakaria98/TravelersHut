@@ -3,6 +3,8 @@ import logo from "../Travelers Hut.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { visitorLogout } from "../store/actions/visitorAction";
+import { guideLogout } from "../store/actions/guideAction";
+import { adminLogout } from "../store/actions/adminAction";
 class Navbar extends Component {
   render() {
     return (
@@ -14,22 +16,41 @@ class Navbar extends Component {
             </Link>
           </div>
           {this.props.visitor.isAuthenticated ? (
-            <ul className="nav-links">
-              <li>
-                <Link to="/all-places">All Places</Link>
-              </li>
-              <li>
-                <Link to="/guide/login">Login as Guide</Link>
-              </li>
-              <li>
-                <Link to="/guide/register">Register as Guide</Link>
-              </li>
-              <li>
-                <Link to="/" onClick={() => this.props.visitorLogout()}>
-                  Logout
-                </Link>
-              </li>
-            </ul>
+            this.props.guide.isAuthenticated ? (
+              <ul className="nav-links">
+                <li>
+                  <Link to="/all-places">All Places</Link>
+                </li>
+                <li>
+                  <Link to="/admin/login">Login As Admin</Link>
+                </li>
+                <li>
+                  <Link
+                    to="/all-places"
+                    onClick={() => this.props.guideLogout()}
+                  >
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="nav-links">
+                <li>
+                  <Link to="/all-places">All Places</Link>
+                </li>
+                <li>
+                  <Link to="/guide/login">Login as Guide</Link>
+                </li>
+                <li>
+                  <Link to="/guide/register">Register as Guide</Link>
+                </li>
+                <li>
+                  <Link to="/" onClick={() => this.props.visitorLogout()}>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            )
           ) : (
             <ul className="nav-links nav-none-logged">
               <li>
@@ -52,4 +73,4 @@ const mapStateToProps = (state) => {
     admin: state.admin,
   };
 };
-export default connect(mapStateToProps, { visitorLogout })(Navbar);
+export default connect(mapStateToProps, { visitorLogout, guideLogout })(Navbar);

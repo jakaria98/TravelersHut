@@ -39,8 +39,8 @@ class App extends Component {
 
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
-          <Route path="/guide/allGuide" component={AllGuide} />
-          <Route path="/guide/:name" component={SingleGuide} />
+          <Route path="/admin/action/allGuide" component={AllGuide} />
+          <Route path="/admin/action/guide/:name" component={SingleGuide} />
 
           <Route exact path="/" component={Home} />
         </Switch>
