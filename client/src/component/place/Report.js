@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
+import { reportPlace } from "../../store/actions/placeAction";
+import { VscReport } from "react-icons/vsc";
 
 const customStyles = {
   content: {
@@ -16,6 +18,7 @@ const customStyles = {
 class Report extends Component {
   state = {
     reportProblem: "",
+    error: {},
   };
 
   changeHandler = (event) => {
@@ -36,8 +39,12 @@ class Report extends Component {
     return null;
   }
 
+  submitHandler = (e) => {
+    e.preventDefault();
+    this.props.reportPlace(this.props.placeID, this.state);
+  };
   render() {
-    let { reportProblem } = this.state;
+    let { reportProblem, error } = this.state;
     return (
       <div className="container">
         <Modal
@@ -70,6 +77,9 @@ class Report extends Component {
                     </div>
                   )}
                 </div>
+                <button className="btn btn-danger container">
+                  Report <VscReport size={20} />
+                </button>
               </form>
             </div>
           </div>
@@ -83,4 +93,4 @@ const mapStateToProps = (state) => {
     place: state.place,
   };
 };
-export default connect(mapStateToProps)(Report);
+export default connect(mapStateToProps, { reportPlace })(Report);

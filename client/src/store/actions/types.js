@@ -14,6 +14,7 @@ export const ADD_PLACE = "ADD_PLACE";
 export const GET_A_PLACE = "GET_A_PLACE";
 export const REMOVE_PLACE = "REMOVE_PLACE";
 export const UPDATE_PLACE = "UPDATE_PLACE";
+export const REPORT_PLACE = "REPORT_PLACE";
 export const PLACE_ERROR = "PLACE_ERROR";
 
 export const RATINGS = "RATINGS";

@@ -165,13 +165,13 @@ module.exports = {
           upazila: place.upazila,
           coverPhoto: place.coverPhoto,
           detailsPhoto: place.detailsPhoto,
-          placeID: place._id,
+          placeID: PlaceID,
           reportProblem,
         });
         reported_place
           .save()
           .then((plc) => {
-            everythingOk(res, ...plc._doc);
+            everythingOk(res, plc._doc);
           })
           .catch((error) => serverError(res, error));
       })

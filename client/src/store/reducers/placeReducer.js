@@ -31,6 +31,9 @@ const placeReducer = (state = init, action) => {
         return { plc, error: {} };
       });
     }
+    case Types.REPORT_PLACE: {
+      return action.payload.report;
+    }
     case Types.PLACE_ERROR: {
       return {
         ...state,

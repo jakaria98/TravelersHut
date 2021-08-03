@@ -8,14 +8,17 @@ import CreatePost from "../../component/post/CreatePost";
 import { FaStar, FaRegStar, FaUser, FaCheckCircle } from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
 import { VscReport } from "react-icons/vsc";
+import Report from "../../component/place/Report";
 
 class SinglePlace extends Component {
   state = {
     createModalOpen: false,
+    reportModalOpen: false,
     placeID: "",
     rating: 0,
     previousRating: 0,
   };
+
   openCreateModal = () => {
     this.setState({
       createModalOpen: true,
@@ -26,6 +29,18 @@ class SinglePlace extends Component {
       createModalOpen: false,
     });
   };
+
+  openReportModal = () => {
+    this.setState({
+      reportModalOpen: true,
+    });
+  };
+  closeReportModal = () => {
+    this.setState({
+      reportModalOpen: false,
+    });
+  };
+
   componentDidMount() {
     const { keyVal } = this.props.location.state;
 
@@ -346,7 +361,10 @@ class SinglePlace extends Component {
                     </button>
                     {this.props.visitor.isAuthenticated ||
                     this.props.guide.isAuthenticated ? (
-                      <button className="btn btn-danger d-block center container mt-2">
+                      <button
+                        className="btn btn-danger d-block center container mt-2"
+                        onClick={this.openReportModal}
+                      >
                         Report <VscReport size={20} />
                       </button>
                     ) : (
@@ -378,6 +396,11 @@ class SinglePlace extends Component {
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
+          placeID={this.state.placeID}
+        />
+        <Report
+          isOpen={this.state.reportModalOpen}
+          close={this.closeReportModal}
           placeID={this.state.placeID}
         />
       </>

@@ -87,7 +87,6 @@ export const updatePlace = (id, place) => (dispatch) => {
 export const ratePlace = (id, rating) => (dispatch) => {
   Axios.put(`/api/places/${id}`, rating)
     .then((response) => {
-      console.log(response.data);
       dispatch({
         type: Types.RATINGS,
         payload: {
@@ -97,5 +96,25 @@ export const ratePlace = (id, rating) => (dispatch) => {
     })
     .catch((error) => {
       console.log(error);
+    });
+};
+
+export const reportPlace = (id, reportProblem) => (dispatch) => {
+  Axios.post(`/api/places/${id}`, reportProblem)
+    .then((response) => {
+      dispatch({
+        type: Types.REPORT_PLACE,
+        payload: {
+          report: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.PLACE_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
     });
 };
