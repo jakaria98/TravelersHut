@@ -38,7 +38,7 @@ export const login = (admin, history) => (dispatch) => {
           admin: decode,
         },
       });
-       history.push("/all-places");
+      history.push("/all-places");
     })
     .catch((error) => {
       dispatch({
@@ -50,9 +50,8 @@ export const login = (admin, history) => (dispatch) => {
     });
 };
 
-export const adminLogout = (history) => (dispatch) => {
+export const adminLogout = () => (dispatch) => {
   localStorage.removeItem("admin_token");
-  history.push("/");
   dispatch({
     type: Types.SET_ADMIN,
     payload: {
