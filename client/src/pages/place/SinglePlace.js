@@ -377,7 +377,7 @@ class SinglePlace extends Component {
           </div>
         </div>
 
-        {this.props.visitor.isAuthenticated ? (
+        {this.props.guide.isAuthenticated ? (
           <button
             className="btn btn-primary d-block center container my-4"
             onClick={this.openCreateModal}

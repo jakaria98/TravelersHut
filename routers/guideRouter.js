@@ -25,15 +25,7 @@ router.post(
   register
 );
 
-router.get(
-  "/allGuide",
-  passport.authenticate("admin", { session: false }),
-  allGuide
-);
-router.get(
-  "/:guideID",
-  passport.authenticate("admin", { session: false }),
-  getSingleGuide
-);
+router.get("/allGuide", allGuide);
+router.get("/:guideID", getSingleGuide);
 
 module.exports = router;

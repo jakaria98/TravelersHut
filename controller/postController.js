@@ -29,9 +29,10 @@ module.exports = {
       details,
     });
     if (!validate.isValid) {
+      console.log("not validate");
       return badRequest(res, validate.error);
     }
-    Guide.findOne(userId)
+    Guide.findOne({ _id: userId })
       .then((user) => {
         if (user) {
           console.log("user found");
@@ -57,7 +58,7 @@ module.exports = {
               let updatedGuide = { ...req.user._doc };
               updatedGuide.contribution = updatedGuide.contribution + 1;
               updatedGuide.posts.unshift(pst._id);
-              Guide.findOneAndUpdate(
+              Guide.findByIdAndUpdate(
                 updatedGuide._id,
                 { $set: updatedGuide },
                 { new: true }
@@ -65,7 +66,7 @@ module.exports = {
                 .then((result) => {
                   res.status(201).json({
                     message: "Post created successfully",
-                    ...pst._doc,
+                    pst,
                     user: result,
                   });
                 })

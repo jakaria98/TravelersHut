@@ -15,51 +15,76 @@ class Navbar extends Component {
               <img src={logo} alt="Travelers HUt" />
             </Link>
           </div>
-          {this.props.visitor.isAuthenticated ? (
-            this.props.guide.isAuthenticated ? (
-              <ul className="nav-links">
-                <li>
-                  <Link to="/all-places">All Places</Link>
-                </li>
-                <li>
-                  <Link to="/admin/login">Login As Admin</Link>
-                </li>
-                <li>
-                  <Link
-                    to="/all-places"
-                    onClick={() => this.props.guideLogout()}
-                  >
-                    Logout
-                  </Link>
-                </li>
-              </ul>
-            ) : (
-              <ul className="nav-links">
-                <li>
-                  <Link to="/all-places">All Places</Link>
-                </li>
-                <li>
-                  <Link to="/guide/login">Login as Guide</Link>
-                </li>
-                <li>
-                  <Link to="/guide/register">Register as Guide</Link>
-                </li>
-                <li>
-                  <Link to="/" onClick={() => this.props.visitorLogout()}>
-                    Logout
-                  </Link>
-                </li>
-              </ul>
-            )
-          ) : (
-            <ul className="nav-links nav-none-logged">
+          {this.props.visitor.isAuthenticated &&
+          this.props.guide.isAuthenticated &&
+          this.props.admin.isAuthenticated ? (
+            <ul className="nav-links">
               <li>
-                <Link to="/login">Login</Link>
+                <Link to="/all-places">All Places</Link>
               </li>
+
               <li>
-                <Link to="/register">Register</Link>
+                <Link to="/admin/action/allGuide">Guide List</Link>
+              </li>
+
+              <li>
+                <Link to="/all-places" onClick={() => this.props.adminLogout()}>
+                  Logout
+                </Link>
               </li>
             </ul>
+          ) : this.props.visitor.isAuthenticated &&
+            this.props.guide.isAuthenticated &&
+            !this.props.admin.isAuthenticated ? (
+            <ul className="nav-links">
+              <li>
+                <Link to="/all-places">All Places</Link>
+              </li>
+              <li>
+                <Link to="/admin/login">Login As Admin</Link>
+              </li>
+              <li>
+                <Link to="/all-places" onClick={() => this.props.guideLogout()}>
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          ) : this.props.visitor.isAuthenticated &&
+            !this.props.guide.isAuthenticated &&
+            !this.props.admin.isAuthenticated ? (
+            <ul className="nav-links">
+              <li>
+                <Link to="/all-places">All Places</Link>
+              </li>
+              <li>
+                <Link to="/guide/login">Login as Guide</Link>
+              </li>
+              <li>
+                <Link to="/guide/register">Register as Guide</Link>
+              </li>
+              <li>
+                <Link to="/" onClick={() => this.props.visitorLogout()}>
+                  Logout
+                </Link>
+              </li>
+            </ul>
+          ) : (
+            (console.log(
+              this.props.visitor.isAuthenticated,
+              this.props.guide.isAuthenticated,
+              this.props.admin.isAuthenticated
+            ),
+            (
+              <ul className="nav-links nav-none-logged">
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </ul>
+            ))
           )}
         </div>
       </nav>
@@ -73,4 +98,70 @@ const mapStateToProps = (state) => {
     admin: state.admin,
   };
 };
-export default connect(mapStateToProps, { visitorLogout, guideLogout })(Navbar);
+export default connect(mapStateToProps, {
+  visitorLogout,
+  guideLogout,
+  adminLogout,
+})(Navbar);
+
+// {
+//   this.props.visitor.isAuthenticated ? (
+//     this.props.guide.isAuthenticated ? (
+//       this.props.admin.isAuthenticated ? (
+//         <ul className="nav-links">
+//           <li>
+//             <Link to="/all-places">All Places</Link>
+//           </li>
+//           <li>
+//             <Link to="/admin/action/allGuide">Guide List</Link>
+//           </li>
+//           <li>
+//             <Link to="/all-places" onClick={() => this.props.adminLogout()}>
+//               Logout
+//             </Link>
+//           </li>
+//         </ul>
+//       ) : (
+//         <ul className="nav-links">
+//           <li>
+//             <Link to="/all-places">All Places</Link>
+//           </li>
+//           <li>
+//             <Link to="/admin/login">Login As Admin</Link>
+//           </li>
+//           <li>
+//             <Link to="/all-places" onClick={() => this.props.guideLogout()}>
+//               Logout
+//             </Link>
+//           </li>
+//         </ul>
+//       )
+//     ) : (
+//       <ul className="nav-links">
+//         <li>
+//           <Link to="/all-places">All Places</Link>
+//         </li>
+//         <li>
+//           <Link to="/guide/login">Login as Guide</Link>
+//         </li>
+//         <li>
+//           <Link to="/guide/register">Register as Guide</Link>
+//         </li>
+//         <li>
+//           <Link to="/" onClick={() => this.props.visitorLogout()}>
+//             Logout
+//           </Link>
+//         </li>
+//       </ul>
+//     )
+//   ) : (
+//     <ul className="nav-links nav-none-logged">
+//       <li>
+//         <Link to="/login">Login</Link>
+//       </li>
+//       <li>
+//         <Link to="/register">Register</Link>
+//       </li>
+//     </ul>
+//   );
+// }

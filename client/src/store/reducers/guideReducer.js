@@ -22,10 +22,16 @@ const guideReducer = (state = init, action) => {
       };
     }
     case Types.GET_GUIDE: {
-      return action.payload.guide;
+      return {
+        guide: action.payload.guides,
+        isAuthenticated: Object.keys(action.payload.guides).length !== 0,
+      };
     }
     case Types.SINGLE_GUIDE: {
-      return action.payload.guide;
+      return {
+        guide: action.payload.guide,
+        isAuthenticated: Object.keys(action.payload.guide).length !== 0,
+      };
     }
     default:
       return state;

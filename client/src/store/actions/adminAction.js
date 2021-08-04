@@ -27,7 +27,6 @@ export const register = (admin, history) => (dispatch) => {
 export const login = (admin, history) => (dispatch) => {
   Axios.post("/api/admin/login", admin)
     .then((res) => {
-      localStorage.removeItem("guide_token");
       let token = res.data.token;
       localStorage.setItem("admin_token", token);
       let decode = jwtDecode(token);

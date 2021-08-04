@@ -8,7 +8,8 @@ class SingleGuide extends Component {
     this.props.getAGuide(guideID);
   }
   render() {
-    let { guide } = this.props;
+    let { guide } = this.props.guide;
+    console.log(this.props);
     return guide.length <= 0 ? <h1>Loading</h1> : <GuideInfo guide={guide} />;
   }
 }

@@ -7,8 +7,8 @@ class AllGuide extends Component {
     this.props.loadGuide();
   }
   render() {
-    let { guide } = this.props;
-    console.log(guide);
+    let { guide } = this.props.guide;
+    console.log(this.props);
     return (
       <>
         <div className="info">

@@ -8,7 +8,7 @@ const GuideCard = ({ guide }) => {
         <img src={guide.profilePhoto} alt="" />
         <Link
           to={{
-            pathname: `/guide/${guide.name}`,
+            pathname: `/admin/action/guide/${guide.name}`,
             state: { guideID: guide._id },
           }}
           className="btn btn-primary place-link"

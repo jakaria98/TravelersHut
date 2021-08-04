@@ -82,7 +82,7 @@ export const loadGuide = () => (dispatch) => {
       dispatch({
         type: Types.GET_GUIDE,
         payload: {
-          guide: response.data,
+          guides: response.data,
         },
       });
     })
