@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const PlaceCard = ({ name, coverPhoto, placeRating, _id }) => (
+const PlaceCard = ({ name, coverPhoto, placeRating, _id, pathLink }) => (
   <article className="place">
     <div className="img-container">
       <img src={coverPhoto} alt={name} />
@@ -9,7 +9,7 @@ const PlaceCard = ({ name, coverPhoto, placeRating, _id }) => (
       </div>
       <Link
         to={{
-          pathname: `/places/${name}`,
+          pathname: `${pathLink}/${name}`,
           state: {
             keyVal: _id,
           },

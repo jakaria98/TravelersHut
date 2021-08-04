@@ -47,6 +47,7 @@ class AllPlaces extends Component {
                   coverPhoto={plc.coverPhoto}
                   placeRating={placeRating}
                   _id={plc._id}
+                  pathLink="/places"
                   key={plc._id}
                 />
               )
