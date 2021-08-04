@@ -18,6 +18,7 @@ app.use("/api/visitors", require("./routers/visitorRouter"));
 app.use("/api/guide", require("./routers/guideRouter"));
 app.use("/api/admin", require("./routers/adminRouter"));
 app.use("/api/places", require("./routers/placeRouter"));
+app.use("/api/reportedPlaces", require("./routers/reportedPlaceRouter"));
 app.use("/api/posts", require("./routers/postRouter"));
 
 app.get("/", (req, res) => {
