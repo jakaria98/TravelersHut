@@ -20,6 +20,7 @@ const report = new Schema({
   },
   coverPhoto: [String],
   detailsPhoto: [String],
+  rating: Number,
   createdAt: Date,
   placeID: String,
   reportProblem: {
