@@ -14,10 +14,14 @@ export const ADD_PLACE = "ADD_PLACE";
 export const GET_A_PLACE = "GET_A_PLACE";
 export const REMOVE_PLACE = "REMOVE_PLACE";
 export const UPDATE_PLACE = "UPDATE_PLACE";
-export const REPORT_PLACE = "REPORT_PLACE";
 export const PLACE_ERROR = "PLACE_ERROR";
 
 export const RATINGS = "RATINGS";
+
+export const REPORT_PLACE = "REPORT_PLACE";
+export const LOAD_REPORTED_PLACE = "LOAD_REPORTED_PLACE";
+export const GET_A_REPORT = "GET_A_REPORT";
+export const DELETE_REPORT = "DELETE_REPORT";
 
 export const LOAD_POST = "LOAD_POST";
 export const ADD_POST = "ADD_POST";
