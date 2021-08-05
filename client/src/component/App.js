@@ -19,6 +19,9 @@ import SinglePlace from "../pages/place/SinglePlace";
 
 import SinglePost from "../pages/post/SinglePost";
 
+import AllReports from "../pages/reportedPlace/AllReports";
+import SingleReport from "../pages/reportedPlace/SingleReport";
+
 import Navbar from "./Navbar";
 
 class App extends Component {
@@ -36,6 +39,12 @@ class App extends Component {
           <Route path="/all-places" component={AllPlaces} />
           <Route path="/places/:placeName" component={SinglePlace} />
           <Route path="/blog/:_id" component={SinglePost} />
+
+          <Route path="/all-places/reported-places" component={AllReports} />
+          <Route
+            path="/all-places/reported-places/:name"
+            component={SingleReport}
+          />
 
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
