@@ -14,7 +14,7 @@ class AllReports extends Component {
           <PlaceCard
             name={report.name}
             coverPhoto={report.coverPhoto}
-            placeRating={null}
+            placeRating={report.rating}
             _id={report._id}
             pathLink="/all-places/reported-places"
             key={report._id}
