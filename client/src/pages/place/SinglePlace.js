@@ -392,7 +392,9 @@ class SinglePlace extends Component {
             {post.length ? "All Reviews" : "No Reviews"}
           </h1>
         </div>
-        {post.length ? post.map((post, i) => <PostCard post={post} />) : ""}
+        {post.length
+          ? post.map((post, i) => <PostCard post={post} />)
+          : this.props.loadPost(this.state.placeID)}
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
