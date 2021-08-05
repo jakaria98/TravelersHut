@@ -36,7 +36,8 @@ class App extends Component {
           <Route path="/admin/register" component={adminRegister} />
           <Route path="/admin/login" component={adminLogin} />
 
-          <Route path="/all-places" component={AllPlaces} />
+          <Route exact path="/all-places" component={AllPlaces} />
+
           <Route path="/places/:placeName" component={SinglePlace} />
           <Route path="/blog/:_id" component={SinglePost} />
 

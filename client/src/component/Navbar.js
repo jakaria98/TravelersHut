@@ -28,6 +28,10 @@ class Navbar extends Component {
               </li>
 
               <li>
+                <Link to="/all-places/reported-places">Reported Places</Link>
+              </li>
+
+              <li>
                 <Link to="/all-places" onClick={() => this.props.adminLogout()}>
                   Logout
                 </Link>
