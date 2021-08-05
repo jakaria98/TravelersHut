@@ -34,9 +34,7 @@ class AllPlaces extends Component {
           >
             Add A Place
           </button>
-        ) : (
-          ""
-        )}
+        ) : null}
         {place.length > 0 ? (
           place.map(
             (plc) => (
@@ -54,7 +52,7 @@ class AllPlaces extends Component {
             )
           )
         ) : (
-          <h1>LOADING</h1>
+          <h1>{this.props.loadPlaces()}LOADING</h1>
         )}
         <AddPlace
           isOpen={this.state.createModalOpen}
