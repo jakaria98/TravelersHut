@@ -41,7 +41,11 @@ class App extends Component {
           <Route path="/places/:placeName" component={SinglePlace} />
           <Route path="/blog/:_id" component={SinglePost} />
 
-          <Route path="/all-places/reported-places" component={AllReports} />
+          <Route
+            exact
+            path="/all-places/reported-places"
+            component={AllReports}
+          />
           <Route
             path="/all-places/reported-places/:name"
             component={SingleReport}
