@@ -165,6 +165,7 @@ module.exports = {
           upazila: place.upazila,
           coverPhoto: place.coverPhoto,
           detailsPhoto: place.detailsPhoto,
+          rating: Math.round(place.ratingCount / place.ratedBy.length),
           createdAt: place.createdAt,
           placeID: PlaceID,
           reportProblem,
