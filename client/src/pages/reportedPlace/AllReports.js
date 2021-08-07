@@ -20,7 +20,7 @@ class AllReports extends Component {
             key={report._id}
           />
         ))
-      : this.props.loadReports();
+      : (this.props.loadReports(), (<h1>Loading</h1>));
   }
 }
 const mapStateToProps = (state) => {

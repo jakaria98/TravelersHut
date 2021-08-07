@@ -36,16 +36,9 @@ class App extends Component {
           <Route path="/admin/register" component={adminRegister} />
           <Route path="/admin/login" component={adminLogin} />
 
-          <Route exact path="/all-places" component={AllPlaces} />
-
           <Route path="/places/:placeName" component={SinglePlace} />
           <Route path="/blog/:_id" component={SinglePost} />
 
-          <Route
-            exact
-            path="/all-places/reported-places"
-            component={AllReports}
-          />
           <Route
             path="/all-places/reported-places/:name"
             component={SingleReport}
@@ -56,6 +49,12 @@ class App extends Component {
           <Route path="/admin/action/allGuide" component={AllGuide} />
           <Route path="/admin/action/guide/:name" component={SingleGuide} />
 
+          <Route exact path="/all-places" component={AllPlaces} />
+          <Route
+            exact
+            path="/all-places/reported-places"
+            component={AllReports}
+          />
           <Route exact path="/" component={Home} />
         </Switch>
       </BrowserRouter>

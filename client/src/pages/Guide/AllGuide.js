@@ -14,11 +14,9 @@ class AllGuide extends Component {
         <div className="info">
           <h1 className="placeName">All Guides</h1>
         </div>
-        {guide.length > 0 ? (
-          guide.map((gd) => <GuideCard guide={gd} key={gd._id} />)
-        ) : (
-          <h1>Loading</h1>
-        )}
+        {guide.length > 0
+          ? guide.map((gd) => <GuideCard guide={gd} key={gd._id} />)
+          : (this.props.loadGuide(), (<h1>Loading</h1>))}
       </>
     );
   }
