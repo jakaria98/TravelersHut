@@ -17,13 +17,15 @@ const PostInfo = ({ post }) => {
       </div>
       <div className="info">
         <h1 className="placeName">Post Details</h1>
-        <div className="basic-info  post-basic-info-reposition">
-          <h2>Minimum Cost: {post.minimumCost}</h2>
-          <h4>Residence Facilities: {post.residence ? "Yes" : "No"}</h4>
-        </div>
-        <div className="basic-info m-lg-5">
-          <h2>Details:</h2>
-          <p>{post.details}</p>
+        <div className="post-basic-info-reposition">
+          <div className="basic-info">
+            <h2>Minimum Cost: {post.minimumCost}</h2>
+            <h4>Residence Facilities: {post.residence ? "Yes" : "No"}</h4>
+          </div>
+          <div className="basic-info">
+            <h2>Details:</h2>
+            <p>{post.details}</p>
+          </div>
         </div>
       </div>
     </div>

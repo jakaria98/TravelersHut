@@ -83,7 +83,7 @@ class SinglePlace extends Component {
   render() {
     let { place, post, visitor } = this.props;
     visitor = visitor.visitor;
-    let { rating, previousRating, error } = this.state;
+    let { rating, previousRating, placeID } = this.state;
     let averageRating = 0;
     let remainingRating = 5;
     // let previousRating = 0;
@@ -91,7 +91,9 @@ class SinglePlace extends Component {
     return (
       <>
         {place.length <= 0 ? (
-          <h1>Loading</h1>
+          (this.props.getSinglePlace(placeID),
+          this.props.loadPost(placeID),
+          (<h1>Loading</h1>))
         ) : (
           <PlaceInfo
             coverPhoto={place.coverPhoto}
@@ -101,6 +103,7 @@ class SinglePlace extends Component {
             upazila={place.upazila}
             createdAt={place.upazila}
             detailsPhoto={place.detailsPhoto}
+            report=""
           />
         )}
         {
@@ -392,18 +395,16 @@ class SinglePlace extends Component {
             {post.length ? "All Reviews" : "No Reviews"}
           </h1>
         </div>
-        {post.length
-          ? post.map((post, i) => <PostCard post={post} />)
-          : this.props.loadPost(this.state.placeID)}
+        {post.length ? post.map((post, i) => <PostCard post={post} />) : null}
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
-          placeID={this.state.placeID}
+          placeID={placeID}
         />
         <Report
           isOpen={this.state.reportModalOpen}
           close={this.closeReportModal}
-          placeID={this.state.placeID}
+          placeID={placeID}
         />
       </>
     );

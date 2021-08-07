@@ -80,7 +80,9 @@ module.exports = {
   getAllPost(req, res) {
     let { placeID } = req.params;
     Posts.find({ place: placeID })
-      .then((posts) => everythingOk(res, posts))
+      .then((posts) => {
+        return everythingOk(res, posts);
+      })
       .catch((error) => serverError(res, error));
   },
   getSinglePost(req, res) {

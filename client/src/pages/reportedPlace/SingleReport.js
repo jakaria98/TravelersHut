@@ -21,6 +21,7 @@ class SingleReport extends Component {
         upazila={reportedPlace.upazila}
         createdAt={reportedPlace.createdAt}
         detailsPhoto={reportedPlace.detailsPhoto}
+        report={reportedPlace.reportProblem}
       />
     );
   }

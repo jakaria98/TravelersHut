@@ -5,7 +5,7 @@ import { getSinglePost } from "../../store/actions/postAction";
 class SinglePost extends Component {
   componentDidMount() {
     const { postId } = this.props.location.state;
-    console.log(postId)
+    console.log(postId);
     this.props.getSinglePost(postId);
   }
   render() {
