@@ -6,8 +6,7 @@ const reportedPlaceReducer = (state = {}, action) => {
       return action.payload.reports;
     }
     case Types.DELETE_REPORT: {
-      let report = [...state];
-      return report.filter((rpt) => rpt._id !== action.payload.id);
+      return action.payload.report;
     }
     case Types.GET_A_REPORT: {
       return action.payload.report;

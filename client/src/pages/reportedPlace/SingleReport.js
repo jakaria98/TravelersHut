@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlaceInfo from "../../component/place/PlaceInfo";
 import { getSingleReport } from "../../store/actions/reportedPlaceAction";
+import { GiCheckMark } from "react-icons/gi";
+import { FaTrash } from "react-icons/fa";
+import { removeReport } from "../../store/actions/reportedPlaceAction";
 class SingleReport extends Component {
   componentDidMount() {
     let { keyVal } = this.props.location.state;
@@ -9,20 +12,39 @@ class SingleReport extends Component {
   }
   render() {
     let { reportedPlace } = this.props;
-    console.log(this.props);
-    return reportedPlace.length <= 0 ? (
-      <h1>Loading</h1>
-    ) : (
-      <PlaceInfo
-        coverPhoto={reportedPlace.coverPhoto}
-        name={reportedPlace.name}
-        division={reportedPlace.division}
-        district={reportedPlace.district}
-        upazila={reportedPlace.upazila}
-        createdAt={reportedPlace.createdAt}
-        detailsPhoto={reportedPlace.detailsPhoto}
-        report={reportedPlace.reportProblem}
-      />
+    return (
+      <>
+        {!reportedPlace ? (
+          (this.props.getSingleReport(this.props.location.state.keyVal),
+          (<h1>Loading</h1>))
+        ) : (
+          <PlaceInfo
+            coverPhoto={reportedPlace.coverPhoto}
+            name={reportedPlace.name}
+            division={reportedPlace.division}
+            district={reportedPlace.district}
+            upazila={reportedPlace.upazila}
+            createdAt={reportedPlace.createdAt}
+            detailsPhoto={reportedPlace.detailsPhoto}
+            report={reportedPlace.reportProblem}
+          />
+        )}
+        {reportedPlace ? (
+          <div className="container mb-5 mt-3">
+            <button
+              className="btn btn-success w-100 position-relative my-1"
+              onClick={() =>
+                this.props.removeReport(reportedPlace._id, this.props.history)
+              }
+            >
+              Everything OK <GiCheckMark size={22} className="pb-1" />
+            </button>
+            <button className="btn btn-danger w-100 float-left my-1">
+              Remove The Place <FaTrash size={22} className="pb-1" />
+            </button>
+          </div>
+        ) : null}
+      </>
     );
   }
 }
@@ -31,4 +53,6 @@ const mapStateToProps = (state) => {
     reportedPlace: state.reportedPlace,
   };
 };
-export default connect(mapStateToProps, { getSingleReport })(SingleReport);
+export default connect(mapStateToProps, { getSingleReport, removeReport })(
+  SingleReport
+);

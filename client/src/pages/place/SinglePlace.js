@@ -5,8 +5,16 @@ import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
-import { FaStar, FaRegStar, FaUser, FaCheckCircle } from "react-icons/fa";
+import {
+  FaStar,
+  FaRegStar,
+  FaUser,
+  FaCheckCircle,
+  FaTrash,
+} from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
+
+import { RiMapPinAddFill } from "react-icons/ri";
 import { VscReport } from "react-icons/vsc";
 import Report from "../../component/place/Report";
 
@@ -158,7 +166,7 @@ class SinglePlace extends Component {
                             <div className="rating-box">
                               <FaStar
                                 className="mt-1"
-                                color={rating >= 5 ? "#ffc107" : "#cfcfcf"}
+                                color={rating >= 5 ? "#33ccff" : "#cfcfcf"}
                               />
                               <div className="rating-number">5</div>
                             </div>
@@ -197,7 +205,7 @@ class SinglePlace extends Component {
                             <div className="rating-box">
                               <FaStar
                                 className="mt-1"
-                                color={rating >= 4 ? "#ffc107" : "#cfcfcf"}
+                                color={rating >= 4 ? "#33ccff" : "#cfcfcf"}
                               />
                               <div className="rating-number">4</div>
                             </div>
@@ -236,7 +244,7 @@ class SinglePlace extends Component {
                             <div className="rating-box">
                               <FaStar
                                 className="mt-1"
-                                color={rating >= 3 ? "#ffc107" : "#cfcfcf"}
+                                color={rating >= 3 ? "#33ccff" : "#cfcfcf"}
                               />
                               <div className="rating-number">3</div>
                             </div>
@@ -275,7 +283,7 @@ class SinglePlace extends Component {
                             <div className="rating-box">
                               <FaStar
                                 className="mt-1"
-                                color={rating >= 2 ? "#ffc107" : "#cfcfcf"}
+                                color={rating >= 2 ? "#33ccff" : "#cfcfcf"}
                               />
                               <div className="rating-number">2</div>
                             </div>
@@ -314,7 +322,7 @@ class SinglePlace extends Component {
                             <div className="rating-box">
                               <FaStar
                                 className="mt-1"
-                                color={rating >= 1 ? "#ffc107" : "#cfcfcf"}
+                                color={rating >= 1 ? "#33ccff" : "#cfcfcf"}
                               />
                               <div className="rating-number">1</div>
                             </div>
@@ -365,7 +373,7 @@ class SinglePlace extends Component {
                     {this.props.visitor.isAuthenticated ||
                     this.props.guide.isAuthenticated ? (
                       <button
-                        className="btn btn-danger d-block center container mt-2"
+                        className="btn btn-warning d-block center container mt-2"
                         onClick={this.openReportModal}
                       >
                         Report <VscReport size={20} />
@@ -385,11 +393,14 @@ class SinglePlace extends Component {
             className="btn btn-primary d-block center container my-4"
             onClick={this.openCreateModal}
           >
-            Add A Review
+            Add A Review <RiMapPinAddFill size={25} className="pb-1" />
           </button>
-        ) : (
-          ""
-        )}
+        ) : null}
+        {this.props.admin.isAuthenticated ? (
+          <button className="container btn btn-danger  d-block center container mb-4">
+            Remove This Place <FaTrash size={22} className='pb-1' />
+          </button>
+        ) : null}
         <div className="info">
           <h1 className="placeName">
             {post.length ? "All Reviews" : "No Reviews"}

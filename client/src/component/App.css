@@ -82,6 +82,18 @@ h6 {
   text-transform: uppercase;
   cursor: pointer;
 }
+.btn-warning {
+  display: inline-block;
+  text-decoration: none;
+  letter-spacing: var(--mainSpacing);
+  color: var(--mainBlack);
+  background: #ff9900;
+  padding: 0.4rem 0.9rem;
+  border: 3px solid #c0c0c0;
+  transition: var(--mainTransition);
+  text-transform: uppercase;
+  cursor: pointer;
+}
 .btn-danger {
   display: inline-block;
   text-decoration: none;
@@ -230,7 +242,6 @@ h6 {
   text-align: center;
   font-weight: 700;
   letter-spacing: var(--mainSpacing);
- 
 }
 .basic-info {
   color: black;

@@ -32,7 +32,7 @@ export const removeReport = (id, history) => (dispatch) => {
       dispatch({
         type: Types.DELETE_REPORT,
         payload: {
-          id: response.data._id,
+          report: response.data,
         },
       });
       history.push("/all-places/reported-places");
