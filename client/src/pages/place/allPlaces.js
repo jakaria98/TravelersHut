@@ -35,25 +35,25 @@ class AllPlaces extends Component {
             Add A Place
           </button>
         ) : null}
-        {place.length > 0 ? (
-          place.map(
-            (plc) => (
-              (placeRating = Math.round(plc.ratingCount / plc.ratedBy.length)),
-              (
-                <PlaceCard
-                  name={plc.name}
-                  coverPhoto={plc.coverPhoto}
-                  placeRating={placeRating}
-                  _id={plc._id}
-                  pathLink="/places"
-                  key={plc._id}
-                />
+        {place.length > 0
+          ? place.map(
+              (plc) => (
+                (placeRating = Math.round(
+                  plc.ratingCount / plc.ratedBy.length
+                )),
+                (
+                  <PlaceCard
+                    name={plc.name}
+                    coverPhoto={plc.coverPhoto}
+                    placeRating={placeRating}
+                    _id={plc._id}
+                    pathLink="/places"
+                    key={plc._id}
+                  />
+                )
               )
             )
-          )
-        ) : (
-          <h1>{this.props.loadPlaces()}LOADING</h1>
-        )}
+          : (this.props.loadPlaces(), (<h1>LOADING</h1>))}
         <AddPlace
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
