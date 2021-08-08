@@ -1,5 +1,3 @@
-import react from "react";
-import { connect } from "react-redux";
 import CoverPhotoCard from "../CoverPhotoCard";
 import PhotoCard from "../PhotoCard";
 const PlaceInfo = ({
@@ -49,9 +47,4 @@ const PlaceInfo = ({
   </div>
 );
 
-const mapStateToProps = (state) => {
-  return {
-    admin: state.admin,
-  };
-};
-export default connect(mapStateToProps)(PlaceInfo);
+export default PlaceInfo;

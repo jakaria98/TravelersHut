@@ -109,7 +109,7 @@ class SinglePlace extends Component {
             division={place.division}
             district={place.district}
             upazila={place.upazila}
-            createdAt={place.upazila}
+            createdAt={place.createdAt}
             detailsPhoto={place.detailsPhoto}
             report=""
           />
@@ -125,12 +125,17 @@ class SinglePlace extends Component {
               ((averageRating = Math.round(
                 place.ratingCount / place.ratedBy.length
               )),
-              (remainingRating =
-                5 - Math.round(place.ratingCount / place.ratedBy.length))))
+              (remainingRating -= Math.round(
+                place.ratingCount / place.ratedBy.length
+              ))))
             ) : null
           ) : null,
           ratedPerson ? (previousRating = ratedPerson[0].ratings) : null,
-          previousRating && rating == 0 ? (rating = previousRating) : null)
+          previousRating && rating == 0
+            ? this.setState({
+                rating: previousRating,
+              })
+            : null)
         }
         <div className="display-center mt-4 mb-5">
           <div className="container">
@@ -398,7 +403,7 @@ class SinglePlace extends Component {
         ) : null}
         {this.props.admin.isAuthenticated ? (
           <button className="container btn btn-danger  d-block center container mb-4">
-            Remove This Place <FaTrash size={22} className='pb-1' />
+            Remove This Place <FaTrash size={22} className="pb-1" />
           </button>
         ) : null}
         <div className="info">
