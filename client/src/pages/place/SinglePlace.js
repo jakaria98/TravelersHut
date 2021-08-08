@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getSinglePlace, ratePlace } from "../../store/actions/placeAction";
+import {
+  getSinglePlace,
+  ratePlace,
+  removePlace,
+} from "../../store/actions/placeAction";
 import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
@@ -402,7 +406,12 @@ class SinglePlace extends Component {
           </button>
         ) : null}
         {this.props.admin.isAuthenticated ? (
-          <button className="container btn btn-danger  d-block center container mb-4">
+          <button
+            className="container btn btn-danger  d-block center container mb-4"
+            onClick={() =>
+              this.props.removePlace(place._id, this.props.history)
+            }
+          >
             Remove This Place <FaTrash size={22} className="pb-1" />
           </button>
         ) : null}
@@ -440,4 +449,5 @@ export default connect(mapStateToProps, {
   getSinglePlace,
   loadPost,
   ratePlace,
+  removePlace,
 })(SinglePlace);

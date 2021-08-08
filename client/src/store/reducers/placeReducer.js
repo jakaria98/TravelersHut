@@ -17,10 +17,7 @@ const placeReducer = (state = init, action) => {
       };
     }
     case Types.REMOVE_PLACE: {
-      let place = [...state];
-      return place.filter((plc) => {
-        return plc._id !== action.payload.id;
-      });
+      return action.payload.place;
     }
     case Types.UPDATE_PLACE: {
       let place = [...state];

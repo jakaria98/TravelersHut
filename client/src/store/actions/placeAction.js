@@ -49,15 +49,17 @@ export const getSinglePlace = (_id) => (dispatch) => {
     });
 };
 
-export const removePlace = (id) => (dispatch) => {
+export const removePlace = (id, history) => (dispatch) => {
   Axios.delete(`/api/places/delete/${id}`)
     .then((response) => {
       dispatch({
         type: Types.REMOVE_PLACE,
         payload: {
-          id: response.data._id,
+          place: response.data,
         },
       });
+      history.push("/all-places");
+      console.log("history called");
     })
     .catch((error) => {
       console.log(error);

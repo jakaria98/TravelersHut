@@ -39,3 +39,18 @@ export const removeReport = (id, history) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const removePlace = (id) => (dispatch) => {
+  Axios.delete(`/api/places/delete/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.REMOVE_PLACE,
+        payload: {
+          place: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};

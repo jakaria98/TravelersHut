@@ -1,5 +1,10 @@
 const placeValidator = require("../validator/placeValidator");
-const { badRequest, serverError, everythingOk } = require("../utils/error");
+const {
+  badRequest,
+  serverError,
+  everythingOk,
+  notFound,
+} = require("../utils/error");
 const ReportedPlace = require("../model/ReportedPlace");
 const Guide = require("../model/Guide");
 const Places = require("../model/Places");
@@ -96,10 +101,20 @@ module.exports = {
     }).catch((error) => serverError(res, error));
   },
   deletePlace(req, res) {
-    let { _id } = req.params;
-    Places.findOneAndDelete(_id)
-      .then((place) => everythingOk(res, place))
-      .catch((error) => serverError(res, error));
+    let { placeID } = req.params;
+    Places.findById(placeID)
+      .then((place) => {
+        if (place) {
+          Places.findByIdAndDelete(placeID)
+            .then((place) => everythingOk(res, place))
+            .catch((error) => serverError(res, error));
+        } else {
+          notFound(res, "Place doesn't exist");
+        }
+      })
+      .catch((error) => {
+        serverError(res, error);
+      });
   },
   ratePlace(req, res) {
     let { PlaceID } = req.params;

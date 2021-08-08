@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlaceInfo from "../../component/place/PlaceInfo";
-import { getSingleReport } from "../../store/actions/reportedPlaceAction";
+import {
+  getSingleReport,
+  removeReport,
+  removePlace,
+} from "../../store/actions/reportedPlaceAction";
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrash } from "react-icons/fa";
-import { removeReport } from "../../store/actions/reportedPlaceAction";
 class SingleReport extends Component {
   componentDidMount() {
     let { keyVal } = this.props.location.state;
@@ -39,7 +42,13 @@ class SingleReport extends Component {
             >
               Everything OK <GiCheckMark size={22} className="pb-1" />
             </button>
-            <button className="btn btn-danger w-100 float-left my-1">
+            <button
+              className="btn btn-danger w-100 float-left my-1"
+              onClick={() => {
+                this.props.removePlace(reportedPlace.placeID);
+                this.props.removeReport(reportedPlace._id, this.props.history);
+              }}
+            >
               Remove The Place <FaTrash size={22} className="pb-1" />
             </button>
           </div>
@@ -51,8 +60,11 @@ class SingleReport extends Component {
 const mapStateToProps = (state) => {
   return {
     reportedPlace: state.reportedPlace,
+    place: state.place,
   };
 };
-export default connect(mapStateToProps, { getSingleReport, removeReport })(
-  SingleReport
-);
+export default connect(mapStateToProps, {
+  getSingleReport,
+  removeReport,
+  removePlace,
+})(SingleReport);
