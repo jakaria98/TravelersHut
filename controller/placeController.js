@@ -158,6 +158,13 @@ module.exports = {
     }
     Places.findById(PlaceID)
       .then((place) => {
+        let ratedNumber;
+        if (place.ratingCount === 0) {
+          ratedNumber = 0;
+        } else {
+          ratedNumber = Math.round(place.ratingCount / place.ratedBy.length);
+        }
+
         let reported_place = new ReportedPlace({
           name: place.name,
           division: place.division,
@@ -165,7 +172,7 @@ module.exports = {
           upazila: place.upazila,
           coverPhoto: place.coverPhoto,
           detailsPhoto: place.detailsPhoto,
-          rating: Math.round(place.ratingCount / place.ratedBy.length),
+          rating: ratedNumber,
           createdAt: place.createdAt,
           placeID: PlaceID,
           reportProblem,
