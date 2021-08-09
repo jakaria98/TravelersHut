@@ -103,4 +103,10 @@ module.exports = {
       })
       .catch((error) => serverError(res, error));
   },
+  deleteReport(req, res) {
+    let { reportID } = req.params;
+    ReportedPost.findByIdAndDelete(reportID)
+      .then((report) => everythingOk(res, report))
+      .catch((error) => serverError(res, error));
+  },
 };
