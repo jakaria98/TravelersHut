@@ -66,6 +66,8 @@ module.exports = {
             .catch((error) => {
               serverError(res, error);
             });
+        } else {
+          return notFound(res, "User not found");
         }
       })
       .catch((error) => serverError(res, error));
@@ -96,7 +98,7 @@ module.exports = {
     then((place) => {
       res.status(200).json({
         message: "Updated Successfully",
-        ...place,
+        ...place._doc,
       });
     }).catch((error) => serverError(res, error));
   },
@@ -105,9 +107,34 @@ module.exports = {
     Places.findById(placeID)
       .then((place) => {
         if (place) {
-          Places.findByIdAndDelete(placeID)
-            .then((place) => everythingOk(res, place))
-            .catch((error) => serverError(res, error));
+          // Places.findByIdAndDelete(placeID)
+          //   .then((place) => everythingOk(res, place))
+          //   .catch((error) => serverError(res, error));
+          Guide.findById(place.creatorGuide)
+            .then((guide) => {
+              if (guide) {
+                let updatedGuide = guide;
+                updatedGuide.contribution -= 1;
+                let index = updatedGuide.places.indexOf(place._id);
+                updatedGuide.places.splice(index, 1);
+                Guide.findByIdAndUpdate(
+                  guide._id,
+                  { $set: updatedGuide },
+                  { new: true }
+                )
+                  .then((gd) => {
+                    Places.findByIdAndDelete(placeID)
+                      .then((place) => everythingOk(res, place))
+                      .catch((error) => serverError(res, error));
+                  })
+                  .catch((error) => serverError(res, error));
+              } else {
+                Places.findByIdAndDelete(placeID)
+                  .then((place) => everythingOk(res, place))
+                  .catch((error) => serverError(res, error));
+              }
+            })
+            .cath((error) => serverError(res, error));
         } else {
           notFound(res, "Place doesn't exist");
         }
