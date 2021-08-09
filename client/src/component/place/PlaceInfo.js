@@ -14,12 +14,8 @@ const PlaceInfo = ({
     <CoverPhotoCard photo={coverPhoto} />
     <div className="info ">
       <h1 className="placeName">{name}</h1>
-      <div
-        className={
-          report ? "post-basic-info-reposition" : "basic-info-reposition"
-        }
-      >
-        <div className="basic-info ">
+      <div className="display-center">
+        <div className={report ? "basic-info" : "basic-info display-center"}>
           <h2>Details</h2>
           <h4>Division: {division}</h4>
           <h4>District: {district}</h4>

@@ -36,6 +36,9 @@ class Navbar extends Component {
                   Logout
                 </Link>
               </li>
+              <li>
+                <Link to="#">Reported Post</Link>
+              </li>
             </ul>
           ) : this.props.visitor.isAuthenticated &&
             this.props.guide.isAuthenticated &&
@@ -79,7 +82,7 @@ class Navbar extends Component {
               this.props.admin.isAuthenticated
             ),
             (
-              <ul className="nav-links nav-none-logged">
+              <ul className="nav-links display-center">
                 <li>
                   <Link to="/login">Login</Link>
                 </li>

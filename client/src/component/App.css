@@ -251,15 +251,15 @@ h6 {
   width: 450px;
   font-size: 15px;
 }
-.basic-info-reposition {
-  margin-left: 500px;
+.basic-info p {
+  font-family: serif;
+  font-size: 20px;
 }
-.post-basic-info-reposition {
-  margin-left: 200px;
-}
-
-.apply {
-  width: 100%;
+.basic-info h2,
+h4,
+h5 {
+  letter-spacing: var(--mainSpacing);
+  font-weight: bold;
 }
 
 .main-body {
@@ -353,6 +353,7 @@ h6 {
   font-weight: 600;
   letter-spacing: var(--mainSpacing);
 }
+
 .nav-links a:hover {
   color: var(--primaryColor);
 }
@@ -364,7 +365,7 @@ h6 {
 .nav-links {
   height: auto;
   display: flex;
-  margin-left: 4rem;
+  margin-left: 2rem;
 }
 .nav-links a {
   margin: 0 1rem;

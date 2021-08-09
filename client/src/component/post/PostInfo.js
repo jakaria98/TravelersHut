@@ -16,8 +16,8 @@ const PostInfo = ({ post }) => {
         )}
       </div>
       <div className="info">
-        <h1 className="placeName">Post Details</h1>
-        <div className="post-basic-info-reposition">
+        <h1 className="placeName">Full Review</h1>
+        <div className="display-center">
           <div className="basic-info">
             <h2>Minimum Cost: {post.minimumCost}</h2>
             <h4>Residence Facilities: {post.residence ? "Yes" : "No"}</h4>
