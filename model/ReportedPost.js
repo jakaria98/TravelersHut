@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const postsSchema = new Schema({
+const report = new Schema({
   division: {
     type: String,
     required: true,
@@ -25,14 +25,13 @@ const postsSchema = new Schema({
     type: String,
     required: true,
   },
-  place: {
-    type: Schema.Types.ObjectId,
-    ref: "Places",
-  },
-  createdAt: {
-    type: Date,
-    default: new Date(),
+  createdAt: Date,
+  postID: String,
+  reportProblem: {
+    type: String,
+    required: true,
   },
 });
-const Posts = mongoose.model("Posts", postsSchema);
-module.exports = Posts;
+
+const ReportedPost = mongoose.model("ReportedPosts", report);
+module.exports = ReportedPost;

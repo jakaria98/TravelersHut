@@ -1,6 +1,7 @@
 const Admin = require("../model/Admin");
 const Guide = require("../model/Guide");
 const Posts = require("../model/Posts");
+const ReportedPost = require("../model/ReportedPost");
 const { badRequest, serverError, everythingOk } = require("../utils/error");
 const postValidator = require("../validator/postValidator");
 module.exports = {
@@ -15,9 +16,6 @@ module.exports = {
       detailsPhoto,
       details,
     } = req.body;
-
-    let userId = req.user._id;
-    console.log(req.params);
     let { placeID } = req.params;
     let validate = postValidator({
       division,
@@ -29,51 +27,24 @@ module.exports = {
       details,
     });
     if (!validate.isValid) {
-      console.log("not validate");
       return badRequest(res, validate.error);
     }
-    Guide.findOne({ _id: userId })
-      .then((user) => {
-        if (user) {
-          console.log("user found");
-          let post = new Posts({
-            division,
-            district,
-            upazila,
-            minimumCost,
-            residence,
-            coverPhoto,
-            detailsPhoto,
-            ratedBy: 0,
-            ratingCount: 0,
-            details,
-            creatorGuide: userId,
-            place: placeID,
-            createdAt: new Date().toISOString(),
-          });
-          post
-            .save()
-            .then((pst) => {
-              console.log("post saved");
-              let updatedGuide = { ...req.user._doc };
-              updatedGuide.contribution = updatedGuide.contribution + 1;
-              updatedGuide.posts.unshift(pst._id);
-              Guide.findByIdAndUpdate(
-                updatedGuide._id,
-                { $set: updatedGuide },
-                { new: true }
-              )
-                .then((result) => {
-                  res.status(201).json({
-                    message: "Post created successfully",
-                    pst,
-                    user: result,
-                  });
-                })
-                .catch((err) => serverError(res, err));
-            })
-            .catch((error) => serverError(res, error));
-        }
+    let post = new Posts({
+      division,
+      district,
+      upazila,
+      minimumCost,
+      residence,
+      coverPhoto,
+      detailsPhoto,
+      details,
+      place: placeID,
+      createdAt: new Date().toISOString(),
+    });
+    post
+      .save()
+      .then((pst) => {
+        return everythingOk(res, pst);
       })
       .catch((error) => serverError(res, error));
   },
@@ -103,20 +74,32 @@ module.exports = {
       .then((post) => everythingOk(res, post))
       .catch((error) => serverError(res, error));
   },
-  ratePost(req, res) {
-    let { postID, rating } = req.params;
-    Posts.findOne(postID)
+
+  reportPost(req, res) {
+    let { postID } = req.params;
+    let { reportProblem } = req.body;
+    if (!reportProblem) {
+      let error = {};
+      error.reportProblem = "Please Write The Issue";
+      return badRequest(res, error);
+    }
+    Posts.findById(postID)
       .then((post) => {
-        Posts.findOneAndUpdate(
+        let reported_post = new ReportedPost({
+          division: post.division,
+          district: post.district,
+          upazila: post.upazila,
+          coverPhoto: post.coverPhoto,
+          detailsPhoto: post.detailsPhoto,
+          details: post.details,
+          createdAt: post.createdAt,
           postID,
-          {
-            ratedBy: post.ratedBy + 1,
-            ratingCount: post.ratingCount + rating,
-          },
-          { new: true }
-        )
-          .then((pst) => everythingOk(res, pst))
-          .catch((err) => serverError(res, err));
+          reportedProblem,
+        });
+        reported_post
+          .save()
+          .then((report) => everythingOk(res, report))
+          .catch((error) => serverError(res, error));
       })
       .catch((error) => serverError(res, error));
   },
