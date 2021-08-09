@@ -54,9 +54,43 @@ export const removePost = (id) => (dispatch) => {
       dispatch({
         type: Types.REMOVE_POST,
         payload: {
-          id: response.data._id,
+          post: response.data.post,
         },
       });
+    })
+    .catch((error) => console.log(error));
+};
+
+export const reportPost = (id, reportProblem) => (dispatch) => {
+  Axios.post(`/api/posts/report/${id}`, reportProblem)
+    .then((response) => {
+      dispatch({
+        type: Types.REPORT_POST,
+        payload: {
+          post: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.POST_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};
+
+export const deleteReport = (id, history) => (dispatch) => {
+  Axios.delete(`/api/posts/report/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.REMOVE_REPORT,
+        payload: {
+          post: response.data,
+        },
+      });
+      history.push("/reported-posts");
     })
     .catch((error) => console.log(error));
 };

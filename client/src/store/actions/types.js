@@ -28,3 +28,6 @@ export const ADD_POST = "ADD_POST";
 export const POST_ERROR = "POST_ERROR";
 export const GET_A_POST = "GET_A_POST";
 export const REMOVE_POST = "REMOVE_POST";
+
+export const REPORT_POST = "REPORT_POST";
+export const REMOVE_REPORT = "REMOVE_REPORT";

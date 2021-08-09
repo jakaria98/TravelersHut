@@ -9,18 +9,20 @@ const postReducer = (state = init, action) => {
       return action.payload.posts;
     }
     case Types.ADD_POST: {
-      console.log("called reducer");
       let post = [...state];
       post.unshift(action.payload.post);
       return { post, error: {} };
     }
     case Types.REMOVE_POST: {
-      let post = [...state];
-      return post.filter((pst) => {
-        return pst._id !== action.payload.id;
-      });
+      return action.payload.post;
+    }
+    case Types.REMOVE_REPORT: {
+      return action.payload.post;
     }
     case Types.GET_A_POST: {
+      return action.payload.post;
+    }
+    case Types.REPORT_POST: {
       return action.payload.post;
     }
     case Types.POST_ERROR: {
