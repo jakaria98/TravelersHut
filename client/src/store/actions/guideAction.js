@@ -48,6 +48,7 @@ export const login = (guide, history) => (dispatch) => {
       let token = res.data.token;
       localStorage.setItem("guide_token", token);
       let decode = jwtDecode(token);
+      logoutTimer(dispatch, time * 1000, history);
       setToken(token);
       dispatch({
         type: Types.SET_GUIDE,
@@ -67,7 +68,7 @@ export const login = (guide, history) => (dispatch) => {
     });
 };
 
-export const guideLogout = () => (dispatch) => {
+export const guideLogout = (history) => (dispatch) => {
   localStorage.removeItem("guide_token");
   dispatch({
     type: Types.SET_GUIDE,
@@ -75,6 +76,7 @@ export const guideLogout = () => (dispatch) => {
       guide: {},
     },
   });
+  history.push("/");
 };
 export const loadGuide = () => (dispatch) => {
   Axios.get("/api/guide/allGuide")
@@ -101,4 +103,10 @@ export const getAGuide = (id) => (dispatch) => {
       });
     })
     .catch((error) => console.log(error));
+};
+
+export const logoutTimer = (dispatch, timer, history) => {
+  setTimeout(() => {
+    dispatch(guideLogout(history));
+  }, timer);
 };

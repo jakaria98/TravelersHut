@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import logo from "../Travelers Hut.png";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { visitorLogout } from "../store/actions/visitorAction";
 import { guideLogout } from "../store/actions/guideAction";
 import { adminLogout } from "../store/actions/adminAction";
 class Navbar extends Component {
   render() {
+    console.log(this.props);
     return (
       <nav className="navbar">
         <div className="nav-center">
@@ -32,7 +33,10 @@ class Navbar extends Component {
               </li>
 
               <li>
-                <Link to="/all-places" onClick={() => this.props.adminLogout()}>
+                <Link
+                  to="#"
+                  onClick={() => this.props.adminLogout(this.props.history)}
+                >
                   Logout
                 </Link>
               </li>
@@ -51,7 +55,10 @@ class Navbar extends Component {
                 <Link to="/admin/login">Login As Admin</Link>
               </li>
               <li>
-                <Link to="/all-places" onClick={() => this.props.guideLogout()}>
+                <Link
+                  to="3"
+                  onClick={() => this.props.guideLogout(this.props.history)}
+                >
                   Logout
                 </Link>
               </li>
@@ -70,7 +77,10 @@ class Navbar extends Component {
                 <Link to="/guide/register">Register as Guide</Link>
               </li>
               <li>
-                <Link to="/" onClick={() => this.props.visitorLogout()}>
+                <Link
+                  to="#"
+                  onClick={() => this.props.visitorLogout(this.props.history)}
+                >
                   Logout
                 </Link>
               </li>
@@ -109,7 +119,7 @@ export default connect(mapStateToProps, {
   visitorLogout,
   guideLogout,
   adminLogout,
-})(Navbar);
+})(withRouter(Navbar));
 
 // {
 //   this.props.visitor.isAuthenticated ? (

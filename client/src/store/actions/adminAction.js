@@ -30,6 +30,8 @@ export const login = (admin, history) => (dispatch) => {
       let token = res.data.token;
       localStorage.setItem("admin_token", token);
       let decode = jwtDecode(token);
+      let time = decode.exp - decode.iat;
+      logoutTimer(dispatch, time * 1000, history);
       setToken(token);
       dispatch({
         type: Types.SET_ADMIN,
@@ -49,7 +51,7 @@ export const login = (admin, history) => (dispatch) => {
     });
 };
 
-export const adminLogout = () => (dispatch) => {
+export const adminLogout = (history) => (dispatch) => {
   localStorage.removeItem("admin_token");
   dispatch({
     type: Types.SET_ADMIN,
@@ -57,4 +59,11 @@ export const adminLogout = () => (dispatch) => {
       admin: {},
     },
   });
+  history.push("/");
+};
+
+export const logoutTimer = (dispatch, timer, history) => {
+  setTimeout(() => {
+    dispatch(adminLogout(history));
+  }, timer);
 };

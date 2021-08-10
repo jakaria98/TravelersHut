@@ -32,6 +32,8 @@ export const login = (visitor, history) => (dispatch) => {
       localStorage.setItem("visitor_token", token);
       let decode = jwtDecode(token);
       setToken(token);
+      let time = decode.exp - decode.iat;
+      logoutTimer(dispatch, time * 1000, history);
       dispatch({
         type: Types.SET_VISITOR,
         payload: {
@@ -50,7 +52,7 @@ export const login = (visitor, history) => (dispatch) => {
     });
 };
 
-export const visitorLogout = () => (dispatch) => {
+export const visitorLogout = (history) => (dispatch) => {
   localStorage.removeItem("visitor_token");
   dispatch({
     type: Types.SET_VISITOR,
@@ -58,4 +60,11 @@ export const visitorLogout = () => (dispatch) => {
       visitor: {},
     },
   });
+  history.push("/");
+};
+
+export const logoutTimer = (dispatch, timer, history) => {
+  setTimeout(() => {
+    dispatch(visitorLogout(history));
+  }, timer);
 };
