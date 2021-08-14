@@ -10,12 +10,12 @@ const PlaceInfo = ({
   detailsPhoto,
   report,
 }) => (
-  <div className="placeDetailsContainer">
+  <div className="placeDetailsContainer mt-5">
     <CoverPhotoCard photo={coverPhoto} />
-    <div className="info ">
+    <div className="info bg-white">
       <h1 className="placeName">{name}</h1>
-      <div className="display-center">
-        <div className={report ? "basic-info" : "basic-info display-center"}>
+      <div className=" container d-flex justify-content-center ">
+        <div className="basic-info mx-5">
           <h2>Details</h2>
           <h4>Division: {division}</h4>
           <h4>District: {district}</h4>

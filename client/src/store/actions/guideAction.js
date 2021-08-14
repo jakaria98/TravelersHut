@@ -48,6 +48,7 @@ export const login = (guide, history) => (dispatch) => {
       let token = res.data.token;
       localStorage.setItem("guide_token", token);
       let decode = jwtDecode(token);
+      let time = decode.exp - decode.iat;
       logoutTimer(dispatch, time * 1000, history);
       setToken(token);
       dispatch({

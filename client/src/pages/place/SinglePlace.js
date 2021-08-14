@@ -141,9 +141,9 @@ class SinglePlace extends Component {
               })
             : null)
         }
-        <div className="display-center mt-4 mb-5">
+        <div className=" mt-4 mb-5">
           <div className="container">
-            <div className="row">
+            <div className="row d-flex justify-content-center">
               <div className="col-xs-12 col-md-6">
                 <div className="well well-sm">
                   <div className="row">
@@ -399,7 +399,7 @@ class SinglePlace extends Component {
 
         {this.props.guide.isAuthenticated ? (
           <button
-            className="btn btn-primary d-block center container my-4"
+            className="btn btn-primary d-block container my-4"
             onClick={this.openCreateModal}
           >
             Add A Review <RiMapPinAddFill size={25} className="pb-1" />
@@ -407,7 +407,7 @@ class SinglePlace extends Component {
         ) : null}
         {this.props.admin.isAuthenticated ? (
           <button
-            className="container btn btn-danger  d-block center container mb-4"
+            className="container btn btn-danger  d-block  mb-4"
             onClick={() =>
               this.props.removePlace(place._id, this.props.history)
             }

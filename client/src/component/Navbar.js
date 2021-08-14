@@ -16,6 +16,14 @@ class Navbar extends Component {
               <img src={logo} alt="Travelers HUt" />
             </Link>
           </div>
+          <button
+            className="navbar-toggler"
+            type="button"
+            dataToggle="collapse"
+            dataTarget="nav-links"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
           {this.props.visitor.isAuthenticated &&
           this.props.guide.isAuthenticated &&
           this.props.admin.isAuthenticated ? (
@@ -31,7 +39,12 @@ class Navbar extends Component {
               <li>
                 <Link to="/all-places/reported-places">Reported Places</Link>
               </li>
-
+              <li>
+                <Link to="#">Reported Post</Link>
+              </li>
+              <li>
+                <Link to="#">My Profile</Link>
+              </li>
               <li>
                 <Link
                   to="#"
@@ -39,9 +52,6 @@ class Navbar extends Component {
                 >
                   Logout
                 </Link>
-              </li>
-              <li>
-                <Link to="#">Reported Post</Link>
               </li>
             </ul>
           ) : this.props.visitor.isAuthenticated &&
@@ -92,7 +102,7 @@ class Navbar extends Component {
               this.props.admin.isAuthenticated
             ),
             (
-              <ul className="nav-links display-center">
+              <ul className="nav-links" style={{ "margin-left": "870px" }}>
                 <li>
                   <Link to="/login">Login</Link>
                 </li>

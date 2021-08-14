@@ -53,12 +53,13 @@ class Report extends Component {
           style={customStyles}
         >
           <div className="row">
-            <div className="col-md-6 offset-md-3">
+            <div className="col-xl-6 offset-md-3">
               <form onSubmit={this.submitHandler}>
                 <div className="form-group my-3">
                   <label htmlFor="reportProblem">Problem:</label>
                   <textarea
                     rows="6"
+
                     name="reportProblem"
                     id="reportProblem"
                     placeholder="Elaborate The Problem"

@@ -15,10 +15,10 @@ const PostInfo = ({ post }) => {
           <h1>Loading</h1>
         )}
       </div>
-      <div className="info">
+      <div className="info bg-white">
         <h1 className="placeName">Full Review</h1>
-        <div className="display-center">
-          <div className="basic-info">
+        <div className="container d-flex justify-content-center">
+          <div className="basic-info mx-5">
             <h2>Minimum Cost: {post.minimumCost}</h2>
             <h4>Residence Facilities: {post.residence ? "Yes" : "No"}</h4>
           </div>
