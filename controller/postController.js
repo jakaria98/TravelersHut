@@ -1,5 +1,3 @@
-const Admin = require("../model/Admin");
-const Guide = require("../model/Guide");
 const Posts = require("../model/Posts");
 const ReportedPost = require("../model/ReportedPost");
 const { badRequest, serverError, everythingOk } = require("../utils/error");
@@ -107,6 +105,11 @@ module.exports = {
     let { reportID } = req.params;
     ReportedPost.findByIdAndDelete(reportID)
       .then((report) => everythingOk(res, report))
+      .catch((error) => serverError(res, error));
+  },
+  getAllReport(req, res) {
+    ReportedPost.find()
+      .then((reports) => everythingOk(res, reports))
       .catch((error) => serverError(res, error));
   },
 };
