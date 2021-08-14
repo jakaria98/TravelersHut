@@ -1,6 +1,11 @@
 const Posts = require("../model/Posts");
 const ReportedPost = require("../model/ReportedPost");
-const { badRequest, serverError, everythingOk } = require("../utils/error");
+const {
+  badRequest,
+  serverError,
+  everythingOk,
+  notFound,
+} = require("../utils/error");
 const postValidator = require("../validator/postValidator");
 module.exports = {
   createPost(req, res) {
@@ -110,6 +115,18 @@ module.exports = {
   getAllReport(req, res) {
     ReportedPost.find()
       .then((reports) => everythingOk(res, reports))
+      .catch((error) => serverError(res, error));
+  },
+  getSingleReport(req, res) {
+    let { reportID } = req.params;
+    ReportedPost.findById(reportID)
+      .then((report) => {
+        if (report) {
+          return everythingOk(res, report);
+        } else {
+          return notFound(res, "No Such Report");
+        }
+      })
       .catch((error) => serverError(res, error));
   },
 };

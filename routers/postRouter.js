@@ -5,6 +5,8 @@ const {
   deletePost,
   reportPost,
   deleteReport,
+  getSingleReport,
+  getAllReport,
 } = require("../controller/postController");
 
 const router = require("express").Router();
@@ -15,5 +17,7 @@ router.get("/:postID", getSinglePost);
 router.delete("/:postID", deletePost);
 router.post("/report/:postID", reportPost);
 router.delete("/report/:reportID", deleteReport);
+router.get("/report/:reportID", getSingleReport);
+router.get("/report", getAllReport);
 
 module.exports = router;
