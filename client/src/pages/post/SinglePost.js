@@ -11,7 +11,16 @@ class SinglePost extends Component {
   render() {
     let { post } = this.props;
     console.log(post._id);
-    return <PostInfo post={post} />;
+    return (
+      <PostInfo
+        coverPhoto={post.coverPhoto}
+        detailsPhoto={post.detailsPhoto}
+        residence={post.residence}
+        details={post.details}
+        minimumCost={post.minimumCost}
+        report=""
+      />
+    );
   }
 }
 const mapStateToProps = (state) => {

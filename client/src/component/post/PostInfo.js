@@ -1,31 +1,49 @@
+import { VscReport } from "react-icons/vsc";
 import CoverPhotoCard from "../CoverPhotoCard";
 import PhotoCard from "../PhotoCard";
-const PostInfo = ({ post }) => {
-  return post.length <= 0 ? (
-    <h1>Loading</h1>
-  ) : (
+const PostInfo = ({
+  coverPhoto,
+  detailsPhoto,
+  residence,
+  details,
+  minimumCost,
+  report,
+}) => {
+  return (
     <div className="placeDetailsContainer">
-      <CoverPhotoCard photo={post.coverPhoto} />
+      <CoverPhotoCard photo={coverPhoto} />
       <div className="images">
-        {post.detailsPhoto ? (
-          post.detailsPhoto.map((photo, i) => (
-            <PhotoCard photo={photo} key={i} />
-          ))
+        {detailsPhoto ? (
+          detailsPhoto.map((photo, i) => <PhotoCard photo={photo} key={i} />)
         ) : (
           <h1>Loading</h1>
         )}
       </div>
+      {report ? null : (
+        <button
+          className="btn btn-warning mt-3 mb-4 d-block container"
+          style={{ width: "50%" }}
+        >
+          <VscReport size={20} /> Report
+        </button>
+      )}
       <div className="info bg-white">
         <h1 className="placeName">Full Review</h1>
         <div className="container d-flex justify-content-center">
           <div className="basic-info mx-5">
-            <h2>Minimum Cost: {post.minimumCost}</h2>
-            <h4>Residence Facilities: {post.residence ? "Yes" : "No"}</h4>
+            <h2>Minimum Cost: {minimumCost}</h2>
+            <h4>Residence Facilities: {residence ? "Yes" : "No"}</h4>
           </div>
           <div className="basic-info">
             <h2>Details:</h2>
-            <p>{post.details}</p>
+            <p>{details}</p>
           </div>
+          {report ? (
+            <div className="basic-info">
+              <h2>Reported Issue</h2>
+              <p>{report}</p>
+            </div>
+          ) : null}
         </div>
       </div>
     </div>

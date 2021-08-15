@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const PostCard = ({ post }) => (
+const PostCard = ({ coverPhoto, pathLink, _id, createdAt }) => (
   <article className="place">
     <div className="img-container">
-      <img src={`${post.coverPhoto}`} alt={`${post.name}`} />
-      <div className="rating-top">
-        <h6> Rating {post.ratedBy}</h6>
-      </div>
+      <img src={coverPhoto} alt="Cover Photo" />
       <Link
         to={{
-          pathname: `/blog/${post._id}`,
+          pathname: `${pathLink}/${_id}`,
           state: {
-            postId: post._id,
+            postId: _id,
           },
         }}
         className="btn btn-primary place-link"
@@ -19,7 +16,7 @@ const PostCard = ({ post }) => (
         details
       </Link>
     </div>
-    <p className="place-info">{post.createdAt}</p>
+    <p className="place-info">{createdAt}</p>
   </article>
 );
 export default PostCard;

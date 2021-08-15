@@ -40,7 +40,7 @@ class Navbar extends Component {
                 <Link to="/all-places/reported-places">Reported Places</Link>
               </li>
               <li>
-                <Link to="#">Reported Post</Link>
+                <Link to="/all-places/reported-posts">Reported Posts</Link>
               </li>
               <li>
                 <Link to="#">My Profile</Link>

@@ -10,7 +10,7 @@ export const deleteReport = (id, history) => (dispatch) => {
           report: response.data,
         },
       });
-      history.push("/reported-posts");
+      history.push("/all-places/reported-posts");
     })
     .catch((error) => console.log(error));
 };

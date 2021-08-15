@@ -24,7 +24,7 @@ const PlaceInfo = ({
         </div>
         {report ? (
           <div className="basic-info ">
-            <h2>Reported Problem</h2>
+            <h2>Reported Issue</h2>
             <p>{report}</p>
           </div>
         ) : null}

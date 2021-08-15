@@ -382,7 +382,7 @@ class SinglePlace extends Component {
                     {this.props.visitor.isAuthenticated ||
                     this.props.guide.isAuthenticated ? (
                       <button
-                        className="btn btn-warning d-block center container mt-2"
+                        className="btn btn-warning d-block container mt-2"
                         onClick={this.openReportModal}
                       >
                         Report <VscReport size={20} />
@@ -420,7 +420,17 @@ class SinglePlace extends Component {
             {post.length ? "All Reviews" : "No Reviews"}
           </h1>
         </div>
-        {post.length ? post.map((post, i) => <PostCard post={post} />) : null}
+        {post.length
+          ? post.map((post, i) => (
+              <PostCard
+                coverPhoto={post.coverPhoto}
+                pathLink="/blog"
+                _id={post._id}
+                createdAt={post.createdAt}
+                key={i}
+              />
+            ))
+          : this.props.loadPost(placeID)}
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}

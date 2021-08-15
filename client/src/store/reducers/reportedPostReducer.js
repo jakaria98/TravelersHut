@@ -1,6 +1,6 @@
 import * as Types from "../actions/types";
 
-const reportedPlaceReducer = (state = {}, action) => {
+const reportedPostReducer = (state = {}, action) => {
   switch (action.type) {
     case Types.ALL_REPORTED_POST: {
       return action.payload.reports;
@@ -15,4 +15,4 @@ const reportedPlaceReducer = (state = {}, action) => {
       return state;
   }
 };
-export default reportedPlaceReducer;
+export default reportedPostReducer;

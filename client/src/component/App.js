@@ -23,6 +23,8 @@ import AllReports from "../pages/reportedPlace/AllReports";
 import SingleReport from "../pages/reportedPlace/SingleReport";
 
 import Navbar from "./Navbar";
+import AllReportedPosts from "../pages/reportedPost/AllReportedPosts";
+import SingleReportedPost from "../pages/reportedPost/SingleReportedPost";
 
 class App extends Component {
   render() {
@@ -43,18 +45,30 @@ class App extends Component {
             path="/all-places/reported-places/:name"
             component={SingleReport}
           />
+          <Route
+            path="/all-places/reported-posts/:name"
+            Component={SingleReportedPost}
+          />
 
           <Route path="/guide/login" component={GuideLogin} />
           <Route path="/guide/register" component={GuideRegister} />
           <Route path="/admin/action/allGuide" component={AllGuide} />
           <Route path="/admin/action/guide/:name" component={SingleGuide} />
 
-          <Route exact path="/all-places" component={AllPlaces} />
+          <Route
+            exact
+            path="/all-places/reported-posts"
+            component={AllReportedPosts}
+          />
+
           <Route
             exact
             path="/all-places/reported-places"
             component={AllReports}
           />
+
+          <Route exact path="/all-places" component={AllPlaces} />
+
           <Route exact path="/" component={Home} />
         </Switch>
       </BrowserRouter>
