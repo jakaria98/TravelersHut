@@ -2,7 +2,7 @@ import Axios from "axios";
 import * as Types from "./types";
 
 export const deleteReport = (id, history) => (dispatch) => {
-  Axios.delete(`/api/posts/report/${id}`)
+  Axios.delete(`/api/reportedPost/report/${id}`)
     .then((response) => {
       dispatch({
         type: Types.REMOVE_REPORT,
@@ -15,7 +15,7 @@ export const deleteReport = (id, history) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 export const getAllReportedPost = () => (dispatch) => {
-  Axios.get("/api/posts/report")
+  Axios.get("/api/reportedPost/report")
     .then((response) => {
       dispatch({
         type: Types.ALL_REPORTED_POST,
@@ -27,7 +27,7 @@ export const getAllReportedPost = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 export const getSingleReportedPost = (id) => (dispatch) => {
-  Axios.get(`/api/posts/report/${id}`)
+  Axios.get(`/api/reportedPost/report/${id}`)
     .then((response) => {
       dispatch({
         type: Types.SINGLE_REPORTED_POST,
