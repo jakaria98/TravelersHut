@@ -5,6 +5,7 @@ import placeReducer from "./placeReducer";
 import postReducer from "./postReducer";
 import visitorReducer from "./visitorReducer";
 import reportedPlaceReducer from "./reportedPlaceReducer";
+import reportedPostReducer from "./reportedPostReducer";
 
 const rootReducer = combineReducers({
   visitor: visitorReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   place: placeReducer,
   post: postReducer,
   reportedPlace: reportedPlaceReducer,
+  reportedPost: reportedPostReducer,
 });
 
 export default rootReducer;
