@@ -35,7 +35,7 @@ class SingleReport extends Component {
         {reportedPlace ? (
           <div className="container mb-5 mt-3">
             <button
-              className="btn btn-success w-100 position-relative my-1"
+              className="btn btn-success w-100 my-1"
               onClick={() =>
                 this.props.removeReport(reportedPlace._id, this.props.history)
               }
@@ -43,7 +43,7 @@ class SingleReport extends Component {
               Everything OK <GiCheckMark size={22} className="pb-1" />
             </button>
             <button
-              className="btn btn-danger w-100 float-left my-1"
+              className="btn btn-danger w-100 my-1"
               onClick={() => {
                 this.props.removePlace(reportedPlace.placeID);
                 this.props.removeReport(reportedPlace._id, this.props.history);
