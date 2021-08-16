@@ -1,11 +1,12 @@
 import * as Types from "../actions/types";
 
-const reportedPostReducer = (state = {}, action) => {
+const reportedPostReducer = (state = [], action) => {
   switch (action.type) {
     case Types.ALL_REPORTED_POST: {
       return action.payload.reports;
     }
-    case Types.REMOVE_REPORT: {
+    case Types.DELETE_POST_REPORT: {
+      console.log(action.payload.report);
       return action.payload.report;
     }
     case Types.SINGLE_REPORTED_POST: {

@@ -12,13 +12,15 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "800px",
+    "max-width": "800px",
+    "min-width": "600px",
   },
 };
 class Report extends Component {
   state = {
     reportProblem: "",
     error: {},
+    clicked: false,
   };
 
   changeHandler = (event) => {
@@ -42,9 +44,16 @@ class Report extends Component {
   submitHandler = (e) => {
     e.preventDefault();
     this.props.reportPlace(this.props.placeID, this.state);
+    this.setState({ clicked: true });
   };
   render() {
-    let { reportProblem, error } = this.state;
+    let { reportProblem, error, clicked } = this.state;
+    if (error.length == null && clicked) {
+      this.setState({
+        reportProblem: "",
+        clicked: false,
+      });
+    }
     return (
       <div className="container">
         <Modal
@@ -52,37 +61,32 @@ class Report extends Component {
           onRequestClose={this.props.close}
           style={customStyles}
         >
-          <div className="row">
-            <div className="col-xl-6 offset-md-3">
-              <form onSubmit={this.submitHandler}>
-                <div className="form-group my-3">
-                  <label htmlFor="reportProblem">Problem:</label>
-                  <textarea
-                    rows="6"
+          <div className="container">
+            <form onSubmit={this.submitHandler}>
+              <div className="form-group my-3">
+                <label htmlFor="reportProblem">Issue:</label>
+                <textarea
+                  rows="6"
+                  name="reportProblem"
+                  id="reportProblem"
+                  placeholder="Elaborate The Issue"
+                  className={
+                    error?.reportProblem
+                      ? "form-control is-invalid"
+                      : "form-control"
+                  }
+                  value={reportProblem}
+                  onChange={this.changeHandler}
+                />
 
-                    name="reportProblem"
-                    id="reportProblem"
-                    placeholder="Elaborate The Problem"
-                    className={
-                      error?.reportProblem
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                    value={reportProblem}
-                    onChange={this.changeHandler}
-                  />
-
-                  {error?.reportProblem && (
-                    <div className="invalid-feedback">
-                      {error?.reportProblem}
-                    </div>
-                  )}
-                </div>
-                <button className="btn btn-danger container">
-                  Report <VscReport size={20} />
-                </button>
-              </form>
-            </div>
+                {error?.reportProblem && (
+                  <div className="invalid-feedback">{error?.reportProblem}</div>
+                )}
+              </div>
+              <button className="btn btn-warning container">
+                Report <VscReport size={20} />
+              </button>
+            </form>
           </div>
         </Modal>
       </div>

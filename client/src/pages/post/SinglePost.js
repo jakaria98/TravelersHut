@@ -10,7 +10,6 @@ class SinglePost extends Component {
   }
   render() {
     let { post } = this.props;
-    console.log(post._id);
     return (
       <PostInfo
         coverPhoto={post.coverPhoto}
@@ -19,6 +18,7 @@ class SinglePost extends Component {
         details={post.details}
         minimumCost={post.minimumCost}
         report=""
+        id={post._id}
       />
     );
   }

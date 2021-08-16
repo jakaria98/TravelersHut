@@ -11,6 +11,7 @@ import { removePost } from "../../store/actions/postAction";
 import PostInfo from "../../component/post/PostInfo";
 class SingleReportedPost extends Component {
   componentDidMount() {
+    console.log(this.props.location.state);
     const { postId } = this.props.location.state;
     this.props.getSingleReportedPost(postId);
   }
@@ -18,19 +19,16 @@ class SingleReportedPost extends Component {
     let { reportedPost } = this.props;
     return (
       <>
-        {reportedPost ? (
-          <PostInfo
-            coverPhoto={reportedPost.coverPhoto}
-            detailsPhoto={reportedPost.detailsPhoto}
-            residence={reportedPost.residence}
-            details={reportedPost.details}
-            minimumCost={reportedPost.minimumCost}
-            report={reportedPost.reportProblem}
-          />
-        ) : (
-          ((<h1>Loading</h1>),
-          this.props.getSingleReportedPost(this.props.location.state.postId))
-        )}
+        <PostInfo
+          coverPhoto={reportedPost.coverPhoto}
+          detailsPhoto={reportedPost.detailsPhoto}
+          residence={reportedPost.residence}
+          details={reportedPost.details}
+          minimumCost={reportedPost.minimumCost}
+          report={reportedPost.reportProblem}
+          id={reportedPost._id}
+        />
+
         {reportedPost ? (
           <div className="container mb-5 mt-3">
             <button

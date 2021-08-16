@@ -5,7 +5,7 @@ export const deleteReport = (id, history) => (dispatch) => {
   Axios.delete(`/api/reportedPost/report/${id}`)
     .then((response) => {
       dispatch({
-        type: Types.REMOVE_REPORT,
+        type: Types.DELETE_POST_REPORT,
         payload: {
           report: response.data,
         },
@@ -33,6 +33,19 @@ export const getSingleReportedPost = (id) => (dispatch) => {
         type: Types.SINGLE_REPORTED_POST,
         payload: {
           report: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
+export const removePost = (id) => (dispatch) => {
+  Axios.delete(`/api/posts/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.REMOVE_POST,
+        payload: {
+          post: response.data.post,
         },
       });
     })

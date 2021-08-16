@@ -88,23 +88,28 @@ module.exports = {
     }
     Posts.findById(postID)
       .then((post) => {
-        let reported_post = new ReportedPost({
-          division: post.division,
-          district: post.district,
-          upazila: post.upazila,
-          coverPhoto: post.coverPhoto,
-          detailsPhoto: post.detailsPhoto,
-          details: post.details,
-          createdAt: post.createdAt,
-          postID,
-          reportedProblem,
-        });
-        reported_post
-          .save()
-          .then((report) => everythingOk(res, report))
-          .catch((error) => serverError(res, error));
+        if (post) {
+          console.log(post);
+          let reported_post = new ReportedPost({
+            division: post.division,
+            district: post.district,
+            upazila: post.upazila,
+            minimumCost: post.minimumCost,
+            coverPhoto: post.coverPhoto,
+            detailsPhoto: post.detailsPhoto,
+            details: post.details,
+            createdAt: post.createdAt,
+            postID,
+            reportProblem,
+          });
+          reported_post
+            .save()
+            .then((report) => everythingOk(res, report))
+            .catch((error) => serverError(res, error));
+        } else {
+          notFound(res, "no post found");
+        }
       })
       .catch((error) => serverError(res, error));
   },
-  
 };

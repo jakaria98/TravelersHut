@@ -7,7 +7,13 @@ module.exports = {
   deleteReport(req, res) {
     let { reportID } = req.params;
     ReportedPost.findByIdAndDelete(reportID)
-      .then((report) => everythingOk(res, report))
+      .then((report) => {
+        if (report) {
+          return everythingOk(res, report);
+        } else {
+          return notFound(res, "nothing found");
+        }
+      })
       .catch((error) => serverError(res, error));
   },
   getAllReport(req, res) {

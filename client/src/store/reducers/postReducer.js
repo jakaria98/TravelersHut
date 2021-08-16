@@ -16,9 +16,6 @@ const postReducer = (state = init, action) => {
     case Types.REMOVE_POST: {
       return action.payload.post;
     }
-    case Types.REMOVE_REPORT: {
-      return action.payload.post;
-    }
     case Types.GET_A_POST: {
       return action.payload.post;
     }

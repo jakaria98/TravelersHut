@@ -47,7 +47,7 @@ class App extends Component {
           />
           <Route
             path="/all-places/reported-posts/:name"
-            Component={SingleReportedPost}
+            component={SingleReportedPost}
           />
 
           <Route path="/guide/login" component={GuideLogin} />
