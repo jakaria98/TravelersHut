@@ -172,4 +172,16 @@ module.exports = {
       })
       .catch((error) => serverError(res, error));
   },
+  deleteGuide(req, res) {
+    let { guideID } = req.params;
+    Guide.findByIdAndDelete(guideID)
+      .then((guide) => {
+        if (guide) {
+          return everythingOk(res, guide);
+        } else {
+          return notFound(res, "Guide Not Found");
+        }
+      })
+      .catch((error) => serverError(res, error));
+  },
 };
