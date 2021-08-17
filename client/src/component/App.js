@@ -26,6 +26,9 @@ import Navbar from "./Navbar";
 import AllReportedPosts from "../pages/reportedPost/AllReportedPosts";
 import SingleReportedPost from "../pages/reportedPost/SingleReportedPost";
 
+import AllAdmin from "../pages/Admin/AllAdmin";
+import SingleAdmin from "../pages/Admin/SingleAdmin";
+
 class App extends Component {
   render() {
     return (
@@ -54,6 +57,9 @@ class App extends Component {
           <Route path="/guide/register" component={GuideRegister} />
           <Route path="/admin/action/allGuide" component={AllGuide} />
           <Route path="/admin/action/guide/:name" component={SingleGuide} />
+
+          <Route path="/all-admin" component={AllAdmin} />
+          <Route path="all-admin/:name" component={SingleAdmin} />
 
           <Route
             exact
