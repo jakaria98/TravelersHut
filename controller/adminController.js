@@ -87,4 +87,16 @@ module.exports = {
       .then((users) => everythingOk(res, users))
       .catch((error) => serverError(res, error));
   },
+  singleAdmin(req, res) {
+    let { adminID } = req.params;
+    Admin.findById(adminID)
+      .then((admin) => {
+        if (admin) {
+          return everythingOk(res, admin);
+        } else {
+          notFound(res, "Admin Not Found");
+        }
+      })
+      .catch((error) => serverError(res, error));
+  },
 };

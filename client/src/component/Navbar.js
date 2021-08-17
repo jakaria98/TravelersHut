@@ -35,6 +35,9 @@ class Navbar extends Component {
               <li>
                 <Link to="/admin/action/allGuide">Guide List</Link>
               </li>
+              <li>
+                <Link to="#">Admin List</Link>
+              </li>
 
               <li>
                 <Link to="/all-places/reported-places">Reported Places</Link>
