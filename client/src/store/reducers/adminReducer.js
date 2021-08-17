@@ -21,6 +21,18 @@ const adminReducer = (state = init, action) => {
         error: action.payload.error,
       };
     }
+    case Types.ALL_ADMIN: {
+      return {
+        admin: action.payload.admins,
+        isAuthenticated: Object.keys(action.payload.admins).length !== 0,
+      };
+    }
+    case Types.SINGLE_ADMIN: {
+      return {
+        admin: action.payload.guide,
+        isAuthenticated: Object.keys.payload(action.payload.admin).length !== 0,
+      };
+    }
     default:
       return state;
   }

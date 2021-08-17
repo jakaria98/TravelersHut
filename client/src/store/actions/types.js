@@ -9,6 +9,8 @@ export const DELETE_GUIDE = "DELETE_GUIDE";
 
 export const SET_ADMIN = "SET_ADMIN";
 export const ADMIN_ERROR = "ADMIN_ERROR";
+export const ALL_ADMIN = "ALL_ADMIN";
+export const SINGLE_ADMIN = "SINGLE_ADMIN";
 
 export const LOAD_PLACE = "LOAD_PLACE";
 export const ADD_PLACE = "ADD_PLACE";

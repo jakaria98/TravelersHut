@@ -51,6 +51,32 @@ export const login = (admin, history) => (dispatch) => {
     });
 };
 
+export const allAdmin = () => (dispatch) => {
+  Axios.get("/api/admin/allAdmin")
+    .then((response) => {
+      dispatch({
+        type: Types.ALL_ADMIN,
+        payload: {
+          admins: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
+export const singleAdmin = (id) => (dispatch) => {
+  Axios.get(`/api/admin/allAdmin/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.SINGLE_ADMIN,
+        payload: {
+          admin: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
 export const adminLogout = (history) => (dispatch) => {
   localStorage.removeItem("admin_token");
   dispatch({
