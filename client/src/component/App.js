@@ -58,8 +58,8 @@ class App extends Component {
           <Route path="/admin/action/allGuide" component={AllGuide} />
           <Route path="/admin/action/guide/:name" component={SingleGuide} />
 
-          <Route path="/all-admin" component={AllAdmin} />
-          <Route path="all-admin/:name" component={SingleAdmin} />
+          <Route exact path="/all-admin" component={AllAdmin} />
+          <Route path="/all-admin/details/:name" component={SingleAdmin} />
 
           <Route
             exact

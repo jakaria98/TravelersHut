@@ -1,7 +1,37 @@
 import React, { Component } from "react";
-
-export default class AllAdmin extends Component {
+import { connect } from "react-redux";
+import { allAdmin } from "../../store/actions/adminAction";
+import UserCard from "../../component/User/UserCard";
+class AllAdmin extends Component {
+  componentDidMount() {
+    this.props.allAdmin();
+  }
   render() {
-    return <div></div>;
+    let { admin } = this.props.admin;
+    return (
+      <>
+        <div className="info">
+          <h1 className="placeName">All Admins</h1>
+        </div>
+        {admin.length
+          ? admin.map((admin) => (
+              <UserCard
+                profilePhoto={admin.profilePhoto}
+                _id={admin._id}
+                name={admin.name}
+                linkPath="/all-admin/details"
+                key={admin._id}
+              />
+            ))
+          : (this.props.allAdmin(), (<h1>Loading</h1>))}
+      </>
+    );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    admin: state.admin,
+  };
+};
+export default connect(mapStateToProps, { allAdmin })(AllAdmin);

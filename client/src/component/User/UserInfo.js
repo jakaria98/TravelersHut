@@ -1,4 +1,10 @@
-const GuideInfo = ({ guide }) => {
+const UserInfo = ({
+  profilePhoto,
+  name,
+  email,
+  mobileNumber,
+  contribution,
+}) => {
   return (
     <div className="container">
       <div className="main-body">
@@ -8,13 +14,13 @@ const GuideInfo = ({ guide }) => {
               <div className="card-body">
                 <div className="d-flex flex-column align-items-center tex-center">
                   <img
-                    src={guide.profilePhoto}
-                    alt={guide.name}
+                    src={profilePhoto}
+                    alt={name}
                     className="rounded-circle"
                     width="150"
                   />
                   <div className="mt-3">
-                    <h4>{guide.name}</h4>
+                    <h4>{name}</h4>
                   </div>
                 </div>
               </div>
@@ -27,14 +33,14 @@ const GuideInfo = ({ guide }) => {
                   <div className="col-sm-3">
                     <h6 className="mb-0">Full Name</h6>
                   </div>
-                  <div className="col-sm-9 text-secondary">{guide.name}</div>
+                  <div className="col-sm-9 text-secondary">{name}</div>
                 </div>
                 <hr />
                 <div class="row">
                   <div class="col-sm-3">
                     <h6 class="mb-0">Email</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">{guide.email}</div>
+                  <div class="col-sm-9 text-secondary">{email}</div>
                 </div>
 
                 <hr />
@@ -42,19 +48,19 @@ const GuideInfo = ({ guide }) => {
                   <div class="col-sm-3">
                     <h6 class="mb-0">Mobile</h6>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {guide.mobileNumber}
-                  </div>
+                  <div class="col-sm-9 text-secondary">{mobileNumber}</div>
                 </div>
-                <hr />
-                <div class="row">
-                  <div class="col-sm-3">
-                    <h6 class="mb-0">Contribution</h6>
+                {contribution ? <hr /> : ""}
+                {contribution ? (
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Contribution</h6>
+                    </div>
+                    <div class="col-sm-9 text-secondary">{contribution}</div>
                   </div>
-                  <div class="col-sm-9 text-secondary">
-                    {guide.contribution}
-                  </div>
-                </div>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
           </div>
@@ -63,4 +69,4 @@ const GuideInfo = ({ guide }) => {
     </div>
   );
 };
-export default GuideInfo;
+export default UserInfo;

@@ -1,21 +1,28 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadGuide } from "../../store/actions/guideAction";
-import GuideCard from "../../component/Guide/GuideCard";
+import UserCard from "../../component/User/UserCard";
 class AllGuide extends Component {
   componentDidMount() {
     this.props.loadGuide();
   }
   render() {
     let { guide } = this.props.guide;
-    console.log(this.props);
     return (
       <>
         <div className="info">
           <h1 className="placeName">All Guides</h1>
         </div>
         {guide.length > 0
-          ? guide.map((gd) => <GuideCard guide={gd} key={gd._id} />)
+          ? guide.map((gd) => (
+              <UserCard
+                profilePhoto={gd.profilePhoto}
+                _id={gd._id}
+                name={gd.name}
+                linkPath="/admin/action/guide"
+                key={gd._id}
+              />
+            ))
           : (this.props.loadGuide(), (<h1>Loading</h1>))}
       </>
     );

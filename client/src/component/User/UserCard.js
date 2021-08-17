@@ -1,23 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
-const GuideCard = ({ guide }) => {
-  console.log(guide.name);
+const UserCard = ({ profilePhoto, _id, name, linkPath }) => {
   return (
     <article className="place">
       <div className="img-container">
-        <img src={guide.profilePhoto} alt="" />
+        <img src={profilePhoto} alt="" />
         <Link
           to={{
-            pathname: `/admin/action/guide/${guide.name}`,
-            state: { guideID: guide._id },
+            pathname: `${linkPath}/${name}`,
+            state: { userID: _id },
           }}
           className="btn btn-primary place-link"
         >
           See
         </Link>
       </div>
-      <p className="place-info">{guide.name}</p>
+      <p className="place-info">{name}</p>
     </article>
   );
 };
-export default GuideCard;
+export default UserCard;

@@ -29,8 +29,8 @@ const adminReducer = (state = init, action) => {
     }
     case Types.SINGLE_ADMIN: {
       return {
-        admin: action.payload.guide,
-        isAuthenticated: Object.keys.payload(action.payload.admin).length !== 0,
+        admin: action.payload.admin,
+        isAuthenticated: Object.keys(action.payload.admin).length !== 0,
       };
     }
     default:

@@ -1,24 +1,30 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAGuide } from "../../store/actions/guideAction";
-import GuideInfo from "../../component/Guide/GuideInfo";
+import UserInfo from "../../component/User/UserInfo";
 import { IoPersonRemove } from "react-icons/io5";
 import { RiAdminFill } from "react-icons/ri";
 import { deleteGuide } from "../../store/actions/guideAction";
 import { register } from "../../store/actions/adminAction";
 class SingleGuide extends Component {
   componentDidMount() {
-    let { guideID } = this.props.location.state;
-    this.props.getAGuide(guideID);
+    let { userID } = this.props.location.state;
+    this.props.getAGuide(userID);
   }
   render() {
     let { guide } = this.props.guide;
     return (
       <>
         {guide ? (
-          <GuideInfo guide={guide} />
+          <UserInfo
+            profilePhoto={guide.profilePhoto}
+            name={guide.name}
+            email={guide.email}
+            mobileNumber={guide.mobileNumber}
+            contribution={guide.contribution}
+          />
         ) : (
-          this.props.getAGuide(this.props.location.state.guideID)
+          this.props.getAGuide(this.props.location.state.userID)
         )}
         {guide && this.props.admin.isAuthenticated ? (
           <div className="container">

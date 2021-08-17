@@ -36,7 +36,7 @@ class Navbar extends Component {
                 <Link to="/admin/action/allGuide">Guide List</Link>
               </li>
               <li>
-                <Link to="#">Admin List</Link>
+                <Link to="/all-admin">Admin List</Link>
               </li>
 
               <li>
