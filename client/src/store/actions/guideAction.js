@@ -107,7 +107,7 @@ export const getAGuide = (id) => (dispatch) => {
 };
 
 export const deleteGuide = (id, history) => (dispatch) => {
-  Axios.delete(`/api.guide/${id}`)
+  Axios.delete(`/api/guide/${id}`)
     .then((response) => {
       dispatch({
         type: Types.DELETE_GUIDE,
@@ -115,6 +115,7 @@ export const deleteGuide = (id, history) => (dispatch) => {
           guide: response.data,
         },
       });
+      history.push("/admin/action/allGuide");
     })
     .catch((error) => console.log(error));
 };

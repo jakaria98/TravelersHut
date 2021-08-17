@@ -12,7 +12,7 @@ export const register = (admin, history) => (dispatch) => {
           error: {},
         },
       });
-      history.push("/admin/login");
+      history.push("/admin/action/allGuide");
     })
     .catch((error) => {
       dispatch({

@@ -9,12 +9,12 @@ router.post(
 );
 router.post(
   "/register",
-  passport.authenticate("guide", { session: false }),
+  passport.authenticate("admin", { session: false }),
   register
 );
 router.get(
   "/allAdmin",
-  passport.authenticate("guide", { session: false }),
+  passport.authenticate("admin", { session: false }),
   allAdmin
 );
 module.exports = router;

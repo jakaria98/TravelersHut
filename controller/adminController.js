@@ -50,62 +50,37 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   register(req, res) {
-    let {
-      name,
-      email,
-      mobileNumber,
-      password,
-      confirmPassword,
-      profilePhoto,
-      nid,
-    } = req.body;
-    let validate = adminRegister({
-      name,
-      email,
-      mobileNumber,
-      password,
-      confirmPassword,
-      profilePhoto,
-      nid,
-    });
-    if (!validate.isValid) {
-      return badRequest(res, validate.error);
-    } else {
-      Admin.findOne({ email })
-        .then((user) => {
-          if (user) {
-            return badRequest(res, "user already exists");
-          }
+    console.log(req.body);
+    let { name, email, mobileNumber, password, profilePhoto, nid } = req.body;
+    Admin.findOne({ email })
+      .then((admin) => {
+        if (admin) {
+          return badRequest(res, "user already exists");
+        }
 
-          bcrypt.hash(password, 11, (err, hash) => {
-            if (err) {
-              serverError(res, err);
-            }
-            let user = new Admin({
-              name,
-              email,
-              mobileNumber,
-              password: hash,
-              profilePhoto,
-              nid,
-            });
-            user
-              .save()
-              .then((user) => {
-                res.status(201).json({
-                  message: "user saved",
-                  user,
-                });
-              })
-              .catch((error) => {
-                serverError(res, error);
-              });
-          });
-        })
-        .catch((error) => {
-          serverError(res, error);
+        let user = new Admin({
+          name,
+          email,
+          mobileNumber,
+          password,
+          profilePhoto,
+          nid,
         });
-    }
+        user
+          .save()
+          .then((user) => {
+            res.status(201).json({
+              message: "user saved",
+              user,
+            });
+          })
+          .catch((error) => {
+            serverError(res, error);
+          });
+      })
+      .catch((error) => {
+        serverError(res, error);
+      });
   },
   allAdmin(req, res) {
     Admin.find()
