@@ -4,6 +4,7 @@ const {
   allGuide,
   getSingleGuide,
   registerRequest,
+  deleteGuide,
 } = require("../controller/guideController");
 const router = require("express").Router();
 const passport = require("passport");
@@ -27,5 +28,6 @@ router.post(
 
 router.get("/allGuide", allGuide);
 router.get("/:guideID", getSingleGuide);
+router.delete("/:guideID", deleteGuide);
 
 module.exports = router;
