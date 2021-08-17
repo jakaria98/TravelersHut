@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAGuide } from "../../store/actions/guideAction";
+import { deleteGuide } from "../../store/actions/guideAction";
 import GuideInfo from "../../component/Guide/GuideInfo";
 class SingleGuide extends Component {
   componentDidMount() {
@@ -9,7 +10,6 @@ class SingleGuide extends Component {
   }
   render() {
     let { guide } = this.props.guide;
-    console.log(this.props);
     return guide.length <= 0 ? <h1>Loading</h1> : <GuideInfo guide={guide} />;
   }
 }
@@ -18,4 +18,6 @@ const mapStateToProps = (state) => {
     guide: state.guide,
   };
 };
-export default connect(mapStateToProps, { getAGuide })(SingleGuide);
+export default connect(mapStateToProps, { getAGuide, deleteGuide })(
+  SingleGuide
+);

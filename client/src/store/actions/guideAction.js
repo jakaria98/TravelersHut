@@ -106,6 +106,19 @@ export const getAGuide = (id) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const deleteGuide = (id, history) => (dispatch) => {
+  Axios.delete(`/api.guide/${id}`)
+    .then((response) => {
+      dispatch({
+        type: Types.DELETE_GUIDE,
+        payload: {
+          guide: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
 export const logoutTimer = (dispatch, timer, history) => {
   setTimeout(() => {
     dispatch(guideLogout(history));
