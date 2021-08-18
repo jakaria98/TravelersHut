@@ -6,6 +6,7 @@ import { IoPersonRemove } from "react-icons/io5";
 import { RiAdminFill } from "react-icons/ri";
 import { deleteGuide } from "../../store/actions/guideAction";
 import { register } from "../../store/actions/adminAction";
+import Loading from "../../component/Loading";
 class SingleGuide extends Component {
   componentDidMount() {
     let { userID } = this.props.location.state;
@@ -24,7 +25,8 @@ class SingleGuide extends Component {
             contribution={guide.contribution}
           />
         ) : (
-          this.props.getAGuide(this.props.location.state.userID)
+          (this.props.getAGuide(this.props.location.state.userID),
+          (<Loading />))
         )}
         {guide && this.props.admin.isAuthenticated ? (
           <div className="container">

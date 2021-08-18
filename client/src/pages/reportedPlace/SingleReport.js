@@ -8,6 +8,7 @@ import {
 } from "../../store/actions/reportedPlaceAction";
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrash } from "react-icons/fa";
+import Loading from "../../component/Loading";
 class SingleReport extends Component {
   componentDidMount() {
     let { keyVal } = this.props.location.state;
@@ -19,7 +20,7 @@ class SingleReport extends Component {
       <>
         {!reportedPlace ? (
           (this.props.getSingleReport(this.props.location.state.keyVal),
-          (<h1>Loading</h1>))
+          (<Loading />))
         ) : (
           <PlaceInfo
             coverPhoto={reportedPlace.coverPhoto}

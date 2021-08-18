@@ -405,3 +405,7 @@ h5 {
   float: left;
   margin-left: 5px;
 }
+.loading {
+  margin-left: 40%;
+  margin-top: 10%;
+}

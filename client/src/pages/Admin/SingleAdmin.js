@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import UserInfo from "../../component/User/UserInfo";
 import { singleAdmin } from "../../store/actions/adminAction";
+import Loading from "../../component/Loading";
 class SingleAdmin extends Component {
   componentDidMount() {
     let { userID } = this.props.location.state;
@@ -9,7 +10,6 @@ class SingleAdmin extends Component {
   }
   render() {
     let { admin } = this.props.admin;
-    console.log(this.props);
     return (
       <>
         {admin ? (
@@ -20,7 +20,8 @@ class SingleAdmin extends Component {
             mobileNumber={admin.mobileNumber}
           />
         ) : (
-          this.props.singleAdmin(this.props.location.state.userID)
+          (this.props.singleAdmin(this.props.location.state.userID),
+          (<Loading />))
         )}
       </>
     );

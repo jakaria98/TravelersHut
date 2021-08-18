@@ -3,6 +3,7 @@ import { loadPlaces } from "../../store/actions/placeAction";
 import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import AddPlace from "../../component/place/AddPlace";
+import Loading from "../../component/Loading";
 class AllPlaces extends Component {
   state = {
     createModalOpen: false,
@@ -53,7 +54,7 @@ class AllPlaces extends Component {
                 )
               )
             )
-          : (this.props.loadPlaces(), (<h1>LOADING</h1>))}
+          : (this.props.loadPlaces(), (<Loading />))}
         <AddPlace
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}

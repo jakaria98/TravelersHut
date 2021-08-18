@@ -1,5 +1,6 @@
 import CoverPhotoCard from "../CoverPhotoCard";
 import PhotoCard from "../PhotoCard";
+import Loading from "../Loading";
 const PlaceInfo = ({
   coverPhoto,
   name,
@@ -37,7 +38,7 @@ const PlaceInfo = ({
           <PhotoCard photo={photo} key={index} />
         ))
       ) : (
-        <h1>Loading</h1>
+        <Loading />
       )}
     </div>
   </div>

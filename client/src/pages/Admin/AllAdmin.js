@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { allAdmin } from "../../store/actions/adminAction";
 import UserCard from "../../component/User/UserCard";
+import Loading from "../../component/Loading";
 class AllAdmin extends Component {
   componentDidMount() {
     this.props.allAdmin();
@@ -13,7 +14,7 @@ class AllAdmin extends Component {
         <div className="info">
           <h1 className="placeName">All Admins</h1>
         </div>
-        {admin.length
+        {admin.length > 0
           ? admin.map((admin) => (
               <UserCard
                 profilePhoto={admin.profilePhoto}
@@ -23,7 +24,7 @@ class AllAdmin extends Component {
                 key={admin._id}
               />
             ))
-          : (this.props.allAdmin(), (<h1>Loading</h1>))}
+          : (this.props.allAdmin(), (<Loading />))}
       </>
     );
   }

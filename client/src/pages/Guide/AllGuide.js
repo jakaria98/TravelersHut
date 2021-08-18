@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadGuide } from "../../store/actions/guideAction";
 import UserCard from "../../component/User/UserCard";
+import Loading from "../../component/Loading";
 class AllGuide extends Component {
   componentDidMount() {
     this.props.loadGuide();
@@ -23,7 +24,7 @@ class AllGuide extends Component {
                 key={gd._id}
               />
             ))
-          : (this.props.loadGuide(), (<h1>Loading</h1>))}
+          : (this.props.loadGuide(), (<Loading />))}
       </>
     );
   }

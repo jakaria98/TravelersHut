@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import { loadReports } from "../../store/actions/reportedPlaceAction";
-
+import Loading from "../../component/Loading";
 class AllReports extends Component {
   componentDidMount() {
     this.props.loadReports();
@@ -22,7 +22,7 @@ class AllReports extends Component {
                 key={report._id}
               />
             ))
-          : (this.props.loadReports(), (<h1>Loading</h1>))}
+          : (this.props.loadReports(), (<Loading />))}
       </>
     );
   }

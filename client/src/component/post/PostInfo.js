@@ -2,6 +2,7 @@ import { VscReport } from "react-icons/vsc";
 import CoverPhotoCard from "../CoverPhotoCard";
 import Report from "./Report";
 import PhotoCard from "../PhotoCard";
+import Loading from "../Loading";
 const PostInfo = ({
   coverPhoto,
   detailsPhoto,
@@ -18,7 +19,7 @@ const PostInfo = ({
         {detailsPhoto ? (
           detailsPhoto.map((photo, i) => <PhotoCard photo={photo} key={i} />)
         ) : (
-          <h1>Loading</h1>
+          <Loading />
         )}
       </div>
       {report ? null : <Report postID={id} />}

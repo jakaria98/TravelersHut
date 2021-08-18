@@ -9,6 +9,7 @@ import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
+import Loading from "../../component/Loading";
 import {
   FaStar,
   FaRegStar,
@@ -105,7 +106,7 @@ class SinglePlace extends Component {
         {place.length <= 0 ? (
           (this.props.getSinglePlace(placeID),
           this.props.loadPost(placeID),
-          (<h1>Loading</h1>))
+          (<Loading />))
         ) : (
           <PlaceInfo
             coverPhoto={place.coverPhoto}
@@ -120,7 +121,7 @@ class SinglePlace extends Component {
         )}
         {
           (place.length <= 0 ? (
-            <h1>Load</h1>
+            <Loading />
           ) : place.ratedBy ? (
             place.ratedBy.length > 0 ? (
               ((ratedPerson = place.ratedBy.filter(
