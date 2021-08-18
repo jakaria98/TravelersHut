@@ -77,6 +77,8 @@ export const singleAdmin = (id) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const updateProfile = () => (dispatch) => {};
+
 export const adminLogout = (history) => (dispatch) => {
   localStorage.removeItem("admin_token");
   dispatch({

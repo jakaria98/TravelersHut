@@ -7,7 +7,6 @@ import { guideLogout } from "../store/actions/guideAction";
 import { adminLogout } from "../store/actions/adminAction";
 class Navbar extends Component {
   render() {
-    console.log(this.props);
     return (
       <nav className="navbar">
         <div className="nav-center">
@@ -16,14 +15,7 @@ class Navbar extends Component {
               <img src={logo} alt="Travelers HUt" />
             </Link>
           </div>
-          <button
-            className="navbar-toggler"
-            type="button"
-            dataToggle="collapse"
-            dataTarget="nav-links"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
+
           {this.props.visitor.isAuthenticated &&
           this.props.guide.isAuthenticated &&
           this.props.admin.isAuthenticated ? (
@@ -46,7 +38,7 @@ class Navbar extends Component {
                 <Link to="/all-places/reported-posts">Reported Posts</Link>
               </li>
               <li>
-                <Link to="#">My Profile</Link>
+                <Link to="/my-profile">My Profile</Link>
               </li>
               <li>
                 <Link
@@ -66,6 +58,9 @@ class Navbar extends Component {
               </li>
               <li>
                 <Link to="/admin/login">Login As Admin</Link>
+              </li>
+              <li>
+                <Link to="/my-profile">My Profile</Link>
               </li>
               <li>
                 <Link
@@ -99,22 +94,15 @@ class Navbar extends Component {
               </li>
             </ul>
           ) : (
-            (console.log(
-              this.props.visitor.isAuthenticated,
-              this.props.guide.isAuthenticated,
-              this.props.admin.isAuthenticated
-            ),
-            (
-              <ul className="nav-links" style={{ "margin-left": "870px" }}>
-                <li>
-                  <Link to="/login">Login</Link>
-                </li>
+            <ul className="nav-links" style={{ "margin-left": "870px" }}>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
 
-                <li>
-                  <Link to="/register">Register</Link>
-                </li>
-              </ul>
-            ))
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+            </ul>
           )}
         </div>
       </nav>

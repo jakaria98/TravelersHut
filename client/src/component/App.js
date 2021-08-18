@@ -28,13 +28,14 @@ import SingleReportedPost from "../pages/reportedPost/SingleReportedPost";
 
 import AllAdmin from "../pages/Admin/AllAdmin";
 import SingleAdmin from "../pages/Admin/SingleAdmin";
-
+import UserProfile from "../pages/UserProfile";
 class App extends Component {
   render() {
     return (
       <BrowserRouter>
         <Navbar />
         <Switch>
+          <Route path="/my-profile" component={UserProfile} />
           <Route path="/register" component={visitorRegister} />
           <Route path="/login" component={visitorLogin} />
 
