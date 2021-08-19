@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Admin = require("../model/Admin");
-const adminRegister = require("../validator/adminRegister");
 const loginValidator = require("../validator/loginValidator");
+const emailValidator = require("../validator/emailValidator");
 const {
   badRequest,
   serverError,
@@ -98,5 +98,22 @@ module.exports = {
         }
       })
       .catch((error) => serverError(res, error));
+  },
+  updateProfile(req, res) {
+    let updatedAdmin = req.user;
+    let {
+      name,
+      email,
+      profilePhoto,
+      oldPassword,
+      newPassword,
+      confirmPassword,
+    } = req.body;
+    if (email !== updatedAdmin.email) {
+      let validate=emailValidator(email)
+      if (!validate.isValid) {
+        return badRequest(res, validate.error);
+      }
+    } 
   },
 };

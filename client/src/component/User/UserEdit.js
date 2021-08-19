@@ -16,6 +16,30 @@ class UserEdit extends Component {
     confirmPassword: "",
     error: {},
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.admin.isAuthenticated) {
+      if (
+        JSON.stringify(nextProps.admin.error) !==
+        JSON.stringify(prevState.error)
+      ) {
+        return {
+          error: nextProps.admin.error.message,
+        };
+      }
+    } else {
+      if (
+        JSON.stringify(nextProps.guide.error) !==
+        JSON.stringify(prevState.error)
+      ) {
+        return {
+          error: nextProps.guide.error.message,
+        };
+      }
+    }
+    return null;
+  }
+
   componentDidMount() {
     this.setState({
       name: this.props.name,
@@ -43,19 +67,14 @@ class UserEdit extends Component {
   submitHandler = (e) => {
     e.preventDefault();
 
-    this.props.updateProfile();
+    this.props.updateProfile(this.state);
   };
 
   render() {
-    let {
-      name,
-      email,
-      newPassword,
+    let { name, email, newPassword, confirmPassword, oldPassword, error } =
+      this.state;
 
-      confirmPassword,
-      oldPassword,
-      error,
-    } = this.state;
+    console.log(error);
     return (
       <div className="my-5">
         <div className="col-md-6 offset-md-3">
@@ -87,9 +106,16 @@ class UserEdit extends Component {
                     placeholder="Enter Your Email"
                     value={email}
                     name="email"
-                    className="form-control"
+                    className={
+                      error?.validEmail
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     onChange={this.changeHandler}
                   />
+                  {error?.validEmail && (
+                    <div className="invalid-feedback">{error?.validEmail}</div>
+                  )}
                 </div>
               </div>
             </div>

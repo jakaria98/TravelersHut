@@ -3,6 +3,7 @@ const {
   register,
   allAdmin,
   singleAdmin,
+  updateProfile,
 } = require("../controller/adminController");
 const passport = require("passport");
 
@@ -16,6 +17,11 @@ router.post(
   "/register",
   passport.authenticate("admin", { session: false }),
   register
+);
+router.post(
+  "/updateProfile",
+  passport.authenticate("admin", { session: false }),
+  updateProfile
 );
 router.get(
   "/allAdmin",

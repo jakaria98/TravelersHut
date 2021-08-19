@@ -13,6 +13,7 @@ class UserProfile extends Component {
     let { admin } = this.props.admin;
     let { guide } = this.props.guide;
     let user;
+    if (!this.state.clicked) this.props.admin.error = {};
 
     return (
       <>

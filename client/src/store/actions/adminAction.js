@@ -77,7 +77,25 @@ export const singleAdmin = (id) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateProfile = () => (dispatch) => {};
+export const updateProfile = (profile) => (dispatch) => {
+  Axios.post("/api/admin/updateProfile", profile)
+    .then((response) => {
+      dispatch({
+        type: Types.UPDATE_ADMIN,
+        payload: {
+          admin: response.data,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.ADMIN_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};
 
 export const adminLogout = (history) => (dispatch) => {
   localStorage.removeItem("admin_token");
