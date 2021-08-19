@@ -2,7 +2,10 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const Admin = require("../model/Admin");
 const loginValidator = require("../validator/loginValidator");
-const emailValidator = require("../validator/emailValidator");
+const {
+  userValidate,
+  passwordValidator,
+} = require("../validator/userValidator");
 const {
   badRequest,
   serverError,
@@ -105,15 +108,49 @@ module.exports = {
       name,
       email,
       profilePhoto,
-      oldPassword,
+      currentPassword,
+      confirmNewPassword,
       newPassword,
-      confirmPassword,
     } = req.body;
-    if (email !== updatedAdmin.email) {
-      let validate=emailValidator(email)
-      if (!validate.isValid) {
-        return badRequest(res, validate.error);
+    if (profilePhoto) updatedAdmin.profilePhoto = profilePhoto;
+    if (newPassword.length > 0 || confirmNewPassword.length > 0) {
+      let passwordValidate = passwordValidator({
+        newPassword,
+        confirmNewPassword,
+      });
+      if (!passwordValidate.isValid) {
+        return badRequest(res, passwordValidate.error);
+      } else {
+        bcrypt.hash(newPassword, 11, (err, hash) => {
+          if (err) {
+            return serverError(res, err);
+          } else {
+            updatedAdmin.password = hash;
+          }
+        });
       }
-    } 
+    }
+    let validate = userValidate({ name, email, currentPassword });
+    if (!validate.isValid) {
+      return badRequest(res, validate.error);
+    }
+
+    bcrypt.compare(currentPassword, updatedAdmin.password, (err, result) => {
+      if (err) return serverError(res, error);
+      let error = {};
+      if (!result) {
+        error.currentPassword = "Invalid Credential";
+        return badRequest(res, error);
+      }
+    });
+    Admin.findByIdAndUpdate(
+      updatedAdmin._id,
+      { $set: updatedAdmin },
+      { new: true }
+    )
+      .then((admin) => {
+        everythingOk(res, admin);
+      })
+      .catch((error) => serverError(res, error));
   },
 };

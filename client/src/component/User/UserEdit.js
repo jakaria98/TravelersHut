@@ -11,9 +11,9 @@ class UserEdit extends Component {
     name: "",
     email: "",
     profilePhoto: "",
-    oldPassword: "",
+    currentPassword: "",
     newPassword: "",
-    confirmPassword: "",
+    confirmNewPassword: "",
     error: {},
   };
 
@@ -71,10 +71,16 @@ class UserEdit extends Component {
   };
 
   render() {
-    let { name, email, newPassword, confirmPassword, oldPassword, error } =
-      this.state;
+    let {
+      name,
+      email,
+      newPassword,
+      confirmNewPassword,
+      currentPassword,
+      error,
+    } = this.state;
 
-    console.log(error);
+    console.log(this.props);
     return (
       <div className="my-5">
         <div className="col-md-6 offset-md-3">
@@ -88,11 +94,18 @@ class UserEdit extends Component {
                   <input
                     type="text"
                     placeholder="Enter Your Name"
-                    className="form-control"
+                    className={
+                      error?.validName
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     name="name"
                     value={name}
                     onChange={this.changeHandler}
                   />
+                  {error?.validName && (
+                    <div className="invalid-feedback">{error?.validName}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -119,7 +132,37 @@ class UserEdit extends Component {
                 </div>
               </div>
             </div>
-            <div className="form-group">
+            <div className="form-group ">
+              <div className="d-flex">
+                <RiLockPasswordFill size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="currentPassword">Current Password:</label>
+                  <input
+                    type="password"
+                    placeholder="Enter Your Current Password"
+                    value={currentPassword}
+                    name="currentPassword"
+                    className={
+                      error?.currentPassword
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    onChange={this.changeHandler}
+                  />
+                  {error?.currentPassword && (
+                    <div className="invalid-feedback">
+                      {error?.currentPassword}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="my-4 container d-block text-center bg-light ">
+              <hr />
+              FIll The Field Below If You Want To Change Your Profile Photo
+              <hr />
+            </div>
+            <div className="form-group my-2">
               <div className="d-flex">
                 <MdAddAPhoto size={70} className="pt-4" />
                 <div className="container mx-1">
@@ -133,21 +176,10 @@ class UserEdit extends Component {
                 </div>
               </div>
             </div>
-            <div className="form-group my-2">
-              <div className="d-flex">
-                <RiLockPasswordFill size={70} className="pt-4" />
-                <div className="container mx-1">
-                  <label htmlFor="oldPassword">Old Password:</label>
-                  <input
-                    type="password"
-                    placeholder="Enter Your Previous Password"
-                    value={oldPassword}
-                    name="oldPassword"
-                    className="form-control"
-                    onChange={this.changeHandler}
-                  />
-                </div>
-              </div>
+            <div className="my-4 container d-block text-center bg-light ">
+              <hr />
+              FIll All The Fields Below If You Want To Change Your Password
+              <hr />
             </div>
             <div className="form-group">
               <div className="d-flex">
@@ -155,13 +187,20 @@ class UserEdit extends Component {
                 <div className="container mx-1">
                   <label htmlFor="newPassword">New Password:</label>
                   <input
-                    type="newPassword"
+                    type="password"
                     placeholder="Enter Your New Password"
                     value={newPassword}
                     name="newPassword"
-                    className="form-control"
+                    className={
+                      error?.newPassword
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     onChange={this.changeHandler}
                   />
+                  {error?.newPassword && (
+                    <div className="invalid-feedback">{error?.newPassword}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -169,15 +208,26 @@ class UserEdit extends Component {
               <div className="d-flex">
                 <RiLockPasswordFill size={70} className="pt-4" />
                 <div className="container mx-1">
-                  <label htmlFor="confirmPassword">Confirm New Password:</label>
+                  <label htmlFor="confirmNewPassword">
+                    Confirm New Password:
+                  </label>
                   <input
-                    type="confirmPassword"
+                    type="password"
                     placeholder="Enter Your New Password"
-                    value={confirmPassword}
-                    name="confirmPassword"
-                    className="form-control"
+                    value={confirmNewPassword}
+                    name="confirmNewPassword"
+                    className={
+                      error?.confirmNewPassword
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     onChange={this.changeHandler}
                   />
+                  {error?.confirmNewPassword && (
+                    <div className="invalid-feedback">
+                      {error?.confirmNewPassword}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
