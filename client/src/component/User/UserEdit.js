@@ -4,6 +4,7 @@ import { GiCheckMark } from "react-icons/gi";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail, MdAddAPhoto } from "react-icons/md";
 import { updateProfile } from "../../store/actions/adminAction";
+import { updateMyProfile } from "../../store/actions/guideAction";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 class UserEdit extends Component {
@@ -69,7 +70,7 @@ class UserEdit extends Component {
 
     if (this.props.admin.isAuthenticated)
       this.props.updateProfile(this.state, this.props.history);
-    else console.log("guide");
+    else this.props.updateMyProfile(this.state, this.props.history);
   };
 
   render() {
@@ -260,6 +261,6 @@ const mapStateToProps = (state) => {
     admin: state.admin,
   };
 };
-export default connect(mapStateToProps, { updateProfile })(
+export default connect(mapStateToProps, { updateProfile, updateMyProfile })(
   withRouter(UserEdit)
 );

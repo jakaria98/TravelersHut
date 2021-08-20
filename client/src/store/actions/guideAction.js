@@ -120,6 +120,32 @@ export const deleteGuide = (id, history) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const updateMyProfile = (profile, history) => (dispatch) => {
+  Axios.post("/api/guide/updateProfile", profile)
+    .then((res) => {
+      let token = res.data;
+      let decode = jwtDecode(token);
+      localStorage.setItem("guide_token", token);
+      let time = decode.exp - decode.iat;
+      logoutTimer(dispatch, time * 1000, history);
+      setToken(token);
+      dispatch({
+        type: Types.SET_GUIDE,
+        payload: {
+          guide: decode,
+        },
+      });
+    })
+    .catch((error) => {
+      dispatch({
+        type: Types.GUIDE_ERROR,
+        payload: {
+          error: error.response.data,
+        },
+      });
+    });
+};
+
 export const logoutTimer = (dispatch, timer, history) => {
   setTimeout(() => {
     dispatch(guideLogout(history));

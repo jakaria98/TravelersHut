@@ -6,7 +6,6 @@ export const GUIDE_ERROR = "GUIDE_ERROR";
 export const GET_GUIDE = "GET_GUIDE";
 export const SINGLE_GUIDE = "SINGLE_GUIDE";
 export const DELETE_GUIDE = "DELETE_GUIDE";
-export const UPDATE_GUIDE = "UPDATE_GUIDE";
 
 export const SET_ADMIN = "SET_ADMIN";
 export const ADMIN_ERROR = "ADMIN_ERROR";

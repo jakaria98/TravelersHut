@@ -10,6 +10,11 @@ const loginValidator = require("../validator/loginValidator");
 const codeValidator = require("../validator/codeValidator");
 
 const {
+  userValidate,
+  newPassCheck,
+  currentPassCheck,
+} = require("../validator/userValidator");
+const {
   badRequest,
   serverError,
   notFound,
@@ -183,5 +188,123 @@ module.exports = {
         }
       })
       .catch((error) => serverError(res, error));
+  },
+
+  updateProfile(req, res) {
+    let updatedGuide = req.user;
+    let {
+      name,
+      email,
+      profilePhoto,
+      currentPassword,
+      confirmNewPassword,
+      newPassword,
+    } = req.body;
+    let password = req.user.password;
+    if (profilePhoto) updatedGuide.profilePhoto = profilePhoto;
+    let userCheck = userValidate({ name, email });
+    if (!userCheck.isValid) {
+      return badRequest(res, userCheck.error);
+    } else {
+      updatedGuide.name = name;
+      updatedGuide.email = email;
+    }
+    if (newPassword || confirmNewPassword) {
+      let passCheck = newPassCheck({ newPassword, confirmNewPassword });
+      if (!passCheck.isValid) {
+        return badRequest(res, passCheck.error);
+      } else {
+        bcrypt.hash(newPassword, 11, (err, hash) => {
+          if (err) return serverError(res, err);
+          else {
+            updatedGuide.password = hash;
+
+            let currentPass = currentPassCheck({ currentPassword });
+            if (!currentPass.isValid) {
+              return badRequest(res, currentPass.error);
+            } else {
+              bcrypt.compare(currentPassword, password, (err, result) => {
+                if (err) {
+                  return badRequest(res, err);
+                }
+
+                if (!result) {
+                  let invalidUser = {};
+                  invalidUser.invalidAccess = "Invalid Credential";
+                  return badRequest(res, invalidUser);
+                }
+                Guide.findByIdAndUpdate(
+                  req.user._id,
+                  { $set: updatedGuide },
+                  { new: true }
+                )
+                  .then((guide) => {
+                    if (guide) {
+                      let token = jwt.sign(
+                        {
+                          _id: guide._id,
+                          name: guide.name,
+                          email: guide.email,
+                          mobileNumber: guide.mobileNumber,
+                          profilePhoto: guide.profilePhoto,
+                          nid: guide.nid,
+                        },
+                        "GUIDE",
+                        { expiresIn: 60 * 60 * 24 * 7 }
+                      );
+                      token = `Bearer ${token}`;
+                      return everythingOk(res, token);
+                    } else {
+                      return badRequest(res, "User Not Updated");
+                    }
+                  })
+                  .catch((error) => serverError(res, error));
+              });
+            }
+          }
+        });
+      }
+    } else {
+      let currentPass = currentPassCheck({ currentPassword });
+      if (!currentPass.isValid) {
+        return badRequest(res, currentPass.error);
+      } else {
+        bcrypt.compare(currentPassword, password, (err, result) => {
+          if (err) return badRequest(res, err);
+          if (!result) {
+            let error = {};
+            error.invalidAccess = "Invalid Credential";
+            return badRequest(res, error);
+          }
+          Guide.findByIdAndUpdate(
+            req.user._id,
+            { $set: updatedGuide },
+            { new: true }
+          )
+            .then((guide) => {
+              if (guide) {
+                let token = jwt.sign(
+                  {
+                    _id: guide._id,
+                    name: guide.name,
+                    email: guide.email,
+                    mobileNumber: guide.mobileNumber,
+                    profilePhoto: guide.profilePhoto,
+                    nid: guide.nid,
+                  },
+                  "GUIDE",
+                  { expiresIn: 60 * 60 * 24 * 7 }
+                );
+                token = `Bearer ${token}`;
+                console.log(token);
+                return everythingOk(res, token);
+              } else {
+                return badRequest(res, "GUIDE Not updated");
+              }
+            })
+            .catch((error) => serverError(res, error));
+        });
+      }
+    }
   },
 };

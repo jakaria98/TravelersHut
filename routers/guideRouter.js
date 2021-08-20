@@ -5,6 +5,7 @@ const {
   getSingleGuide,
   registerRequest,
   deleteGuide,
+  updateProfile,
 } = require("../controller/guideController");
 const router = require("express").Router();
 const passport = require("passport");
@@ -24,6 +25,11 @@ router.post(
   "/register",
   passport.authenticate("visitor", { session: false }),
   register
+);
+router.post(
+  "/updateProfile",
+  passport.authenticate("guide", { session: false }),
+  updateProfile
 );
 
 router.get("/allGuide", allGuide);
