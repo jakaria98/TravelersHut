@@ -4,7 +4,8 @@ const Admin = require("../model/Admin");
 const loginValidator = require("../validator/loginValidator");
 const {
   userValidate,
-  passwordValidator,
+  newPassCheck,
+  currentPassCheck,
 } = require("../validator/userValidator");
 const {
   badRequest,
@@ -112,45 +113,111 @@ module.exports = {
       confirmNewPassword,
       newPassword,
     } = req.body;
+    let password = req.user.password;
     if (profilePhoto) updatedAdmin.profilePhoto = profilePhoto;
-    if (newPassword.length > 0 || confirmNewPassword.length > 0) {
-      let passwordValidate = passwordValidator({
-        newPassword,
-        confirmNewPassword,
-      });
-      if (!passwordValidate.isValid) {
-        return badRequest(res, passwordValidate.error);
+    let userCheck = userValidate({ name, email });
+    if (!userCheck.isValid) {
+      return badRequest(res, userCheck.error);
+    } else {
+      updatedAdmin.name = name;
+      updatedAdmin.email = email;
+    }
+    if (newPassword || confirmNewPassword) {
+      let passCheck = newPassCheck({ newPassword, confirmNewPassword });
+      if (!passCheck.isValid) {
+        return badRequest(res, passCheck.error);
       } else {
         bcrypt.hash(newPassword, 11, (err, hash) => {
-          if (err) {
-            return serverError(res, err);
-          } else {
+          if (err) return serverError(res, err);
+          else {
             updatedAdmin.password = hash;
+
+            let currentPass = currentPassCheck({ currentPassword });
+            if (!currentPass.isValid) {
+              return badRequest(res, currentPass.error);
+            } else {
+              bcrypt.compare(currentPassword, password, (err, result) => {
+                if (err) {
+                  return badRequest(res, err);
+                }
+
+                if (!result) {
+                  let invalidUser = {};
+                  invalidUser.invalidAccess = "Invalid Credential";
+                  return badRequest(res, invalidUser);
+                }
+                Admin.findByIdAndUpdate(
+                  req.user._id,
+                  { $set: updatedAdmin },
+                  { new: true }
+                )
+                  .then((admin) => {
+                    if (admin) {
+                      let token = jwt.sign(
+                        {
+                          _id: admin._id,
+                          name: admin.name,
+                          email: admin.email,
+                          mobileNumber: admin.mobileNumber,
+                          profilePhoto: admin.profilePhoto,
+                          nid: admin.nid,
+                        },
+                        "ADMIN",
+                        { expiresIn: 60 * 60 * 24 * 7 }
+                      );
+                      token = `Bearer ${token}`;
+                      return everythingOk(res, token);
+                    } else {
+                      return badRequest(res, "User Not Updated");
+                    }
+                  })
+                  .catch((error) => serverError(res, error));
+              });
+            }
           }
         });
       }
-    }
-    let validate = userValidate({ name, email, currentPassword });
-    if (!validate.isValid) {
-      return badRequest(res, validate.error);
-    }
-
-    bcrypt.compare(currentPassword, updatedAdmin.password, (err, result) => {
-      if (err) return serverError(res, error);
-      let error = {};
-      if (!result) {
-        error.currentPassword = "Invalid Credential";
-        return badRequest(res, error);
+    } else {
+      let currentPass = currentPassCheck({ currentPassword });
+      if (!currentPass.isValid) {
+        return badRequest(res, currentPass.error);
+      } else {
+        bcrypt.compare(currentPassword, password, (err, result) => {
+          if (err) return badRequest(res, err);
+          if (!result) {
+            let error = {};
+            error.invalidAccess = "Invalid Credential";
+            return badRequest(res, error);
+          }
+          Admin.findByIdAndUpdate(
+            req.user._id,
+            { $set: updatedAdmin },
+            { new: true }
+          )
+            .then((admin) => {
+              if (admin) {
+                let token = jwt.sign(
+                  {
+                    _id: admin._id,
+                    name: admin.name,
+                    email: admin.email,
+                    mobileNumber: admin.mobileNumber,
+                    profilePhoto: admin.profilePhoto,
+                    nid: admin.nid,
+                  },
+                  "ADMIN",
+                  { expiresIn: 60 * 60 * 24 * 7 }
+                );
+                token = `Bearer ${token}`;
+                console.log(token);
+                return everythingOk(res, token);
+              } else {
+                return badRequest(res, "Admin Not updated");
+              }
+            })
+            .catch((error) => serverError(res, error));
+        });
       }
-    });
-    Admin.findByIdAndUpdate(
-      updatedAdmin._id,
-      { $set: updatedAdmin },
-      { new: true }
-    )
-      .then((admin) => {
-        everythingOk(res, admin);
-      })
-      .catch((error) => serverError(res, error));
+    }
   },
 };

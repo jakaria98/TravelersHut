@@ -5,7 +5,7 @@ import { RiLockPasswordFill } from "react-icons/ri";
 import { MdEmail, MdAddAPhoto } from "react-icons/md";
 import { updateProfile } from "../../store/actions/adminAction";
 import { connect } from "react-redux";
-
+import { withRouter } from "react-router-dom";
 class UserEdit extends Component {
   state = {
     name: "",
@@ -67,7 +67,9 @@ class UserEdit extends Component {
   submitHandler = (e) => {
     e.preventDefault();
 
-    this.props.updateProfile(this.state);
+    if (this.props.admin.isAuthenticated)
+      this.props.updateProfile(this.state, this.props.history);
+    else console.log("guide");
   };
 
   render() {
@@ -79,8 +81,6 @@ class UserEdit extends Component {
       currentPassword,
       error,
     } = this.state;
-
-    console.log(this.props);
     return (
       <div className="my-5">
         <div className="col-md-6 offset-md-3">
@@ -230,8 +230,22 @@ class UserEdit extends Component {
                   )}
                 </div>
               </div>
+              <div className="form-group mt-3">
+                <input
+                  className={
+                    error?.invalidAccess
+                      ? "form-control is-invalid d-none"
+                      : "form-control d-none"
+                  }
+                />
+                {error?.invalidAccess && (
+                  <div className="invalid-feedback text-center">
+                    <h6>{error?.invalidAccess}</h6>
+                  </div>
+                )}
+              </div>
             </div>
-            <button className="btn btn-success container mt-3 mb-5 w-75 d-block">
+            <button className="btn btn-success container mb-5 w-75 d-block">
               Submit <GiCheckMark size={22} className="pb-1" />
             </button>
           </form>
@@ -246,4 +260,6 @@ const mapStateToProps = (state) => {
     admin: state.admin,
   };
 };
-export default connect(mapStateToProps, { updateProfile })(UserEdit);
+export default connect(mapStateToProps, { updateProfile })(
+  withRouter(UserEdit)
+);

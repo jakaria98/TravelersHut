@@ -77,13 +77,19 @@ export const singleAdmin = (id) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateProfile = (profile) => (dispatch) => {
+export const updateProfile = (profile, history) => (dispatch) => {
   Axios.post("/api/admin/updateProfile", profile)
-    .then((response) => {
+    .then((res) => {
+      let token = res.data;
+      let decode = jwtDecode(token);
+      localStorage.setItem("admin_token", token);
+      let time = decode.exp - decode.iat;
+      logoutTimer(dispatch, time * 1000, history);
+      setToken(token);
       dispatch({
-        type: Types.UPDATE_ADMIN,
+        type: Types.SET_ADMIN,
         payload: {
-          admin: response.data,
+          admin: decode,
         },
       });
     })

@@ -12,18 +12,25 @@ module.exports = {
     if (!user.name) {
       error.validName = "Please Provide A Name";
     }
-    if (!user.currentPassword) {
-      error.currentPassword = "Please Provide Your Current Password";
-    } else if (user.currentPassword.length < 6) {
-      error.currentPassword = "Invalid Password";
-    }
 
     return {
       error,
       isValid: Object.keys(error).length === 0,
     };
   },
-  passwordValidator(user) {
+  currentPassCheck(user) {
+    let error={}
+    if (!user.currentPassword) {
+      error.currentPassword = "Please Provide Your Current Password";
+    } else if (user.currentPassword.length < 6) {
+      error.currentPassword = "Invalid Password";
+    }
+    return {
+      error,
+      isValid: Object.keys(error).length === 0,
+    };
+  },
+  newPassCheck(user) {
     let error = {};
     if (!user.newPassword) {
       error.newPassword = "Please Provide A New Password";

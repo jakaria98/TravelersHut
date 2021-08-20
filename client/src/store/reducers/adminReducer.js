@@ -33,12 +33,6 @@ const adminReducer = (state = init, action) => {
         isAuthenticated: Object.keys(action.payload.admin).length !== 0,
       };
     }
-    case Types.UPDATE_ADMIN: {
-      return {
-        admin: action.payload.admin,
-        isAuthenticated: Object.keys(action.payload.admin).length !== 0,
-      };
-    }
     default:
       return state;
   }
