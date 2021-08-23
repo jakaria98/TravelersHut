@@ -150,10 +150,12 @@ h6 {
 
   display: block;
 }
-.mainImg {
-  position: relative;
+.mainImg img {
+  width: 100%;
 }
-
+.mainImg {
+  margin-bottom: 5px;
+}
 .filter-form {
   width: 60vw;
   margin: 0 auto;
@@ -222,6 +224,10 @@ h6 {
   transform: scale(0);
   transition: all 0.3s linear;
 }
+/* .img-container img {
+  width: "400px";
+  height: "300px";
+} */
 .img-container:hover {
   background: rgba(0, 0, 0, 0.8);
 }

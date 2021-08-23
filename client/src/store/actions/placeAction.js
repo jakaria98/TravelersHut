@@ -24,6 +24,7 @@ export const addPlace = (place) => (dispatch) => {
           place: response.data,
         },
       });
+     
     })
     .catch((error) => {
       dispatch({
@@ -59,7 +60,6 @@ export const removePlace = (id, history) => (dispatch) => {
         },
       });
       history.push("/all-places");
-      console.log("history called");
     })
     .catch((error) => {
       console.log(error);

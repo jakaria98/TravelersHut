@@ -101,6 +101,7 @@ class SinglePlace extends Component {
     let remainingRating = 5;
     // let previousRating = 0;
     let ratedPerson;
+    // console.log(place.coverPhoto);
     return (
       <>
         {place.length <= 0 ? (
@@ -431,7 +432,7 @@ class SinglePlace extends Component {
                 key={i}
               />
             ))
-          : this.props.loadPost(placeID)}
+          : null}
         <CreatePost
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}

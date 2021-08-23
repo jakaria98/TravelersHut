@@ -1,4 +1,5 @@
 const placeValidator = require("../validator/placeValidator");
+const fileUpload = require("express-fileupload");
 const {
   badRequest,
   serverError,
@@ -11,9 +12,8 @@ const Places = require("../model/Places");
 
 module.exports = {
   createPlace(req, res) {
-    let { name, division, district, upazila, coverPhoto, detailsPhoto } =
-      req.body;
-
+    let { name, division, district, upazila } = req.body;
+    let { detailsPhoto, coverPhoto } = req.files;
     let userId = req.user._id;
 
     let validate = placeValidator({
@@ -27,6 +27,27 @@ module.exports = {
     if (!validate.isValid) {
       return badRequest(res, validate.error);
     }
+    let cover_photo = coverPhoto.name;
+    let details_photo = [];
+    detailsPhoto.map((photo) => {
+      details_photo.push(photo.name);
+    });
+    coverPhoto.mv(
+      `${__dirname.replace("controller", "")}images/${cover_photo}`,
+      (err) => {
+        if (err) return serverError(res, err);
+      }
+    );
+    for (let i = 0; i < detailsPhoto.length; i++) {
+      let photo = detailsPhoto[i];
+      photo.mv(
+        `${__dirname.replace("controller", "")}images/${details_photo[i]}`,
+        (err) => {
+          if (err) return serverError(res, err);
+        }
+      );
+    }
+
     Guide.findOne(userId)
       .then((user) => {
         if (user) {
@@ -35,8 +56,8 @@ module.exports = {
             division,
             district,
             upazila,
-            coverPhoto,
-            detailsPhoto,
+            coverPhoto: cover_photo,
+            detailsPhoto: details_photo,
             ratedBy: [],
             ratingCount: 0,
             creatorGuide: userId,

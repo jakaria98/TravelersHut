@@ -14,12 +14,7 @@ const validate = (place) => {
   if (place.upazila.length <= 0) {
     error.upazila = "Please Enter Upazila";
   }
-  if (place.coverPhoto.length <= 0) {
-    error.coverPhoto = "Please Select a Cover Photo";
-  }
-  if (place.detailsPhoto.length <= 0) {
-    error.detailsPhoto = "Please Select Some Feature Photos";
-  }
+
   return {
     error,
     isValid: Object.keys(error).length === 0,

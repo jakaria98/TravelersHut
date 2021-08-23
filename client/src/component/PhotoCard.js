@@ -1,9 +1,10 @@
 import react from "react";
-const PhotoCard = (photo) => {
+import { picUrl } from "./picUrl";
+const PhotoCard = ({ photo }) => {
   return (
     <div className="placeDetails">
       <div className="placeDetailsImg-container">
-        <img src={`${photo}`} alt="" />
+        <img src={picUrl(photo)} alt={photo} />
       </div>
     </div>
   );

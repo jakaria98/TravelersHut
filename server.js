@@ -3,6 +3,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const fileUpload = require("express-fileupload");
 
 const app = express();
 app.use(morgan("dev"));
@@ -13,6 +14,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
 require("./passport")(passport);
+app.use(fileUpload());
+app.use(express.static("images"));
 
 app.use("/api/visitors", require("./routers/visitorRouter"));
 app.use("/api/guide", require("./routers/guideRouter"));

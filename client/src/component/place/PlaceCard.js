@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { picUrl } from "../picUrl";
 const PlaceCard = ({ name, coverPhoto, placeRating, _id, pathLink }) => (
   <article className="place">
     <div className="img-container">
-      <img src={coverPhoto} alt={name} />
+      <img src={picUrl(coverPhoto)} alt={name} />
       <div className="rating-top">
         <h6>rating {placeRating ? placeRating : 0} </h6>
       </div>

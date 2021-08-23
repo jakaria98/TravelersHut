@@ -12,7 +12,8 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "800px",
+    width: "60%",
+    height: "100%",
   },
 };
 
@@ -37,7 +38,7 @@ class AddPlace extends Component {
     //console.log(files);
     let selectedFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
-      selectedFiles.push(URL.createObjectURL(event.target.files[i]));
+      selectedFiles.push(event.target.files[i]);
     }
     this.setState({
       [event.target.name]: selectedFiles,
@@ -58,17 +59,42 @@ class AddPlace extends Component {
   submitHandler = (e) => {
     let { name, division, district, upazila, coverPhoto, detailsPhoto } =
       this.state;
-    if (
-      name.length === 0 ||
-      division.length === 0 ||
-      district.length === 0 ||
-      upazila.length === 0 ||
-      coverPhoto.length === 0 ||
-      detailsPhoto.length === 0
-    )
-      e.preventDefault();
 
-    this.props.addPlace(this.state);
+    // if (
+    //   name.length === 0 ||
+    //   division.length === 0 ||
+    //   district.length === 0 ||
+    //   upazila.length === 0 ||
+    //   coverPhoto.length === 0 ||
+    //   detailsPhoto.length === 0
+    // )
+    e.preventDefault();
+    const formData = new FormData();
+    const multiplePhoto = Object.values(detailsPhoto);
+    const singlePhoto = Object.values(coverPhoto);
+
+    if (!singlePhoto.length) {
+      this.setState({
+        error: { coverPhoto: "Please Add A cover Photo" },
+      });
+    } else if (!multiplePhoto.length) {
+      this.setState({
+        error: { detailsPhoto: "Please Add Some Additional Photo" },
+      });
+    } else {
+      for (let i = 0; i < multiplePhoto.length; i++) {
+        formData.append("detailsPhoto", multiplePhoto[i]);
+      }
+      singlePhoto.map((f) => {
+        formData.append("coverPhoto", f);
+      });
+      formData.append("name", name);
+      formData.append("division", division);
+      formData.append("district", district);
+      formData.append("upazila", upazila);
+
+      this.props.addPlace(formData, this.props.history);
+    }
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -86,6 +112,7 @@ class AddPlace extends Component {
   render() {
     let { name, division, district, error } = this.state;
     let divisionObject, districtObject;
+    console.log(this.props);
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -261,7 +288,7 @@ class AddPlace extends Component {
                   </div>
                 ))
               )}
-              <button className="btn btn-primary apply ">ADD</button>
+              <button className="btn btn-success container ">ADD</button>
             </form>
           </div>
         </div>

@@ -54,7 +54,7 @@ class AllPlaces extends Component {
                 )
               )
             )
-          : (this.props.loadPlaces(), (<Loading />))}
+          : ((<Loading />), this.props.loadPlaces())}
         <AddPlace
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}

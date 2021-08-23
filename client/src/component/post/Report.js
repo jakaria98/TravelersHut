@@ -12,8 +12,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    "max-width": "800px",
-    "min-width": "600px",
+    width: "60%",
   },
 };
 
