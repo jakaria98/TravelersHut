@@ -14,12 +14,6 @@ const validate = (post) => {
   if (!post.minimumCost) {
     error.minimumCost = "Please Provide Minimum Cost";
   }
-  if (post.coverPhoto.length<=0) {
-    error.coverPhoto = "Please Select a Cover Photo";
-  }
-  if (post.detailsPhoto.length <= 0) {
-    error.detailsPhoto = "Please Select Some Images";
-  }
   if (!post.details) {
     error.details = "Please Write Something About The Place";
   }

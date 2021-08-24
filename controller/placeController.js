@@ -13,7 +13,7 @@ const Places = require("../model/Places");
 module.exports = {
   createPlace(req, res) {
     let { name, division, district, upazila } = req.body;
-    let { detailsPhoto, coverPhoto } = req.files;
+    
     let userId = req.user._id;
 
     let validate = placeValidator({
@@ -21,12 +21,34 @@ module.exports = {
       division,
       district,
       upazila,
-      coverPhoto,
-      detailsPhoto,
     });
     if (!validate.isValid) {
+      if (!req.files) {
+        validate.error.coverPhoto = "Please Select A Cover Photo";
+        validate.error.detailsPhoto = "Please Select Some Additional Photos";
+      } else if (Object.keys(req.files).length === 1) {
+        if (req.files.coverPhoto) {
+          validate.error.detailsPhoto = "Please Select Some Additional Photos";
+        } else {
+          validate.error.coverPhoto = "Please Select A Cover Photo";
+        }
+      }
       return badRequest(res, validate.error);
     }
+    let error = {};
+    if (!req.files) {
+      error.coverPhoto = "Please Select A Cover Photo";
+      error.detailsPhoto = "Please Select Some Additional Photos";
+      return badRequest(res, error);
+    } else if (Object.keys(req.files).length === 1) {
+      if (req.files.coverPhoto) {
+        error.detailsPhoto = "Please Select Some Additional Photos";
+      } else {
+        error.coverPhoto = "Please Select A Cover Photo";
+      }
+      return badRequest(res, error);
+    }
+    let { detailsPhoto, coverPhoto } = req.files;
     let cover_photo = coverPhoto.name;
     let details_photo = [];
     detailsPhoto.map((photo) => {
@@ -155,7 +177,7 @@ module.exports = {
                   .catch((error) => serverError(res, error));
               }
             })
-            .cath((error) => serverError(res, error));
+            .catch((error) => serverError(res, error));
         } else {
           notFound(res, "Place doesn't exist");
         }

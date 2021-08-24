@@ -6,14 +6,14 @@ import { addPost } from "../../store/actions/postAction";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "55%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "800px",
-    height: "100%",
+    width: "60%",
+    height: "80%",
   },
 };
 class CreatePost extends Component {
@@ -33,7 +33,7 @@ class CreatePost extends Component {
     //console.log(files);
     let selectedFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
-      selectedFiles.push(URL.createObjectURL(event.target.files[i]));
+      selectedFiles.push(event.target.files[i]);
     }
     this.setState({
       [event.target.name]: selectedFiles,
@@ -98,19 +98,25 @@ class CreatePost extends Component {
     //   details.length === 0
     // )
     e.preventDefault();
-    this.props.addPost(
-      {
-        division,
-        district,
-        upazila,
-        minimumCost,
-        residence,
-        coverPhoto,
-        detailsPhoto,
-        details,
-      },
-      placeID
-    );
+
+    const formData = new FormData();
+    const multiplePhoto = Object.values(detailsPhoto);
+    const singlePhoto = Object.values(coverPhoto);
+
+    for (let i = 0; i < multiplePhoto.length; i++) {
+      formData.append("detailsPhoto", multiplePhoto[i]);
+    }
+    singlePhoto.map((f) => {
+      formData.append("coverPhoto", f);
+    });
+    formData.append("division", division);
+    formData.append("district", district);
+    formData.append("upazila", upazila);
+    formData.append("residence", residence);
+    formData.append("minimumCost", minimumCost);
+    formData.append("details", details);
+
+    this.props.addPost(formData, placeID);
   };
   render() {
     let {
@@ -132,7 +138,7 @@ class CreatePost extends Component {
       >
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <h1 className="text-center display-4">Create A Post</h1>
+            <h1 className="text-center display-4">Add A Review</h1>
             <form onSubmit={this.submitHandler}>
               <div className="form-group my-3">
                 <label htmlFor="division">Division:</label>

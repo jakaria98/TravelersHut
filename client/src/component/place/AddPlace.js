@@ -6,14 +6,14 @@ import { addPlace } from "../../store/actions/placeAction";
 
 const customStyles = {
   content: {
-    top: "50%",
+    top: "55%",
     left: "50%",
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "60%",
-    height: "100%",
+    height: "80%",
   },
 };
 
@@ -73,28 +73,18 @@ class AddPlace extends Component {
     const multiplePhoto = Object.values(detailsPhoto);
     const singlePhoto = Object.values(coverPhoto);
 
-    if (!singlePhoto.length) {
-      this.setState({
-        error: { coverPhoto: "Please Add A cover Photo" },
-      });
-    } else if (!multiplePhoto.length) {
-      this.setState({
-        error: { detailsPhoto: "Please Add Some Additional Photo" },
-      });
-    } else {
-      for (let i = 0; i < multiplePhoto.length; i++) {
-        formData.append("detailsPhoto", multiplePhoto[i]);
-      }
-      singlePhoto.map((f) => {
-        formData.append("coverPhoto", f);
-      });
-      formData.append("name", name);
-      formData.append("division", division);
-      formData.append("district", district);
-      formData.append("upazila", upazila);
-
-      this.props.addPlace(formData, this.props.history);
+    for (let i = 0; i < multiplePhoto.length; i++) {
+      formData.append("detailsPhoto", multiplePhoto[i]);
     }
+    singlePhoto.map((f) => {
+      formData.append("coverPhoto", f);
+    });
+    formData.append("name", name);
+    formData.append("division", division);
+    formData.append("district", district);
+    formData.append("upazila", upazila);
+
+    this.props.addPlace(formData, this.props.history);
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {

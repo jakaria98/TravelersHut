@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { picUrl } from "../picUrl";
 const PostCard = ({ coverPhoto, pathLink, _id, createdAt }) => (
   <article className="place">
     <div className="img-container">
-      <img src={coverPhoto} alt="Cover Photo" />
+      <img src={picUrl(coverPhoto)} alt="Cover Photo" />
       <Link
         to={{
           pathname: `${pathLink}/${_id}`,

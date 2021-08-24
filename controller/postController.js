@@ -9,28 +9,63 @@ const {
 const postValidator = require("../validator/postValidator");
 module.exports = {
   createPost(req, res) {
-    let {
-      division,
-      district,
-      upazila,
-      minimumCost,
-      residence,
-      coverPhoto,
-      detailsPhoto,
-      details,
-    } = req.body;
+    let { division, district, upazila, minimumCost, residence, details } =
+      req.body;
     let { placeID } = req.params;
     let validate = postValidator({
       division,
       district,
       upazila,
       minimumCost,
-      coverPhoto,
-      detailsPhoto,
       details,
     });
+    // console.log(Object.keys(req.files).length);
     if (!validate.isValid) {
+      if (!req.files) {
+        validate.error.coverPhoto = "Please Select A Cover Photo";
+        validate.error.detailsPhoto = "Please Select Some Additional Photos";
+      } else if (Object.keys(req.files).length === 1) {
+        if (req.files.coverPhoto) {
+          validate.error.detailsPhoto = "Please Select Some Additional Photos";
+        } else {
+          validate.error.coverPhoto = "Please Select A Cover Photo";
+        }
+      }
       return badRequest(res, validate.error);
+    }
+    let error = {};
+    if (!req.files) {
+      error.coverPhoto = "Please Select A Cover Photo";
+      error.detailsPhoto = "Please Select Some Additional Photos";
+      return badRequest(res, error);
+    } else if (Object.keys(req.files).length === 1) {
+      if (req.files.coverPhoto) {
+        error.detailsPhoto = "Please Select Some Additional Photos";
+      } else {
+        error.coverPhoto = "Please Select A Cover Photo";
+      }
+      return badRequest(res, error);
+    }
+    let { detailsPhoto, coverPhoto } = req.files;
+    let cover_photo = coverPhoto.name;
+    let details_photo = [];
+    detailsPhoto.map((photo) => {
+      details_photo.push(photo.name);
+    });
+    coverPhoto.mv(
+      `${__dirname.replace("controller", "")}images/${cover_photo}`,
+      (err) => {
+        if (err) return serverError(res, err);
+      }
+    );
+    for (let i = 0; i < detailsPhoto.length; i++) {
+      let photo = detailsPhoto[i];
+      photo.mv(
+        `${__dirname.replace("controller", "")}images/${details_photo[i]}`,
+        (err) => {
+          if (err) return serverError(res, err);
+        }
+      );
     }
     let post = new Posts({
       division,
@@ -38,8 +73,8 @@ module.exports = {
       upazila,
       minimumCost,
       residence,
-      coverPhoto,
-      detailsPhoto,
+      coverPhoto: cover_photo,
+      detailsPhoto: details_photo,
       details,
       place: placeID,
       createdAt: new Date().toISOString(),

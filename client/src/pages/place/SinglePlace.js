@@ -121,7 +121,7 @@ class SinglePlace extends Component {
           />
         )}
         {
-          (place.length <= 0 ? (
+          (Object.keys(place).length === 0 ? (
             <Loading />
           ) : place.ratedBy ? (
             place.ratedBy.length > 0 ? (
@@ -143,7 +143,7 @@ class SinglePlace extends Component {
               })
             : null)
         }
-        <div className=" mt-4 mb-5">
+        <div className=" mt-4 mb-4">
           <div className="container">
             <div className="row d-flex justify-content-center">
               <div className="col-xs-12 col-md-6">
@@ -401,7 +401,7 @@ class SinglePlace extends Component {
 
         {this.props.guide.isAuthenticated ? (
           <button
-            className="btn btn-primary d-block container my-4"
+            className="btn btn-primary d-block container mt-3 mb-2"
             onClick={this.openCreateModal}
           >
             Add A Review <RiMapPinAddFill size={25} className="pb-1" />
