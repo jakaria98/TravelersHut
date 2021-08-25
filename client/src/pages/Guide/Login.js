@@ -2,6 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../store/actions/guideAction";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { GiCheckMark } from "react-icons/gi";
 class Login extends React.Component {
   state = {
     email: "",
@@ -34,51 +37,65 @@ class Login extends React.Component {
 
   render() {
     let { email, password, error } = this.state;
-    
+
     error = error?.message;
     return (
-      <div className="row">
+      <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
           <h1 className="text-center display-4">Login Here</h1>
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
-              <label htmlFor="email">Email: </label>
-              <input
-                type="email"
-                placeholder="Enter Your Email"
-                name="email"
-                className={
-                  error?.email ? "form-control is-invalid" : "form-control"
-                }
-                id="email"
-                value={email}
-                onChange={this.changeHandler}
-              />
-              {error?.email && (
-                <div className="invalid-feedback">{error?.email}</div>
-              )}
+              <div className="d-flex">
+                <MdEmail size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="email">Email: </label>
+                  <input
+                    type="email"
+                    placeholder="Enter Your Email"
+                    name="email"
+                    className={
+                      error?.email ? "form-control is-invalid" : "form-control"
+                    }
+                    id="email"
+                    value={email}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.email && (
+                    <div className="invalid-feedback">{error?.email}</div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="form-group my-2">
-              <label htmlFor="password">Password: </label>
-              <input
-                type="password"
-                placeholder="Enter Your Password"
-                name="password"
-                className={
-                  error?.password ? "form-control is-invalid" : "form-control"
-                }
-                id="password"
-                value={password}
-                onChange={this.changeHandler}
-              />
-              {error?.password && (
-                <div className="invalid-feedback">{error?.password}</div>
-              )}
+              <div className="d-flex">
+                <RiLockPasswordFill size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="password">Password: </label>
+                  <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    name="password"
+                    className={
+                      error?.password
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    id="password"
+                    value={password}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.password && (
+                    <div className="invalid-feedback">{error?.password}</div>
+                  )}
+                </div>
+              </div>
             </div>
-            <Link to="/guide/register" className="my-1">
-              Don't Have Account? Register Here.
-            </Link>
-            <button className="btn btn-primary my-2 d-block">Login</button>
+            <div className="container d-block my-1 text-center">
+              <Link to="#">Forget Password</Link>
+            </div>
+            <button className="btn btn-success my-2 container w-75 d-block">
+              Login <GiCheckMark size={22} className="pb-1" />
+            </button>
           </form>
         </div>
       </div>
