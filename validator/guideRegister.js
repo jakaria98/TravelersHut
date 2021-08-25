@@ -29,9 +29,6 @@ const validate = (admin) => {
   } else if (admin.mobileNumber < 11) {
     error.mobileNumber = "Mobile Number Must be Equal to 11 Character";
   }
-  if (admin.profilePhoto <= 0) {
-    error.profilePhoto = "Please Select a Profile Photo";
-  }
   if (admin.nid <= 0) {
     error.nid = "Please Upload the Both side of Your NID Card";
   }

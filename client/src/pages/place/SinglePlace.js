@@ -87,10 +87,14 @@ class SinglePlace extends Component {
     post.filter((pst) => pst.place == this.state.placeId);
   };
   personFilter = (obj, id) => {
-    obj.filter((info) => {
-      if (info.critics === id) return info.ratings;
-      return 0;
-    });
+    let x = 0;
+    for (let i = 0; i < obj.length; i++) {
+      if (obj[i].critics === id) {
+        x = obj.ratings;
+        i = obj.length;
+      }
+    }
+    return x;
   };
 
   render() {
@@ -100,8 +104,8 @@ class SinglePlace extends Component {
     let averageRating = 0;
     let remainingRating = 5;
     // let previousRating = 0;
-    let ratedPerson;
-    // console.log(place.coverPhoto);
+    let ratedPerson = {};
+    console.log(place.ratedBy);
     return (
       <>
         {place.length <= 0 ? (
@@ -120,29 +124,19 @@ class SinglePlace extends Component {
             report=""
           />
         )}
-        {
-          (Object.keys(place).length === 0 ? (
-            <Loading />
-          ) : place.ratedBy ? (
-            place.ratedBy.length > 0 ? (
-              ((ratedPerson = place.ratedBy.filter(
-                (info) => info.critics === visitor._id
-              )),
+        {!place
+          ? ((<Loading />), this.props.getSinglePlace(placeID))
+          : place.ratedBy
+          ? place.ratedBy.length > 0
+            ? ((previousRating = this.personFilter(place.ratedBy, visitor._id)),
               ((averageRating = Math.round(
                 place.ratingCount / place.ratedBy.length
               )),
               (remainingRating -= Math.round(
                 place.ratingCount / place.ratedBy.length
               ))))
-            ) : null
-          ) : null,
-          ratedPerson ? (previousRating = ratedPerson[0].ratings) : null,
-          previousRating && rating == 0
-            ? this.setState({
-                rating: previousRating,
-              })
-            : null)
-        }
+            : null
+          : null}
         <div className=" mt-4 mb-4">
           <div className="container">
             <div className="row d-flex justify-content-center">

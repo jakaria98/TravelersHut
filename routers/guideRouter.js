@@ -10,22 +10,10 @@ const {
 const router = require("express").Router();
 const passport = require("passport");
 
-router.post(
-  "/login",
-  passport.authenticate("visitor", { session: false }),
-  login
-);
+router.post("/login", login);
 
-router.post(
-  "/registerRequest",
-  passport.authenticate("visitor", { session: false }),
-  registerRequest
-);
-router.post(
-  "/register",
-  passport.authenticate("visitor", { session: false }),
-  register
-);
+router.post("/registerRequest", registerRequest);
+router.post("/register", register);
 router.post(
   "/updateProfile",
   passport.authenticate("guide", { session: false }),

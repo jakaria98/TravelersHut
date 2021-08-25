@@ -5,7 +5,7 @@ const config = require("../config");
 const client = require("twilio")(config.accountSID, config.authToken);
 
 const Guide = require("../model/Guide");
-const adminRegister = require("../validator/adminRegister");
+const guideRegister = require("../validator/guideRegister");
 const loginValidator = require("../validator/loginValidator");
 const codeValidator = require("../validator/codeValidator");
 
@@ -74,7 +74,7 @@ module.exports = {
       profilePhoto,
       nid,
     } = req.body;
-    let validate = adminRegister({
+    let validate = guideRegister({
       name,
       email,
       mobileNumber,

@@ -21,7 +21,7 @@ class Register extends React.Component {
     name: "",
     email: "",
     mobileNumber: "",
-    profilePhoto: "",
+    profilePhoto: null,
     nid: [],
     password: "",
     confirmPassword: "",

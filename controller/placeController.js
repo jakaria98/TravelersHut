@@ -13,7 +13,7 @@ const Places = require("../model/Places");
 module.exports = {
   createPlace(req, res) {
     let { name, division, district, upazila } = req.body;
-    
+
     let userId = req.user._id;
 
     let validate = placeValidator({
@@ -124,9 +124,10 @@ module.exports = {
   },
   getSinglePlace(req, res) {
     let { placeID } = req.params;
-
+console.log(placeID)
     Places.findById(placeID)
       .then((place) => {
+        console.log(place);
         if (!place) {
           badRequest(res, "No Place Found");
         } else {
