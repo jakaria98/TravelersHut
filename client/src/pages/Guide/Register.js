@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { register, registerRequest } from "../../store/actions/guideAction";
 import Modal from "react-modal";
+import { BiUserPin } from "react-icons/bi";
+import { MdEmail } from "react-icons/md";
 
 const customStyles = {
   content: {
@@ -118,46 +120,56 @@ class Register extends React.Component {
     error = error?.message;
     console.log(error);
     return (
-      <div className="row">
+      <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
-          <h1 className="text-center display-4">
-            Apply For Guidance Card Here
-          </h1>
+          <h1 className="text-center display-4">Guide Register</h1>
           <div className="container">
             <form onSubmit={this.submitHandler}>
               <div className="form-group">
-                <label htmlFor="name">Name: </label>
-                <input
-                  type="text"
-                  placeholder="Enter Your Name"
-                  name="name"
-                  className={
-                    error?.name ? "form-control is-invalid" : "form-control"
-                  }
-                  id="name"
-                  value={name}
-                  onChange={this.changeHandler}
-                />
-                {error?.name && (
-                  <div className="invalid-feedback">{error?.name}</div>
-                )}
+                <div className="d-flex">
+                  <BiUserPin size={70} className="pt-4" />
+                  <div className="container mx-1">
+                    <label htmlFor="name">Name: </label>
+                    <input
+                      type="text"
+                      placeholder="Enter Your Name"
+                      name="name"
+                      className={
+                        error?.name ? "form-control is-invalid" : "form-control"
+                      }
+                      id="name"
+                      value={name}
+                      onChange={this.changeHandler}
+                    />
+                    {error?.name && (
+                      <div className="invalid-feedback">{error?.name}</div>
+                    )}
+                  </div>
+                </div>
               </div>
               <div className="form-group my-3">
-                <label htmlFor="email">Email: </label>
-                <input
-                  type="email"
-                  placeholder="Enter Your Email"
-                  name="email"
-                  className={
-                    error?.email ? "form-control is-invalid" : "form-control"
-                  }
-                  id="email"
-                  value={email}
-                  onChange={this.changeHandler}
-                />
-                {error?.email && (
-                  <div className="invalid-feedback">{error?.email}</div>
-                )}
+                <div className="d-flex">
+                  <MdEmail size={70} className="pt-4" />
+                  <div className="container mx-1">
+                    <label htmlFor="email">Email: </label>
+                    <input
+                      type="email"
+                      placeholder="Enter Your Email"
+                      name="email"
+                      className={
+                        error?.email
+                          ? "form-control is-invalid"
+                          : "form-control"
+                      }
+                      id="email"
+                      value={email}
+                      onChange={this.changeHandler}
+                    />
+                    {error?.email && (
+                      <div className="invalid-feedback">{error?.email}</div>
+                    )}
+                  </div>
+                </div>
               </div>
 
               <div className="form-group">

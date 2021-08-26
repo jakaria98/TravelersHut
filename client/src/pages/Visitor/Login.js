@@ -42,7 +42,7 @@ class Login extends React.Component {
     return (
       <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
-          <h1 className="text-center display-4">Login Here</h1>
+          <h1 className="text-center display-4">Tourist Login</h1>
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
               <div className="d-flex">
@@ -90,12 +90,13 @@ class Login extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="container d-block my-1 text-center">
-              <Link to="#">Forget Password</Link>
-            </div>
+
             <button className="btn btn-success my-2 container w-75 d-block">
               Login <GiCheckMark size={22} className="pb-1" />
             </button>
+            <div className="container d-block my-1 text-center">
+              <Link to="#">Forget Password</Link>
+            </div>
           </form>
         </div>
       </div>

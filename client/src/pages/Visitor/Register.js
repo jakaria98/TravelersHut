@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { register } from "../../store/actions/visitorAction";
+import { BiUserPin } from "react-icons/bi";
+import { MdEmail } from "react-icons/md";
+import { RiLockPasswordFill } from "react-icons/ri";
+import { GiCheckMark } from "react-icons/gi";
 class Register extends React.Component {
   state = {
     name: "",
@@ -41,84 +45,108 @@ class Register extends React.Component {
     let { name, email, password, confirmPassword, error } = this.state;
     error = error?.message;
     return (
-      <div className="row">
+      <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
-          <h1 className="text-center display-4">Register Here</h1>
+          <h1 className="text-center display-4">Tourist Register</h1>
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
-              <label htmlFor="name">Name: </label>
-              <input
-                type="text"
-                placeholder="Enter Your Name"
-                name="name"
-                className={
-                  error?.name ? "form-control is-invalid" : "form-control"
-                }
-                id="name"
-                value={name}
-                onChange={this.changeHandler}
-              />
-              {error?.name && (
-                <div className="invalid-feedback">{error?.name}</div>
-              )}
+              <div className="d-flex">
+                <BiUserPin size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="name">Name: </label>
+                  <input
+                    type="text"
+                    placeholder="Enter Your Name"
+                    name="name"
+                    className={
+                      error?.name ? "form-control is-invalid" : "form-control"
+                    }
+                    id="name"
+                    value={name}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.name && (
+                    <div className="invalid-feedback">{error?.name}</div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="form-group my-2">
-              <label htmlFor="email">Email: </label>
-              <input
-                type="email"
-                placeholder="Enter Your Email"
-                name="email"
-                className={
-                  error?.email ? "form-control is-invalid" : "form-control"
-                }
-                id="email"
-                value={email}
-                onChange={this.changeHandler}
-              />
-              {error?.email && (
-                <div className="invalid-feedback">{error?.email}</div>
-              )}
+              <div className="d-flex">
+                <MdEmail size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="email">Email: </label>
+                  <input
+                    type="email"
+                    placeholder="Enter Your Email"
+                    name="email"
+                    className={
+                      error?.email ? "form-control is-invalid" : "form-control"
+                    }
+                    id="email"
+                    value={email}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.email && (
+                    <div className="invalid-feedback">{error?.email}</div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password: </label>
-              <input
-                type="password"
-                placeholder="Enter Your Password"
-                name="password"
-                className={
-                  error?.password ? "form-control is-invalid" : "form-control"
-                }
-                id="password"
-                value={password}
-                onChange={this.changeHandler}
-              />
-              {error?.password && (
-                <div className="invalid-feedback">{error?.password}</div>
-              )}
+              <div className="d-flex">
+                <RiLockPasswordFill size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="password">Password: </label>
+                  <input
+                    type="password"
+                    placeholder="Enter Your Password"
+                    name="password"
+                    className={
+                      error?.password
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    id="password"
+                    value={password}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.password && (
+                    <div className="invalid-feedback">{error?.password}</div>
+                  )}
+                </div>
+              </div>
             </div>
             <div className="form-group my-2">
-              <label htmlFor="confirmPassword">Confirm Password: </label>
-              <input
-                type="password"
-                placeholder="Confirm Your Password"
-                name="confirmPassword"
-                className={
-                  error?.confirmPassword
-                    ? "form-control is-invalid"
-                    : "form-control"
-                }
-                id="confirmPassword"
-                value={confirmPassword}
-                onChange={this.changeHandler}
-              />
-              {error?.confirmPassword && (
-                <div className="invalid-feedback">{error?.confirmPassword}</div>
-              )}
+              <div className="d-flex">
+                <RiLockPasswordFill size={70} className="pt-4" />
+                <div className="container mx-1">
+                  <label htmlFor="confirmPassword">Confirm Password: </label>
+                  <input
+                    type="password"
+                    placeholder="Confirm Your Password"
+                    name="confirmPassword"
+                    className={
+                      error?.confirmPassword
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    id="confirmPassword"
+                    value={confirmPassword}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.confirmPassword && (
+                    <div className="invalid-feedback">
+                      {error?.confirmPassword}
+                    </div>
+                  )}
+                </div>
+              </div>
             </div>
-            <Link to="/login" className="my-1">
-              Already Have An Account? Login Here.
-            </Link>
-            <button className="btn btn-primary my-2 d-block">Register</button>
+
+            <button className="btn btn-success my-3 d-block container w-75">
+              Register <GiCheckMark size={22} className="pb-1" />
+            </button>
           </form>
         </div>
       </div>
