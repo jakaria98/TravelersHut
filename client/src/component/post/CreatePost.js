@@ -44,6 +44,14 @@ class CreatePost extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
+    if (event.target.name === "division" && event.target.value.length === 0) {
+      this.setState({ district: "", upazila: "" });
+    } else if (
+      event.target.name === "district" &&
+      event.target.value.length === 0
+    ) {
+      this.setState({ upazila: "" });
+    }
   };
 
   checkHandler = (key) => {

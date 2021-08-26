@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import AddPlace from "../../component/place/AddPlace";
 import Loading from "../../component/Loading";
+import { RiMapPinAddFill } from "react-icons/ri";
 class AllPlaces extends Component {
   state = {
     createModalOpen: false,
@@ -27,15 +28,22 @@ class AllPlaces extends Component {
     let placeRating = 0;
     return (
       <>
-        <div className="my-5"></div>
-        {this.props.guide.isAuthenticated ? (
-          <button
-            className="btn btn-primary d-block center container"
-            onClick={this.openCreateModal}
-          >
-            Add A Place
-          </button>
-        ) : null}
+        <div style={{ marginTop: "100px" }}>
+          <div className="container div d-block text-center">
+            <h1 className="display-4" style={{ margin: "5px" }}>
+              ALL PLACES
+            </h1>
+            <div />
+          </div>
+          {this.props.guide.isAuthenticated ? (
+            <button
+              className="btn btn-primary d-block w-75 container"
+              onClick={this.openCreateModal}
+            >
+              Add A Place <RiMapPinAddFill size={22} className="pb-1" />
+            </button>
+          ) : null}
+        </div>
         {place.length > 0
           ? place.map(
               (plc) => (

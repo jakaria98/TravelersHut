@@ -17,7 +17,7 @@ class Navbar extends Component {
           </Link>
         </div>
         <input type="checkbox" id="check" />
-        <label for="check" className="check-btn">
+        <label htmlFor="check" className="check-btn">
           <FaBars />
         </label>
         {this.props.visitor.isAuthenticated &&

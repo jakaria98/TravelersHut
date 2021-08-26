@@ -18,6 +18,7 @@ import {
   FaTrash,
 } from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
+import { MdRateReview } from "react-icons/md";
 
 import { RiMapPinAddFill } from "react-icons/ri";
 import { VscReport } from "react-icons/vsc";
@@ -29,7 +30,6 @@ class SinglePlace extends Component {
     reportModalOpen: false,
     placeID: "",
     rating: 0,
-    previousRating: 0,
   };
 
   openCreateModal = () => {
@@ -84,14 +84,14 @@ class SinglePlace extends Component {
   };
 
   postFilter = (post) => {
-    post.filter((pst) => pst.place == this.state.placeId);
+    post.filter((pst) => pst.place === this.state.placeId);
   };
   personFilter = (obj, id) => {
     let x = 0;
     for (let i = 0; i < obj.length; i++) {
       if (obj[i].critics === id) {
-        x = obj.ratings;
-        i = obj.length;
+        x = obj[i].ratings;
+        i = obj.length + 1;
       }
     }
     return x;
@@ -100,12 +100,11 @@ class SinglePlace extends Component {
   render() {
     let { place, post, visitor } = this.props;
     visitor = visitor.visitor;
-    let { rating, previousRating, placeID } = this.state;
+    let { rating, placeID } = this.state;
     let averageRating = 0;
     let remainingRating = 5;
-    // let previousRating = 0;
-    let ratedPerson = {};
-    console.log(place.ratedBy);
+    let previousRating = 0;
+    //console.log(previousRating);
     return (
       <>
         {place.length <= 0 ? (
@@ -113,16 +112,18 @@ class SinglePlace extends Component {
           this.props.loadPost(placeID),
           (<Loading />))
         ) : (
-          <PlaceInfo
-            coverPhoto={place.coverPhoto}
-            name={place.name}
-            division={place.division}
-            district={place.district}
-            upazila={place.upazila}
-            createdAt={place.createdAt}
-            detailsPhoto={place.detailsPhoto}
-            report=""
-          />
+          <div style={{ marginTop: "80px" }}>
+            <PlaceInfo
+              coverPhoto={place.coverPhoto}
+              name={place.name}
+              division={place.division}
+              district={place.district}
+              upazila={place.upazila}
+              createdAt={place.createdAt}
+              detailsPhoto={place.detailsPhoto}
+              report=""
+            />
+          </div>
         )}
         {!place
           ? ((<Loading />), this.props.getSinglePlace(placeID))
@@ -132,11 +133,15 @@ class SinglePlace extends Component {
               ((averageRating = Math.round(
                 place.ratingCount / place.ratedBy.length
               )),
+              previousRating && rating === 0
+                ? this.setState({ rating: previousRating })
+                : null,
               (remainingRating -= Math.round(
                 place.ratingCount / place.ratedBy.length
               ))))
             : null
           : null}
+
         <div className=" mt-4 mb-4">
           <div className="container">
             <div className="row d-flex justify-content-center">
@@ -395,15 +400,15 @@ class SinglePlace extends Component {
 
         {this.props.guide.isAuthenticated ? (
           <button
-            className="btn btn-primary d-block container mt-3 mb-2"
+            className="btn btn-primary d-block container mt-3 w-75 mb-2"
             onClick={this.openCreateModal}
           >
-            Add A Review <RiMapPinAddFill size={25} className="pb-1" />
+            Add A Review <MdRateReview size={22}  />
           </button>
         ) : null}
         {this.props.admin.isAuthenticated ? (
           <button
-            className="container btn btn-danger  d-block  mb-4"
+            className="container btn btn-danger  w-75 d-block  mb-4"
             onClick={() =>
               this.props.removePlace(place._id, this.props.history)
             }

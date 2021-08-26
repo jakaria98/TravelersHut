@@ -32,8 +32,15 @@ class AddPlace extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
+    if (event.target.name === "division" && event.target.value.length === 0) {
+      this.setState({ district: "", upazila: "" });
+    } else if (
+      event.target.name === "district" &&
+      event.target.value.length === 0
+    ) {
+      this.setState({ upazila: "" });
+    }
   };
-
   getPhoto = (event) => {
     //console.log(files);
     let selectedFiles = [];
@@ -102,7 +109,6 @@ class AddPlace extends Component {
   render() {
     let { name, division, district, error } = this.state;
     let divisionObject, districtObject;
-    console.log(this.props);
     return (
       <Modal
         isOpen={this.props.isOpen}

@@ -474,3 +474,10 @@ nav ul li:hover ul {
   margin-left: 40%;
   margin-top: 10%;
 }
+.div div {
+  width: 10rem;
+  height: 5px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  background: var(--primaryColor);
+}
