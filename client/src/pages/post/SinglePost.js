@@ -11,15 +11,17 @@ class SinglePost extends Component {
   render() {
     let { post } = this.props;
     return (
-      <PostInfo
-        coverPhoto={post.coverPhoto}
-        detailsPhoto={post.detailsPhoto}
-        residence={post.residence}
-        details={post.details}
-        minimumCost={post.minimumCost}
-        report=""
-        id={post._id}
-      />
+      <div style={{ marginTop: "80px" }}>
+        <PostInfo
+          coverPhoto={post.coverPhoto}
+          detailsPhoto={post.detailsPhoto}
+          residence={post.residence}
+          details={post.details}
+          minimumCost={post.minimumCost}
+          report=""
+          id={post._id}
+        />
+      </div>
     );
   }
 }
