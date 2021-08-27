@@ -9,7 +9,7 @@ const UserInfo = ({
     <div style={{ marginTop: "100px" }}>
       <div className="div text-center">
         <h1 className="display-4" style={{ margin: "5px" }}>
-          MY PROFILE
+          My Profile
         </h1>
         <div />
       </div>

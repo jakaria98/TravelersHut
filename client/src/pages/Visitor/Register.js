@@ -47,7 +47,12 @@ class Register extends React.Component {
     return (
       <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
-          <h1 className="text-center display-4">Tourist Register</h1>
+          <div className="div text-center">
+            <h1 className="text-center display-4" style={{ margin: "5px" }}>
+              Tourist Register
+            </h1>
+            <div />
+          </div>
           <form onSubmit={this.submitHandler}>
             <div className="form-group">
               <div className="d-flex">

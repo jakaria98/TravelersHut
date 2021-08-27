@@ -31,7 +31,7 @@ class AllPlaces extends Component {
         <div style={{ marginTop: "100px" }}>
           <div className="container div d-block text-center">
             <h1 className="display-4" style={{ margin: "5px" }}>
-              ALL PLACES
+              All Places
             </h1>
             <div />
           </div>
