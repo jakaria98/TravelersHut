@@ -299,6 +299,20 @@ class Register extends React.Component {
                   </div>
                 </div>
               </div>
+              <div className="form-group mt-2">
+                <input
+                  className={
+                    error?.userExists
+                      ? "form-control is-invalid d-none"
+                      : "form-control d-none"
+                  }
+                />
+                {error?.userExists && (
+                  <div className="invalid-feedback text-center">
+                    <h6>{error?.userExists}</h6>
+                  </div>
+                )}
+              </div>
               <button className="container btn btn-success my-3 d-block center w-75">
                 Apply <GiCheckMark size={22} className="pb-1" />
               </button>
@@ -382,6 +396,7 @@ class Register extends React.Component {
                             </div>
                           )}
                         </div>
+
                         <button className="btn btn-primary container">
                           Register
                         </button>

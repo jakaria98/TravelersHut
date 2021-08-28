@@ -231,20 +231,20 @@ class UserEdit extends Component {
                   )}
                 </div>
               </div>
-              <div className="form-group mt-3">
-                <input
-                  className={
-                    error?.invalidAccess
-                      ? "form-control is-invalid d-none"
-                      : "form-control d-none"
-                  }
-                />
-                {error?.invalidAccess && (
-                  <div className="invalid-feedback text-center">
-                    <h6>{error?.invalidAccess}</h6>
-                  </div>
-                )}
-              </div>
+            </div>
+            <div className="form-group mt-2">
+              <input
+                className={
+                  error?.invalidAccess
+                    ? "form-control is-invalid d-none"
+                    : "form-control d-none"
+                }
+              />
+              {error?.invalidAccess && (
+                <div className="invalid-feedback text-center">
+                  <h6>{error?.invalidAccess}</h6>
+                </div>
+              )}
             </div>
             <button className="btn btn-success container mb-5 w-75 d-block">
               Submit <GiCheckMark size={22} className="pb-1" />

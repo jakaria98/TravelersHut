@@ -39,7 +39,9 @@ module.exports = {
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) return serverError(res, error);
           if (!result) {
-            return badRequest(res, " Password Doesn't Match");
+           let error = {};
+           error.invalidAccess = "Invalid Credential";
+           return badRequest(res, error);
           }
           let token = jwt.sign(
             {
@@ -86,16 +88,28 @@ module.exports = {
     if (!validate.isValid) {
       return badRequest(res, validate.error);
     } else {
-      client.verify
-        .services(config.serviceID)
-        .verifications.create({
-          to: `+88${mobileNumber}`,
-          channel: "sms",
+      Guide.findOne({ email })
+        .then((user) => {
+          if (user) {
+            let error = {};
+            error.userExists = "This Email Already Exists";
+            return badRequest(res, error);
+          } else {
+            client.verify
+              .services(config.serviceID)
+              .verifications.create({
+                to: `+88${mobileNumber}`,
+                channel: "sms",
+              })
+              .then((data) => {
+                everythingOk(res, data);
+              })
+              .catch((error) => serverError(res, error));
+          }
         })
-        .then((data) => {
-          everythingOk(res, data);
-        })
-        .catch((error) => serverError(res, error));
+        .catch((error) => {
+          return serverError(res, error);
+        });
     }
   },
   register(req, res) {
@@ -117,7 +131,9 @@ module.exports = {
           Guide.findOne({ email })
             .then((user) => {
               if (user) {
-                return badRequest(res, "guide already exists");
+                let error = {};
+                error.userExists = "This Email Already Exists";
+                return badRequest(res, error);
               }
 
               bcrypt.hash(password, 11, (err, hash) => {

@@ -13,6 +13,31 @@ class Navbar extends Component {
       <nav>
         <div className="nav-header">
           <Link to="/">
+            <img src={logo} alt="Travelers Hut" />
+          </Link>
+        </div>
+      </nav>
+    );
+  }
+}
+const mapStateToProps = (state) => {
+  return {
+    visitor: state.visitor,
+    guide: state.guide,
+    admin: state.admin,
+  };
+};
+export default connect(mapStateToProps, {
+  visitorLogout,
+  guideLogout,
+  adminLogout,
+})(withRouter(Navbar));
+
+{
+  /*
+  <nav>
+        <div className="nav-header">
+          <Link to="/">
             <img src={logo} alt="Travelers HUt" />
           </Link>
         </div>
@@ -111,121 +136,5 @@ class Navbar extends Component {
           </uL>
         )}
       </nav>
-    );
-  }
-}
-const mapStateToProps = (state) => {
-  return {
-    visitor: state.visitor,
-    guide: state.guide,
-    admin: state.admin,
-  };
-};
-export default connect(mapStateToProps, {
-  visitorLogout,
-  guideLogout,
-  adminLogout,
-})(withRouter(Navbar));
-
-{
-  /* 
-<nav className="navbar">
-        <div className="nav-center">
-          <div className="nav-header">
-            <Link to="/">
-              <img src={logo} alt="Travelers HUt" />
-            </Link>
-          </div>
-
-          {this.props.visitor.isAuthenticated &&
-          this.props.guide.isAuthenticated &&
-          this.props.admin.isAuthenticated ? (
-            <ul className="nav-links">
-              <li>
-                <Link to="/all-places">All Places</Link>
-              </li>
-
-              <li>
-                <Link to="/admin/action/allGuide">Guide List</Link>
-              </li>
-              <li>
-                <Link to="/all-admin">Admin List</Link>
-              </li>
-
-              <li>
-                <Link to="/all-places/reported-places">Reported Places</Link>
-              </li>
-              <li>
-                <Link to="/all-places/reported-posts">Reported Posts</Link>
-              </li>
-              <li>
-                <Link to="/my-profile">My Profile</Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  onClick={() => this.props.adminLogout(this.props.history)}
-                >
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          ) : this.props.visitor.isAuthenticated &&
-            this.props.guide.isAuthenticated &&
-            !this.props.admin.isAuthenticated ? (
-            <ul className="nav-links">
-              <li>
-                <Link to="/all-places">All Places</Link>
-              </li>
-              <li>
-                <Link to="/admin/login">Login As Admin</Link>
-              </li>
-              <li>
-                <Link to="/my-profile">My Profile</Link>
-              </li>
-              <li>
-                <Link
-                  to="3"
-                  onClick={() => this.props.guideLogout(this.props.history)}
-                >
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          ) : this.props.visitor.isAuthenticated &&
-            !this.props.guide.isAuthenticated &&
-            !this.props.admin.isAuthenticated ? (
-            <ul className="nav-links">
-              <li>
-                <Link to="/all-places">All Places</Link>
-              </li>
-              <li>
-                <Link to="/guide/login">Login as Guide</Link>
-              </li>
-              <li>
-                <Link to="/guide/register">Register as Guide</Link>
-              </li>
-              <li>
-                <Link
-                  to="#"
-                  onClick={() => this.props.visitorLogout(this.props.history)}
-                >
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          ) : (
-            <ul className="nav-links" style={{ "margin-left": "870px" }}>
-              <li>
-                <Link to="/login">Login</Link>
-              </li>
-
-              <li>
-                <Link to="/register">Register</Link>
-              </li>
-            </ul>
-          )}
-        </div>
-      </nav>
-*/
+  */
 }

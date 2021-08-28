@@ -28,7 +28,9 @@ module.exports = {
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) return serverError(res, error);
           if (!result) {
-            return badRequest(res, " Password Doesn't Match");
+            let error = {};
+            error.invalidAccess = "Invalid Credential";
+            return badRequest(res, error);
           }
           let token = jwt.sign(
             {
@@ -61,7 +63,9 @@ module.exports = {
       Visitor.findOne({ email })
         .then((user) => {
           if (user) {
-            return badRequest(res, "user already exists");
+            let error = {};
+            error.userExists = "This Email Already Exists";
+            return badRequest(res, error);
           }
 
           bcrypt.hash(password, 11, (err, hash) => {
