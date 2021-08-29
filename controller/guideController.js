@@ -50,7 +50,6 @@ module.exports = {
               email: user.email,
               mobileNumber: user.mobileNumber,
               profilePhoto: user.profilePhoto,
-              nid: user.nid,
               contribution: user.contribution,
               places: user.places,
               posts: user.posts,
@@ -214,16 +213,19 @@ module.exports = {
 
   updateProfile(req, res) {
     let updatedGuide = req.user;
-    let {
-      name,
-      email,
-      profilePhoto,
-      currentPassword,
-      confirmNewPassword,
-      newPassword,
-    } = req.body;
+    let { name, email, currentPassword, confirmNewPassword, newPassword } =
+      req.body;
     let password = req.user.password;
-    if (profilePhoto) updatedGuide.profilePhoto = profilePhoto;
+    if (req.files) {
+      let { profilePhoto } = req.files;
+      updatedGuide.profilePhoto = profilePhoto.name;
+      profilePhoto.mv(
+        `${__dirname.replace("controller", "")}images/${profilePhoto.name}`,
+        (err) => {
+          if (err) return serverError(res, err);
+        }
+      );
+    }
     let userCheck = userValidate({ name, email });
     if (!userCheck.isValid) {
       return badRequest(res, userCheck.error);
@@ -269,7 +271,6 @@ module.exports = {
                           email: guide.email,
                           mobileNumber: guide.mobileNumber,
                           profilePhoto: guide.profilePhoto,
-                          nid: guide.nid,
                         },
                         "GUIDE",
                         { expiresIn: 60 * 60 * 24 * 7 }

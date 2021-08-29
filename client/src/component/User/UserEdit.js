@@ -58,7 +58,7 @@ class UserEdit extends Component {
     //console.log(files);
     let selectedFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
-      selectedFiles.push(URL.createObjectURL(event.target.files[i]));
+      selectedFiles.push(event.target.files[i]);
     }
     this.setState({
       [event.target.name]: selectedFiles,
@@ -67,10 +67,27 @@ class UserEdit extends Component {
 
   submitHandler = (e) => {
     e.preventDefault();
-
+    const formData = new FormData();
+    let {
+      name,
+      email,
+      profilePhoto,
+      currentPassword,
+      newPassword,
+      confirmNewPassword,
+    } = this.state;
+    const singlePhoto = Object.values(profilePhoto);
+    singlePhoto.map((photo) => {
+      formData.append("profilePhoto", photo);
+    });
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("currentPassword", currentPassword);
+    formData.append("newPassword", newPassword);
+    formData.append("confirmNewPassword", confirmNewPassword);
     if (this.props.admin.isAuthenticated)
-      this.props.updateProfile(this.state, this.props.history);
-    else this.props.updateMyProfile(this.state, this.props.history);
+      this.props.updateProfile(formData, this.props.history);
+    else this.props.updateMyProfile(formData, this.props.history);
   };
 
   render() {

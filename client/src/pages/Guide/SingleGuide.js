@@ -32,14 +32,6 @@ class SingleGuide extends Component {
         {guide && this.props.admin.isAuthenticated ? (
           <div className="container">
             <button
-              className="d-block btn btn-danger container w-50 my-2"
-              onClick={() =>
-                this.props.deleteGuide(guide._id, this.props.history)
-              }
-            >
-              Remove <IoPersonRemove size={25} className="pb-1" />
-            </button>
-            <button
               className="d-block btn btn-success container w-50 my-2"
               onClick={() =>
                 this.props.register(
@@ -49,13 +41,20 @@ class SingleGuide extends Component {
                     mobileNumber: guide.mobileNumber,
                     password: guide.password,
                     profilePhoto: guide.profilePhoto,
-                    nid: guide.nid,
                   },
                   this.props.history
                 )
               }
             >
               Promote <RiAdminFill size={25} className="pb-1" />
+            </button>
+            <button
+              className="d-block btn btn-danger container w-50 my-2"
+              onClick={() =>
+                this.props.deleteGuide(guide._id, this.props.history)
+              }
+            >
+              Remove <IoPersonRemove size={25} className="pb-1" />
             </button>
           </div>
         ) : null}

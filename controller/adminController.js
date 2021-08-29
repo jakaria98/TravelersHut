@@ -42,7 +42,6 @@ module.exports = {
               email: user.email,
               mobileNumber: user.mobileNumber,
               profilePhoto: user.profilePhoto,
-              nid: user.nid,
             },
             "ADMIN",
             { expiresIn: 60 * 60 * 24 * 7 }
@@ -56,8 +55,7 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   register(req, res) {
-    console.log(req.body);
-    let { name, email, mobileNumber, password, profilePhoto, nid } = req.body;
+    let { name, email, mobileNumber, password, profilePhoto } = req.body;
     Admin.findOne({ email })
       .then((admin) => {
         if (admin) {
@@ -70,7 +68,6 @@ module.exports = {
           mobileNumber,
           password,
           profilePhoto,
-          nid,
         });
         user
           .save()
@@ -107,16 +104,19 @@ module.exports = {
   },
   updateProfile(req, res) {
     let updatedAdmin = req.user;
-    let {
-      name,
-      email,
-      profilePhoto,
-      currentPassword,
-      confirmNewPassword,
-      newPassword,
-    } = req.body;
+    let { name, email, currentPassword, confirmNewPassword, newPassword } =
+      req.body;
     let password = req.user.password;
-    if (profilePhoto) updatedAdmin.profilePhoto = profilePhoto;
+    if (req.file) {
+      let { profilePhoto } = req.files;
+      updatedAdmin.profilePhoto = profilePhoto.name;
+      profilePhoto.mv(
+        `${__dirname.replace("controller", "")}images/${profilePhoto.name}`,
+        (err) => {
+          if (err) return serverError(res, err);
+        }
+      );
+    }
     let userCheck = userValidate({ name, email });
     if (!userCheck.isValid) {
       return badRequest(res, userCheck.error);
@@ -162,7 +162,6 @@ module.exports = {
                           email: admin.email,
                           mobileNumber: admin.mobileNumber,
                           profilePhoto: admin.profilePhoto,
-                          nid: admin.nid,
                         },
                         "ADMIN",
                         { expiresIn: 60 * 60 * 24 * 7 }
