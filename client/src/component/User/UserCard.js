@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { picUrl } from "../picUrl";
 const UserCard = ({ profilePhoto, _id, name, linkPath }) => {
   return (
     <article className="place">
       <div className="img-container">
-        <img src={profilePhoto} alt="" />
+        <img src={picUrl(profilePhoto)} alt="" />
         <Link
           to={{
             pathname: `${linkPath}/${name}`,

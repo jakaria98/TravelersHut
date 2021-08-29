@@ -381,7 +381,7 @@ nav a {
   display: block;
   padding: 14px 20px;
   color: var(--mainBlack);
-  font-size: 17px;
+  font-size: 16px;
   text-decoration: none;
   letter-spacing: var(--mainSpacing);
   font-weight: 600;
@@ -460,9 +460,7 @@ li > a:only-child:after {
   nav ul ul a {
     padding: 0 40px;
   }
-  nav ul ul ul a {
-    padding: 0 80px;
-  }
+
   nav ul label:hover {
     color: var(--primaryColor);
   }

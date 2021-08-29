@@ -25,6 +25,7 @@ class UserProfile extends Component {
             (
               <div className="mt-5">
                 <UserInfo
+                  profilePhoto={admin.profilePhoto}
                   name={admin.name}
                   email={admin.email}
                   mobileNumber={admin.mobileNumber}
@@ -35,6 +36,7 @@ class UserProfile extends Component {
             (
               <div className="mt-5">
                 <UserInfo
+                  profilePhoto={guide.profilePhoto}
                   name={guide.name}
                   email={guide.email}
                   mobileNumber={guide.mobileNumber}

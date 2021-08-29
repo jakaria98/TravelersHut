@@ -29,7 +29,6 @@ class Navbar extends Component {
               <Link to="/all-places">
                 All Places
                 <GoLocation size={25} className="mx-1" />
-                <GoLocation size={25} className="mx-1" />
               </Link>
             </li>
             <li>

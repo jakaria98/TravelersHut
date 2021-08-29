@@ -39,9 +39,9 @@ module.exports = {
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) return serverError(res, error);
           if (!result) {
-           let error = {};
-           error.invalidAccess = "Invalid Credential";
-           return badRequest(res, error);
+            let error = {};
+            error.invalidAccess = "Invalid Credential";
+            return badRequest(res, error);
           }
           let token = jwt.sign(
             {
@@ -67,26 +67,23 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   registerRequest(req, res) {
-    let {
-      name,
-      email,
-      mobileNumber,
-      password,
-      confirmPassword,
-      profilePhoto,
-      nid,
-    } = req.body;
+    let { name, email, mobileNumber, password, confirmPassword } = req.body;
     let validate = guideRegister({
       name,
       email,
       mobileNumber,
       password,
       confirmPassword,
-      profilePhoto,
-      nid,
     });
     if (!validate.isValid) {
+      if (!req.files) {
+        validate.error.profilePhoto = "Please Select A Profile Photo";
+      }
       return badRequest(res, validate.error);
+    } else if (!req.files) {
+      let error = {};
+      error.profilePhoto = "Please Select A Profile Photo";
+      return badRequest(res, error);
     } else {
       Guide.findOne({ email })
         .then((user) => {
@@ -113,8 +110,8 @@ module.exports = {
     }
   },
   register(req, res) {
-    let { name, email, mobileNumber, password, profilePhoto, nid, code } =
-      req.body;
+    let { name, email, mobileNumber, password, code } = req.body;
+    let { profilePhoto } = req.files;
     if (code.length !== 6) {
       let validate = codeValidator();
       return badRequest(res, validate.error);
@@ -140,13 +137,22 @@ module.exports = {
                 if (err) {
                   return serverError(res, err);
                 }
+                let profile_photo = profilePhoto.name;
+                profilePhoto.mv(
+                  `${__dirname.replace(
+                    "controller",
+                    ""
+                  )}images/${profile_photo}`,
+                  (err) => {
+                    if (err) return serverError(res, err);
+                  }
+                );
                 let user = new Guide({
                   name,
                   email,
                   mobileNumber,
                   password: hash,
-                  profilePhoto,
-                  nid,
+                  profilePhoto: profile_photo,
                   contribution: 0,
                   places: [],
                   posts: [],

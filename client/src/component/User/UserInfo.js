@@ -1,3 +1,4 @@
+import { picUrl } from "../picUrl";
 const UserInfo = ({
   profilePhoto,
   name,
@@ -21,7 +22,7 @@ const UserInfo = ({
                 <div className="card-body">
                   <div className="d-flex flex-column align-items-center tex-center">
                     <img
-                      src={profilePhoto}
+                      src={picUrl(profilePhoto)}
                       alt={name}
                       className="rounded-circle"
                       width="150"

@@ -20,7 +20,6 @@ const guideSchema = new Schema({
     require: true,
   },
   profilePhoto: [String],
-  nid: [String],
   contribution: Number,
   places: {
     type: [{ type: Schema.Types.ObjectId, ref: "Places" }],

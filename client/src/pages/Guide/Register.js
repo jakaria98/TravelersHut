@@ -27,8 +27,8 @@ class Register extends React.Component {
     name: "",
     email: "",
     mobileNumber: "",
-    profilePhoto: null,
-    nid: [],
+    profilePhoto: "",
+    // nid: [],
     password: "",
     confirmPassword: "",
     createModalOpen: true,
@@ -62,10 +62,9 @@ class Register extends React.Component {
   };
 
   getPhoto = (event) => {
-    //console.log(files);
     let selectedFiles = [];
     for (let i = 0; i < event.target.files.length; i++) {
-      selectedFiles.push(URL.createObjectURL(event.target.files[i]));
+      selectedFiles.push(event.target.files[i]);
     }
     this.setState({
       [event.target.name]: selectedFiles,
@@ -79,19 +78,21 @@ class Register extends React.Component {
       email,
       mobileNumber,
       profilePhoto,
-      nid,
+
       password,
       confirmPassword,
     } = this.state;
-    this.props.registerRequest({
-      name,
-      email,
-      mobileNumber,
-      profilePhoto,
-      nid,
-      password,
-      confirmPassword,
+    const formData = new FormData();
+    const singlePhoto = Object.values(profilePhoto);
+    singlePhoto.map((f) => {
+      formData.append("profilePhoto", f);
     });
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("mobileNumber", mobileNumber);
+    formData.append("password", password);
+    formData.append("confirmPassword", confirmPassword);
+    this.props.registerRequest(formData);
     this.setState({
       codeRequested: true,
     });
@@ -99,20 +100,19 @@ class Register extends React.Component {
 
   codeSubmit = (e) => {
     e.preventDefault();
-    let { name, email, mobileNumber, profilePhoto, nid, password, code } =
+    let { name, email, mobileNumber, profilePhoto, password, code } =
       this.state;
-    this.props.register(
-      {
-        name,
-        email,
-        mobileNumber,
-        profilePhoto,
-        nid,
-        password,
-        code,
-      },
-      this.props.history
-    );
+    const formData = new FormData();
+    const singlePhoto = Object.values(profilePhoto);
+    singlePhoto.map((f) => {
+      formData.append("profilePhoto", f);
+    });
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("mobileNumber", mobileNumber);
+    formData.append("password", password);
+    formData.append("code", code);
+    this.props.register(formData, this.props.history);
     this.setState({
       codeGet: true,
     });
@@ -229,7 +229,7 @@ class Register extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="form-group">
+              {/* <div className="form-group">
                 <div className="d-flex">
                   <MdAddAPhoto size={70} className="pt-4" />
                   <div className="container mx-1">
@@ -248,8 +248,8 @@ class Register extends React.Component {
                     )}
                   </div>
                 </div>
-              </div>
-              <div className="form-group my-2">
+              </div> */}
+              <div className="form-group ">
                 <div className="d-flex">
                   <RiLockPasswordFill size={70} className="pt-4" />
                   <div className="container mx-1">
@@ -273,7 +273,7 @@ class Register extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="form-group">
+              <div className="form-group my-2">
                 <div className="d-flex">
                   <RiLockPasswordFill size={70} className="pt-4" />
                   <div className="container mx-1">
@@ -299,7 +299,7 @@ class Register extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className="form-group mt-2">
+              <div className="form-group">
                 <input
                   className={
                     error?.userExists
