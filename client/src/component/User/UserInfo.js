@@ -1,5 +1,6 @@
 import { picUrl } from "../picUrl";
 const UserInfo = ({
+  profile,
   profilePhoto,
   name,
   email,
@@ -7,10 +8,10 @@ const UserInfo = ({
   contribution,
 }) => {
   return (
-    <div style={{ marginTop: "100px" }}>
+    <div style={{ marginTop: "120px" }}>
       <div className="div text-center">
         <h1 className="display-4" style={{ margin: "5px" }}>
-          My Profile
+          {profile}
         </h1>
         <div />
       </div>

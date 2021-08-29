@@ -18,6 +18,7 @@ class SingleGuide extends Component {
       <>
         {guide ? (
           <UserInfo
+            profile="Guide Profile"
             profilePhoto={guide.profilePhoto}
             name={guide.name}
             email={guide.email}
@@ -31,7 +32,7 @@ class SingleGuide extends Component {
         {guide && this.props.admin.isAuthenticated ? (
           <div className="container">
             <button
-              className="d-block btn btn-danger container my-2"
+              className="d-block btn btn-danger container w-50 my-2"
               onClick={() =>
                 this.props.deleteGuide(guide._id, this.props.history)
               }
@@ -39,7 +40,7 @@ class SingleGuide extends Component {
               Remove <IoPersonRemove size={25} className="pb-1" />
             </button>
             <button
-              className="d-block btn btn-success container my-2"
+              className="d-block btn btn-success container w-50 my-2"
               onClick={() =>
                 this.props.register(
                   {

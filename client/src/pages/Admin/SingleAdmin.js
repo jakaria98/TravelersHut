@@ -14,6 +14,7 @@ class SingleAdmin extends Component {
       <>
         {admin ? (
           <UserInfo
+          profile="Admin Profile"
             profilePhoto={admin.profilePhoto}
             name={admin.name}
             email={admin.email}
