@@ -9,7 +9,7 @@ import PlaceInfo from "../../component/place/PlaceInfo";
 import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 import {
   FaStar,
   FaRegStar,

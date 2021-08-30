@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../store/actions/adminAction";
 import { MdEmail } from "react-icons/md";
@@ -123,4 +123,4 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
   admin: state.admin,
 });
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(withRouter(Login));

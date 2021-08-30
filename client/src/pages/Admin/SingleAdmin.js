@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import UserInfo from "../../component/User/UserInfo";
 import { singleAdmin } from "../../store/actions/adminAction";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
+import { withRouter } from "react-router-dom";
 class SingleAdmin extends Component {
   componentDidMount() {
+    console.log(this.props);
     let { userID } = this.props.location.state;
     this.props.singleAdmin(userID);
   }
@@ -14,7 +16,7 @@ class SingleAdmin extends Component {
       <>
         {admin ? (
           <UserInfo
-          profile="Admin Profile"
+            profile="Admin Profile"
             profilePhoto={admin.profilePhoto}
             name={admin.name}
             email={admin.email}
@@ -33,4 +35,4 @@ const mapStateToProps = (state) => {
     admin: state.admin,
   };
 };
-export default connect(mapStateToProps, { singleAdmin })(SingleAdmin);
+export default connect(mapStateToProps, { singleAdmin })(withRouter(SingleAdmin));

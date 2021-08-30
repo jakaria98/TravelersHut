@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 import setToken from "../../utils/setToken";
 export const registerRequest = (guide) => (dispatch) => {
   Axios.post("/api/guide/registerRequest", guide)
-    .then((res) => {
+    .then((response) => {
       dispatch({
         type: Types.GUIDE_ERROR,
         payload: {

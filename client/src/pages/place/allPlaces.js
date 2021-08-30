@@ -3,7 +3,7 @@ import { loadPlaces } from "../../store/actions/placeAction";
 import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import AddPlace from "../../component/place/AddPlace";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 import { RiMapPinAddFill } from "react-icons/ri";
 class AllPlaces extends Component {
   state = {

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../store/actions/guideAction";
 import { MdEmail } from "react-icons/md";
@@ -39,6 +39,7 @@ class Login extends React.Component {
     let { email, password, error } = this.state;
 
     error = error?.message;
+
     return (
       <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
@@ -124,4 +125,4 @@ class Login extends React.Component {
 const mapStateToProps = (state) => ({
   guide: state.guide,
 });
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(withRouter(Login));

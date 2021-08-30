@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PlaceCard from "../../component/place/PlaceCard";
 import { loadReports } from "../../store/actions/reportedPlaceAction";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 class AllReports extends Component {
   componentDidMount() {
     this.props.loadReports();

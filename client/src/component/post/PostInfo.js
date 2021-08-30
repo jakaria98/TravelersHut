@@ -1,8 +1,8 @@
 import { VscReport } from "react-icons/vsc";
-import CoverPhotoCard from "../CoverPhotoCard";
+import CoverPhotoCard from "../Photo/CoverPhotoCard";
 import Report from "./Report";
-import PhotoCard from "../PhotoCard";
-import Loading from "../Loading";
+import PhotoCard from "../Photo/PhotoCard";
+import Loading from "../utils/Loading";
 const PostInfo = ({
   coverPhoto,
   detailsPhoto,

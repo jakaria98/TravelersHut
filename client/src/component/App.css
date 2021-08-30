@@ -338,6 +338,7 @@ h5 {
   float: right;
   margin-right: 40px;
   padding-top: 20px;
+  cursor: pointer;
 }
 .nav-header {
   padding: 20px;

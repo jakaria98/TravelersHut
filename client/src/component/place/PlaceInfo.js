@@ -1,6 +1,6 @@
-import CoverPhotoCard from "../CoverPhotoCard";
-import PhotoCard from "../PhotoCard";
-import Loading from "../Loading";
+import CoverPhotoCard from "../Photo/CoverPhotoCard";
+import PhotoCard from "../Photo/PhotoCard";
+import Loading from "../utils/Loading";
 const PlaceInfo = ({
   coverPhoto,
   name,

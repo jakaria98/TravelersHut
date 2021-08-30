@@ -1,4 +1,4 @@
-import { picUrl } from "../picUrl";
+import { picUrl } from "../Photo/picUrl";
 const UserInfo = ({
   profile,
   profilePhoto,

@@ -6,7 +6,8 @@ import { IoPersonRemove } from "react-icons/io5";
 import { RiAdminFill } from "react-icons/ri";
 import { deleteGuide } from "../../store/actions/guideAction";
 import { register } from "../../store/actions/adminAction";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
+import { withRouter } from "react-router-dom";
 class SingleGuide extends Component {
   componentDidMount() {
     let { userID } = this.props.location.state;
@@ -69,5 +70,5 @@ const mapStateToProps = (state) => {
   };
 };
 export default connect(mapStateToProps, { getAGuide, deleteGuide, register })(
-  SingleGuide
+  withRouter(SingleGuide)
 );

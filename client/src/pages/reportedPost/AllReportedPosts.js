@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getAllReportedPost } from "../../store/actions/reportedPostAction";
 import PostCard from "../../component/post/PostCard";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 class AllReportedPosts extends Component {
   componentDidMount() {
     this.props.getAllReportedPost();

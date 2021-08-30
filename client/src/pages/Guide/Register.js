@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { register, registerRequest } from "../../store/actions/guideAction";
 import Modal from "react-modal";
@@ -122,7 +122,7 @@ class Register extends React.Component {
     let { name, email, mobileNumber, password, confirmPassword, code, error } =
       this.state;
     error = error?.message;
-    console.log(error);
+    console.log(this.props);
     return (
       <div style={{ marginTop: "100px" }}>
         <div className="col-md-6 offset-md-3">
@@ -418,5 +418,5 @@ const mapStateToProps = (state) => ({
   guide: state.guide,
 });
 export default connect(mapStateToProps, { register, registerRequest })(
-  Register
+  withRouter(Register)
 );

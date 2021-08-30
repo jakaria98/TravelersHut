@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { picUrl } from "../picUrl";
+import { picUrl } from "../Photo/picUrl";
 const PlaceCard = ({ name, coverPhoto, placeRating, _id, pathLink }) => (
   <article className="place">
     <div className="img-container">

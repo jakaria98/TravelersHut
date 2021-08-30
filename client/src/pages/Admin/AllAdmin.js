@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { allAdmin } from "../../store/actions/adminAction";
 import UserCard from "../../component/User/UserCard";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 class AllAdmin extends Component {
   componentDidMount() {
     this.props.allAdmin();

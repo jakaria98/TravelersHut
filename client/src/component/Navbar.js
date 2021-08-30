@@ -19,11 +19,12 @@ class Navbar extends Component {
             <img src={logo} alt="Travelers Hut" />
           </Link>
         </div>
-        <label for="drop" className="check-btn">
+        <label htmlFor="drop" className="check-btn">
           <FaBars />
         </label>
         <input type="checkbox" id="drop" />
-        {this.props.admin.isAuthenticated ? (
+        {this.props.admin.isAuthenticated &&
+        this.props.visitor.isAuthenticated ? (
           <ul className="menu">
             <li>
               <Link to="/all-places">
@@ -44,7 +45,7 @@ class Navbar extends Component {
               </Link>
             </li>
             <li>
-              <label for="drop-1" class="toggle">
+              <label htmlFor="drop-1" class="toggle">
                 Reports
                 <AiFillBug size={25} className="mx-1" />
               </label>
@@ -84,7 +85,8 @@ class Navbar extends Component {
               </Link>
             </li>
           </ul>
-        ) : this.props.guide.isAuthenticated ? (
+        ) : this.props.guide.isAuthenticated &&
+          this.props.visitor.isAuthenticated ? (
           <ul className="menu">
             <li>
               <Link to="/all-places">
@@ -97,7 +99,7 @@ class Navbar extends Component {
             </li>
             <li>
               <Link
-                to="3"
+                to="#"
                 onClick={() => this.props.guideLogout(this.props.history)}
               >
                 Logout
@@ -105,7 +107,9 @@ class Navbar extends Component {
               </Link>
             </li>
           </ul>
-        ) : this.props.visitor.isAuthenticated ? (
+        ) : this.props.visitor.isAuthenticated &&
+          !this.props.admin.isAuthenticated &&
+          !this.props.guide.isAuthenticated ? (
           <ul className="menu">
             <li>
               <Link to="/all-places">
@@ -142,7 +146,7 @@ class Navbar extends Component {
             </li>
           </ul>
         ) : (
-          <uL className="menu">
+          <ul className="menu">
             <li>
               <Link to="/login">
                 Login
@@ -156,7 +160,7 @@ class Navbar extends Component {
                 <FaUserPlus size={25} className="mx-1" />
               </Link>
             </li>
-          </uL>
+          </ul>
         )}
       </nav>
     );

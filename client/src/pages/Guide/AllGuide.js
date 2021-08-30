@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { loadGuide } from "../../store/actions/guideAction";
 import UserCard from "../../component/User/UserCard";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 class AllGuide extends Component {
   componentDidMount() {
     this.props.loadGuide();

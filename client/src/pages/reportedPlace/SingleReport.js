@@ -8,7 +8,7 @@ import {
 } from "../../store/actions/reportedPlaceAction";
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrash } from "react-icons/fa";
-import Loading from "../../component/Loading";
+import Loading from "../../component/utils/Loading";
 class SingleReport extends Component {
   componentDidMount() {
     let { keyVal } = this.props.location.state;

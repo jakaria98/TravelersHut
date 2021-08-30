@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { picUrl } from "../picUrl";
+import { picUrl } from "../Photo/picUrl";
 const UserCard = ({ profilePhoto, _id, name, linkPath }) => {
   return (
     <article className="place">
