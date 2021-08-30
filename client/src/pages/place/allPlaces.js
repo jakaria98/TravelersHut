@@ -28,7 +28,7 @@ class AllPlaces extends Component {
     let placeRating = 0;
     return (
       <>
-        <div style={{ marginTop: "100px" }}>
+        <div style={{ marginTop: "120px" }}>
           <div className="container div d-block text-center">
             <h1 className="display-4" style={{ margin: "5px" }}>
               All Places

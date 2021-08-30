@@ -20,7 +20,6 @@ const adminSchema = new Schema({
     require: true,
   },
   profilePhoto: [String],
-  nid: [String],
 });
 
 const Admin = mongoose.model("Admin", adminSchema);
