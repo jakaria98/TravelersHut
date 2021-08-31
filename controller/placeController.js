@@ -124,10 +124,8 @@ module.exports = {
   },
   getSinglePlace(req, res) {
     let { placeID } = req.params;
-console.log(placeID)
     Places.findById(placeID)
       .then((place) => {
-        console.log(place);
         if (!place) {
           badRequest(res, "No Place Found");
         } else {

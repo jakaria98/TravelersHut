@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import {
   getSinglePlace,
   ratePlace,
@@ -403,7 +404,7 @@ class SinglePlace extends Component {
             className="btn btn-primary d-block container mt-3 w-75 mb-2"
             onClick={this.openCreateModal}
           >
-            Add A Review <MdRateReview size={22}  />
+            Add A Review <MdRateReview size={22} />
           </button>
         ) : null}
         {this.props.admin.isAuthenticated ? (
@@ -461,4 +462,4 @@ export default connect(mapStateToProps, {
   loadPost,
   ratePlace,
   removePlace,
-})(SinglePlace);
+})(withRouter(SinglePlace));

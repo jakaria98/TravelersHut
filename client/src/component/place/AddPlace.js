@@ -117,7 +117,10 @@ class AddPlace extends Component {
       >
         <div className="row">
           <div className="col-md-6 offset-md-3">
-            <h1 className="text-center display-4">Add A Place</h1>
+            <div className="div text-center">
+              <h1 className=" display-4" style={{margin:"5px"}}>Place Info</h1>
+              <div />
+            </div>
             <form onSubmit={this.submitHandler}>
               <div className="form-group">
                 <label htmlFor="name">Name:</label>

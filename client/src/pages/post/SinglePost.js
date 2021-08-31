@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import PostInfo from "../../component/post/PostInfo";
 import { getSinglePost } from "../../store/actions/postAction";
 class SinglePost extends Component {
@@ -30,4 +31,6 @@ const mapStateToProps = (state) => {
     post: state.post,
   };
 };
-export default connect(mapStateToProps, { getSinglePost })(SinglePost);
+export default connect(mapStateToProps, { getSinglePost })(
+  withRouter(SinglePost)
+);
