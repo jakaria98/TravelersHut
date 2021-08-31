@@ -74,7 +74,6 @@ class AllPlaces extends Component {
   render() {
     let { place } = this.props;
     place = this.placeFilter(place);
-    console.log(place);
     let placeRating = 0;
     let divisionObject, districtObject;
     let { division, district } = this.state;

@@ -95,7 +95,10 @@ class Navbar extends Component {
               </Link>
             </li>
             <li>
-              <Link to="/my-profile">My Profile</Link>
+              <Link to="/my-profile">
+                My Profile
+                <CgProfile size={25} className="mx-1" />
+              </Link>
             </li>
             <li>
               <Link

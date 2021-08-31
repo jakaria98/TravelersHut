@@ -1,19 +1,24 @@
 import React, { Component } from "react";
-import UserInfo from "../component/User/UserInfo";
 import { connect } from "react-redux";
+
 import { FaUserEdit } from "react-icons/fa";
+import { RiUserLocationFill } from "react-icons/ri";
+
 import UserEdit from "../component/User/UserEdit";
+import UserInfo from "../component/User/UserInfo";
+import MyContribution from "./Guide/MyContribution";
 
 class UserProfile extends Component {
   state = {
-    clicked: false,
+    infoReq: false,
+    contributionReq: false,
   };
 
   render() {
     let { admin } = this.props.admin;
     let { guide } = this.props.guide;
     let user;
-    if (!this.state.clicked) {
+    if (!this.state.infoReq) {
       this.props.admin.error = {};
       this.props.guide.error = {};
     }
@@ -48,15 +53,28 @@ class UserProfile extends Component {
             ))}
         <div className="container">
           <button
-            className="container d-block btn btn-info w-50"
-            onClick={() => this.setState({ clicked: !this.state.clicked })}
+            className="container d-block btn btn-info w-75"
+            onClick={() => this.setState({ infoReq: !this.state.infoReq })}
           >
             Edit Profile <FaUserEdit size={25} className="pb-1" />
           </button>
         </div>
-        {this.state.clicked ? (
+        {this.state.infoReq ? (
           <UserEdit name={user.name} email={user.email} />
         ) : null}
+        {this.props.guide.isAuthenticated ? (
+          <div className="container">
+            <button
+              className="d-block w-75 container btn btn-info my-2"
+              onClick={() =>
+                this.setState({ contributionReq: !this.state.contributionReq })
+              }
+            >
+              My Contribution <RiUserLocationFill size={25} className="pb-1" />
+            </button>
+          </div>
+        ) : null}
+        {this.state.contributionReq ? <MyContribution /> : null}
       </>
     );
   }

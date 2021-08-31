@@ -101,6 +101,19 @@ export const ratePlace = (id, rating) => (dispatch) => {
     });
 };
 
+export const myContribution = (id) => (dispatch) => {
+  Axios.get(`/api/places/myContribution/${id}`)
+    .then((response) => {
+      // console.log(response);
+      dispatch({
+        type: Types.MY_CONTRIBUTION,
+        payload: {
+          places: response.data,
+        },
+      });
+    })
+    .catch((error) => console.log(error));
+};
 export const reportPlace = (id, reportProblem) => (dispatch) => {
   Axios.post(`/api/places/${id}`, reportProblem)
     .then((response) => {

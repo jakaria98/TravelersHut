@@ -45,27 +45,31 @@ const UserInfo = ({
                     <div className="col-sm-9 text-secondary">{name}</div>
                   </div>
                   <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Email</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">{email}</div>
+                    <div className="col-sm-9 text-secondary">{email}</div>
                   </div>
 
                   <hr />
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Mobile</h6>
+                  <div className="row">
+                    <div className="col-sm-3">
+                      <h6 className="mb-0">Mobile</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">{mobileNumber}</div>
+                    <div className="col-sm-9 text-secondary">
+                      {mobileNumber}
+                    </div>
                   </div>
                   {contribution ? <hr /> : ""}
                   {contribution ? (
-                    <div class="row">
-                      <div class="col-sm-3">
-                        <h6 class="mb-0">Contribution</h6>
+                    <div className="row">
+                      <div className="col-sm-3">
+                        <h6 className="mb-0">Contribution</h6>
                       </div>
-                      <div class="col-sm-9 text-secondary">{contribution}</div>
+                      <div className="col-sm-9 text-secondary">
+                        {contribution}
+                      </div>
                     </div>
                   ) : (
                     ""

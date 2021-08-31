@@ -231,6 +231,15 @@ module.exports = {
       })
       .catch((error) => serverError(res, error));
   },
+  myContribution(req, res) {
+    let { userID } = req.params;
+    Places.find({ creatorGuide: userID })
+      .then((places) => {
+        if (places) return everythingOk(res, places);
+        else return notFound(res, "No Place Found");
+      })
+      .catch((error) => serverError(res, error));
+  },
 
   reportPlace(req, res) {
     let { PlaceID } = req.params;

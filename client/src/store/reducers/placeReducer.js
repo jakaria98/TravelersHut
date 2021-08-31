@@ -8,6 +8,9 @@ const placeReducer = (state = init, action) => {
     case Types.LOAD_PLACE: {
       return action.payload.places;
     }
+    case Types.MY_CONTRIBUTION: {
+      return action.payload.places;
+    }
     case Types.ADD_PLACE: {
       let place = [...state];
       place.unshift(action.payload.place);

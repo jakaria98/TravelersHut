@@ -7,10 +7,10 @@ const {
   deletePlace,
   ratePlace,
   reportPlace,
+  myContribution,
 } = require("../controller/placeController");
 
 const passport = require("passport");
-const { authenticate } = require("passport");
 
 router.post(
   "/add_place",
@@ -21,11 +21,8 @@ router.post(
 router.get("/", getAllPlaces);
 
 router.get("/:placeID", getSinglePlace);
-router.put(
-  "/update/:placeID",
-  passport.authenticate("guide", { session: false }),
-  updatePlace
-);
+router.get("/myContribution/:userID", myContribution);
+router.put("/update/:placeID", updatePlace);
 router.delete(
   "/delete/:placeID",
   passport.authenticate("admin", { session: false }),
