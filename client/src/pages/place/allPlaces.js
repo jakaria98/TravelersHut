@@ -8,27 +8,67 @@ import { RiMapPinAddFill } from "react-icons/ri";
 class AllPlaces extends Component {
   state = {
     createModalOpen: false,
+    division: "all",
+    district: "all",
+    upazila: "all",
   };
+
   componentDidMount() {
     this.props.loadPlaces();
   }
+
   openCreateModal = () => {
     this.setState({
       createModalOpen: true,
     });
   };
+
   closeCreateModal = () => {
     this.setState({
       createModalOpen: false,
     });
   };
 
+  changeHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    if (event.target.name === "division" && event.target.value === "all") {
+      this.setState({ district: "all", upazila: "all" });
+    } else if (
+      event.target.name === "district" &&
+      event.target.value.length === 0
+    ) {
+      this.setState({ upazila: "" });
+    }
+  };
+
+  placeFilter = (place) => {
+    if (this.state.division !== "all") {
+      place.filter((plc) => plc.division === this.state.division);
+    }
+    if (this.state.district !== "all") {
+      place.filter((plc) => plc.district === this.state.district);
+    }
+    if (this.state.upazila !== "all") {
+      place.filter((plc) => plc.upazila === this.state.upazila);
+    }
+    return place;
+  };
   render() {
     let { place } = this.props;
     let placeRating = 0;
     return (
       <>
         <div style={{ marginTop: "120px" }}>
+          <div className="container ">
+            <div className="div text-center">
+              <h1 className="display-4" style={{ margin: "5px" }}>
+                Search For A Place
+              </h1>
+              <div />
+            </div>
+          </div>
           <div className="container div d-block text-center">
             <h1 className="display-4" style={{ margin: "5px" }}>
               All Places

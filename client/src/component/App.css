@@ -461,7 +461,9 @@ li > a:only-child:after {
   nav ul ul a {
     padding: 0 40px;
   }
-
+  nav ul li ul li a:first-child {
+    padding-top: 5px;
+  }
   nav ul label:hover {
     color: var(--primaryColor);
   }
