@@ -107,8 +107,9 @@ module.exports = {
     let { name, email, currentPassword, confirmNewPassword, newPassword } =
       req.body;
     let password = req.user.password;
-    if (req.file) {
+    if (req.files) {
       let { profilePhoto } = req.files;
+
       updatedAdmin.profilePhoto = profilePhoto.name;
       profilePhoto.mv(
         `${__dirname.replace("controller", "")}images/${profilePhoto.name}`,
@@ -204,13 +205,11 @@ module.exports = {
                     email: admin.email,
                     mobileNumber: admin.mobileNumber,
                     profilePhoto: admin.profilePhoto,
-                    nid: admin.nid,
                   },
                   "ADMIN",
                   { expiresIn: 60 * 60 * 24 * 7 }
                 );
                 token = `Bearer ${token}`;
-                console.log(token);
                 return everythingOk(res, token);
               } else {
                 return badRequest(res, "Admin Not updated");

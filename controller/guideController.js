@@ -313,13 +313,11 @@ module.exports = {
                     email: guide.email,
                     mobileNumber: guide.mobileNumber,
                     profilePhoto: guide.profilePhoto,
-                    nid: guide.nid,
                   },
                   "GUIDE",
                   { expiresIn: 60 * 60 * 24 * 7 }
                 );
                 token = `Bearer ${token}`;
-                console.log(token);
                 return everythingOk(res, token);
               } else {
                 return badRequest(res, "GUIDE Not updated");
