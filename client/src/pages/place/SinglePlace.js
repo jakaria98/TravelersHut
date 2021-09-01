@@ -105,7 +105,6 @@ class SinglePlace extends Component {
     let averageRating = 0;
     let remainingRating = 5;
     let previousRating = 0;
-    //console.log(previousRating);
     return (
       <>
         {place.length <= 0 ? (
@@ -113,7 +112,7 @@ class SinglePlace extends Component {
           this.props.loadPost(placeID),
           (<Loading />))
         ) : (
-          <div style={{ marginTop: "80px" }}>
+          <div style={{ marginTop: "109px" }}>
             <PlaceInfo
               coverPhoto={place.coverPhoto}
               name={place.name}
@@ -130,16 +129,16 @@ class SinglePlace extends Component {
           ? ((<Loading />), this.props.getSinglePlace(placeID))
           : place.ratedBy
           ? place.ratedBy.length > 0
-            ? ((previousRating = this.personFilter(place.ratedBy, visitor._id)),
+            ? ((remainingRating -= Math.round(
+                place.ratingCount / place.ratedBy.length
+              )),
+              ((previousRating = this.personFilter(place.ratedBy, visitor._id)),
               ((averageRating = Math.round(
                 place.ratingCount / place.ratedBy.length
               )),
               previousRating && rating === 0
                 ? this.setState({ rating: previousRating })
-                : null,
-              (remainingRating -= Math.round(
-                place.ratingCount / place.ratedBy.length
-              ))))
+                : null)))
             : null
           : null}
 
@@ -399,14 +398,13 @@ class SinglePlace extends Component {
           </div>
         </div>
 
-        {this.props.guide.isAuthenticated ? (
-          <button
-            className="btn btn-primary d-block container mt-3 w-75 mb-2"
-            onClick={this.openCreateModal}
-          >
-            Add A Review <MdRateReview size={22} />
-          </button>
-        ) : null}
+        <button
+          className="btn btn-primary d-block container mt-3 w-75 mb-2"
+          onClick={this.openCreateModal}
+        >
+          Add A Review <MdRateReview size={22} />
+        </button>
+
         {this.props.admin.isAuthenticated ? (
           <button
             className="container btn btn-danger  w-75 d-block  mb-4"

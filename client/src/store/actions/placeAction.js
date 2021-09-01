@@ -37,7 +37,6 @@ export const addPlace = (place) => (dispatch) => {
 export const getSinglePlace = (_id) => (dispatch) => {
   Axios.get(`/api/places/${_id}`)
     .then((response) => {
-      console.log(_id);
       dispatch({
         type: Types.GET_A_PLACE,
         payload: {
