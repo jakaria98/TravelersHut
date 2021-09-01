@@ -31,14 +31,17 @@ import { ProtectedRoute } from "./utils/ProtectedRouter";
 import AllAdmin from "../pages/Admin/AllAdmin";
 import SingleAdmin from "../pages/Admin/SingleAdmin";
 import UserProfile from "../pages/UserProfile";
+
+import UpdatePlace from "./place/UpdatePlace";
 class App extends Component {
   render() {
-    let anyone, onlyAdmin, onlyVisitor, adminOrGuide;
+    let anyone, onlyAdmin, onlyGuide, onlyVisitor, adminOrGuide;
     anyone =
       this.props.visitor.isAuthenticated ||
       this.props.guide.isAuthenticated ||
       this.props.admin.isAuthenticated;
     onlyAdmin = this.props.admin.isAuthenticated;
+    onlyGuide = this.props.guide.isAuthenticated;
     onlyVisitor =
       this.props.visitor.isAuthenticated &&
       !this.props.admin.isAuthenticated &&
@@ -68,6 +71,11 @@ class App extends Component {
             path="/places/:placeName"
             component={SinglePlace}
             isAuth={anyone}
+          />
+          <ProtectedRoute
+            path="/update-place"
+            component={UpdatePlace}
+            isAuth={onlyGuide}
           />
           <ProtectedRoute
             path="/blog/:_id"

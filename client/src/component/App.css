@@ -650,8 +650,7 @@ nav ul li:hover ul {
   margin-left: 5px;
 }
 .loading {
-  margin-left: 40%;
-  margin-top: 10%;
+  text-align: center;
 }
 .div div {
   width: 10rem;

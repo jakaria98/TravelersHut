@@ -22,7 +22,11 @@ router.get("/", getAllPlaces);
 
 router.get("/:placeID", getSinglePlace);
 router.get("/myContribution/:userID", myContribution);
-router.put("/update/:placeID", updatePlace);
+router.put(
+  "/update/:placeID",
+  passport.authenticate("guide", { session: false }),
+  updatePlace
+);
 router.delete(
   "/delete/:placeID",
   passport.authenticate("admin", { session: false }),

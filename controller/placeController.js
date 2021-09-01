@@ -135,14 +135,11 @@ module.exports = {
       .catch((error) => serverError(res, error));
   },
   updatePlace(req, res) {
-    let { _id } = req.params;
-    Places.findOneAndUpdate(_id, { $set: req.body }, { new: true });
-    then((place) => {
-      res.status(200).json({
-        message: "Updated Successfully",
-        ...place._doc,
-      });
-    }).catch((error) => serverError(res, error));
+    let { placeID } = req.params;
+    let userID = req.user._id;
+    Places.findById(placeID)
+      .then((place) => {})
+      .catch((error) => serverError(res, error));
   },
   deletePlace(req, res) {
     let { placeID } = req.params;
