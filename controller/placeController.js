@@ -1,5 +1,8 @@
-const placeValidator = require("../validator/placeValidator");
 const fileUpload = require("express-fileupload");
+
+const placeValidator = require("../validator/placeValidator");
+const locationValidator = require("../validator/locationValidator");
+
 const {
   badRequest,
   serverError,
@@ -138,7 +141,60 @@ module.exports = {
     let { placeID } = req.params;
     let userID = req.user._id;
     Places.findById(placeID)
-      .then((place) => {})
+      .then((place) => {
+        if (place) {
+          let { name, division, district, upazila } = req.body;
+          if (name) place.name = name;
+          if (division) place.division = division;
+          if (district) place.district = district;
+          if (upazila) place.upazila = upazila;
+          if (
+            division.length > 0 ||
+            district.length > 0 ||
+            upazila.length > 0
+          ) {
+            let validate = locationValidator({ division, district, upazila });
+            if (!validate.isValid) return badRequest(res, validate.error);
+          }
+          if (req.files) {
+            if (req.files.coverPhoto) {
+              req.files.coverPhoto.mv(
+                `${__dirname.replace("controller", "")}images/${
+                  req.files.coverPhoto.name
+                }`,
+                (err) => {
+                  if (err) return serverError(res, err);
+                }
+              );
+              place.coverPhoto = req.files.coverPhoto.name;
+            }
+            if (req.files.detailsPhoto) {
+              let { detailsPhoto } = req.files;
+              let details_photo = [];
+              detailsPhoto.map((photo) => {
+                details_photo.push(photo.name);
+              });
+              place.detailsPhoto = details_photo;
+              for (let i = 0; i < detailsPhoto.length; i++) {
+                let photo = detailsPhoto[i];
+                photo.mv(
+                  `${__dirname.replace("controller", "")}images/${
+                    details_photo[i]
+                  }`,
+                  (err) => {
+                    if (err) return serverError(res, err);
+                  }
+                );
+              }
+            }
+          }
+          Places.findByIdAndUpdate(placeID, { $set: place }, { new: true })
+            .then((place) => everythingOk(res, place))
+            .catch((error) => serverError(res, error));
+        } else {
+          return badRequest(res, "No Such Place");
+        }
+      })
       .catch((error) => serverError(res, error));
   },
   deletePlace(req, res) {

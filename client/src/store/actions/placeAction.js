@@ -15,7 +15,7 @@ export const loadPlaces = () => (dispatch) => {
       console.log(error);
     });
 };
-export const addPlace = (place) => (dispatch) => {
+export const addPlace = (place, history) => (dispatch) => {
   Axios.post("/api/places/add_place", place)
     .then((response) => {
       dispatch({
@@ -24,6 +24,7 @@ export const addPlace = (place) => (dispatch) => {
           place: response.data,
         },
       });
+      history.push("/all-places");
     })
     .catch((error) => {
       dispatch({
@@ -65,15 +66,16 @@ export const removePlace = (id, history) => (dispatch) => {
     });
 };
 
-export const updatePlace = (id, place) => (dispatch) => {
+export const updatePlace = (id, place, history) => (dispatch) => {
   Axios.put(`/api/places/update/${id}`, place)
     .then((response) => {
       dispatch({
         type: Types.UPDATE_PLACE,
         payload: {
-          place: response.data.place,
+          place: response.data,
         },
       });
+      history.push("/all-places");
     })
     .catch((error) => {
       dispatch({

@@ -23,13 +23,7 @@ const placeReducer = (state = init, action) => {
       return action.payload.place;
     }
     case Types.UPDATE_PLACE: {
-      let place = [...state];
-      return place.map((plc) => {
-        if (plc._id === action.payload.place._id) {
-          return action.payload.place;
-        }
-        return { plc, error: {} };
-      });
+      return action.payload.place;
     }
     case Types.REPORT_PLACE: {
       return action.payload.report;

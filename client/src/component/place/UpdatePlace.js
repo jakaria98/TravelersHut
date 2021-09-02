@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import Dataset from "../../utils/Data";
+import { updatePlace } from "../../store/actions/placeAction";
 
 import { CgRename } from "react-icons/cg";
 import { MdAddAPhoto, MdPhoto } from "react-icons/md";
-import { GrMapLocation } from "react-icons/gr";
+import { GrMapLocation, GrUpdate } from "react-icons/gr";
 import { ImLocation, ImLocation2 } from "react-icons/im";
-import { FiEdit } from "react-icons/fi";
 
 class UpdatePlace extends Component {
   state = {
@@ -18,7 +20,31 @@ class UpdatePlace extends Component {
     detailsPhoto: [],
     placeID: "",
     error: {},
+    invalidAction: "",
   };
+
+  componentDidMount() {
+    if (this.props.location.state) {
+      const { placeID, name, division, district, upazila } =
+        this.props.location.state;
+      this.setState({
+        name,
+        placeID,
+      });
+    }
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.place.error == null) return null;
+    else if (
+      JSON.stringify(nextProps.place.error) !== JSON.stringify(prevState.error)
+    ) {
+      return {
+        error: nextProps.place.error.message,
+      };
+    }
+    return null;
+  }
 
   getPhoto = (event) => {
     //console.log(files);
@@ -55,8 +81,41 @@ class UpdatePlace extends Component {
     return district;
   };
 
+  submitHandler = (e) => {
+    e.preventDefault();
+
+    let {
+      name,
+      division,
+      district,
+      upazila,
+      coverPhoto,
+      detailsPhoto,
+      placeID,
+    } = this.state;
+    if (!placeID) {
+      let invalidAction = "Invalid Action";
+      this.setState({ invalidAction });
+    } else {
+      const formData = new FormData();
+      const multiplePhoto = Object.values(detailsPhoto);
+      const singlePhoto = Object.values(coverPhoto);
+
+      for (let i = 0; i < multiplePhoto.length; i++) {
+        formData.append("detailsPhoto", multiplePhoto[i]);
+      }
+      singlePhoto.map((f) => {
+        formData.append("coverPhoto", f);
+      });
+      formData.append("name", name);
+      formData.append("division", division);
+      formData.append("district", district);
+      formData.append("upazila", upazila);
+      this.props.updatePlace(placeID, formData, this.props.history);
+    }
+  };
   render() {
-    let { name, division, district, upazila } = this.state;
+    let { name, division, district, error, invalidAction } = this.state;
     let divisionObject, districtObject;
     if (division.length > 0) {
       divisionObject = this.getDivision(division);
@@ -64,8 +123,6 @@ class UpdatePlace extends Component {
     if (district.length > 0) {
       districtObject = this.getDistrict(district, divisionObject);
     }
-    console.log(this.state);
-
     return (
       <div style={{ marginTop: "110px" }}>
         <div className="col-md-6 offset-md-3">
@@ -75,7 +132,7 @@ class UpdatePlace extends Component {
             </h1>
             <div />
           </div>
-          <form>
+          <form onSubmit={this.submitHandler}>
             <div className="form-group">
               <div className="d-flex">
                 <CgRename size={70} className="pt-4" />
@@ -84,11 +141,16 @@ class UpdatePlace extends Component {
                   <input
                     type="text"
                     placeholder="Rename The Place"
-                    className="form-control"
+                    className={
+                      error?.name ? "form-control is-invalid" : "form-control"
+                    }
                     name="name"
                     value={name}
                     onChange={this.changeHandler}
                   />
+                  {error?.name && (
+                    <div className="invalid-feedback">{error?.name}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -101,9 +163,16 @@ class UpdatePlace extends Component {
                   <input
                     type="file"
                     name="coverPhoto"
-                    className="form-control"
+                    className={
+                      error?.coverPhoto
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     onChange={this.getPhoto}
                   />
+                  {error?.coverPhoto && (
+                    <div className="invalid-feedback">{error?.coverPhoto}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -111,14 +180,24 @@ class UpdatePlace extends Component {
               <div className="d-flex">
                 <MdPhoto size={70} className="pt-4" />
                 <div className="container">
-                  <label htmlFor="detailsPhoto">Details Photo: </label>
+                  <label htmlFor="detailsPhoto">Additional Photos: </label>
 
                   <input
                     type="file"
                     name="detailsPhoto"
-                    className="form-control"
+                    className={
+                      error?.detailsPhoto
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     onChange={this.getPhoto}
+                    multiple
                   />
+                  {error?.detailsPhoto && (
+                    <div className="invalid-feedback">
+                      {error?.detailsPhoto}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -129,7 +208,11 @@ class UpdatePlace extends Component {
                   <label htmlFor="division">Division:</label>
                   <select
                     name="division"
-                    className="form-control"
+                    className={
+                      error?.division
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     id="division"
                     onChange={this.changeHandler}
                   >
@@ -140,6 +223,9 @@ class UpdatePlace extends Component {
                       </option>
                     ))}
                   </select>
+                  {error?.division && (
+                    <div className="invalid-feedback">{error.division}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -150,7 +236,11 @@ class UpdatePlace extends Component {
                   <label htmlFor="district">District:</label>
                   <select
                     name="district"
-                    className="form-control"
+                    className={
+                      error?.district
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     id="district"
                     onChange={this.changeHandler}
                   >
@@ -163,6 +253,9 @@ class UpdatePlace extends Component {
                         ))
                       : null}
                   </select>
+                  {error?.district && (
+                    <div className="invalid-feedback">{error?.district}</div>
+                  )}
                 </div>
               </div>
             </div>
@@ -172,7 +265,11 @@ class UpdatePlace extends Component {
                 <div className="container">
                   <label htmlFor="upazila">Upazila:</label>
                   <select
-                    className="form-control"
+                    className={
+                      error?.upazila
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
                     name="upazila"
                     id="upazila"
                     onChange={this.changeHandler}
@@ -186,12 +283,29 @@ class UpdatePlace extends Component {
                         ))
                       : null}
                   </select>
+                  {error?.upazila && (
+                    <div className="invalid-feedback">{error?.upazila}</div>
+                  )}
                 </div>
               </div>
             </div>
+            <div className="form-group">
+              <input
+                className={
+                  invalidAction
+                    ? "form-control is-invalid d-none"
+                    : "form-control d-none"
+                }
+              />
+              {invalidAction && (
+                <div className="invalid-feedback text-center my-2">
+                  <h6>{invalidAction}</h6>
+                </div>
+              )}
+            </div>
             <div className="container">
               <button className="container d-block w-75 my-3 btn btn-info">
-                Update <FiEdit size={22} className="pb-1" />
+                Update <GrUpdate size={22} className="pb-1" />
               </button>
             </div>
           </form>
@@ -200,4 +314,11 @@ class UpdatePlace extends Component {
     );
   }
 }
-export default UpdatePlace;
+const mapStateToProps = (state) => {
+  return {
+    place: state.place,
+  };
+};
+export default connect(mapStateToProps, { updatePlace })(
+  withRouter(UpdatePlace)
+);

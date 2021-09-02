@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Modal from "react-modal";
+import { withRouter } from "react-router-dom";
+
 import Dataset from "../../utils/Data";
 import { connect } from "react-redux";
 import { addPlace } from "../../store/actions/placeAction";
@@ -118,7 +120,9 @@ class AddPlace extends Component {
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <div className="div text-center">
-              <h1 className=" display-4" style={{margin:"5px"}}>Place Info</h1>
+              <h1 className=" display-4" style={{ margin: "5px" }}>
+                Place Info
+              </h1>
               <div />
             </div>
             <form onSubmit={this.submitHandler}>
@@ -158,7 +162,7 @@ class AddPlace extends Component {
               </div>
               <div className="form-group">
                 <label htmlFor="detailsPhoto">
-                  Add Some Additional Photos:{" "}
+                  Add Some Additional Photos:
                 </label>
 
                 <input
@@ -300,4 +304,4 @@ const mapStateToProps = (state) => {
     place: state.place,
   };
 };
-export default connect(mapStateToProps, { addPlace })(AddPlace);
+export default connect(mapStateToProps, { addPlace })(withRouter(AddPlace));

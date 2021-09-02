@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import {
   getSinglePlace,
   ratePlace,
@@ -24,6 +24,7 @@ import { MdRateReview } from "react-icons/md";
 import { RiMapPinAddFill } from "react-icons/ri";
 import { VscReport } from "react-icons/vsc";
 import Report from "../../component/place/Report";
+import { GrUpdate } from "react-icons/gr";
 
 class SinglePlace extends Component {
   state = {
@@ -399,12 +400,27 @@ class SinglePlace extends Component {
         </div>
 
         <button
-          className="btn btn-primary d-block container mt-3 w-75 mb-2"
+          className="btn btn-primary d-block container mt-2 w-75 mb-2"
           onClick={this.openCreateModal}
         >
           Add A Review <MdRateReview size={22} />
         </button>
-
+        {this.props.guide.guide._id === place.creatorGuide ? (
+          <Link
+            to={{
+              pathname: "/update-place",
+              state: {
+                placeID: place._id,
+                name: place.name,
+              },
+            }}
+            className="btn btn-primary d-block container mt-2 w-75 mb-2"
+          >
+            Update <GrUpdate size={22} className="pb-1" />
+          </Link>
+        ) : (
+          ""
+        )}
         {this.props.admin.isAuthenticated ? (
           <button
             className="container btn btn-danger  w-75 d-block  mb-4"
