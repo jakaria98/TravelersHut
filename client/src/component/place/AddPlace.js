@@ -7,9 +7,10 @@ import { connect } from "react-redux";
 import { addPlace } from "../../store/actions/placeAction";
 
 import { CgNametag } from "react-icons/cg";
+import { FaEdit } from "react-icons/fa";
 import { MdAddAPhoto } from "react-icons/md";
 import { RiImageAddFill } from "react-icons/ri";
-import { GrMapLocation, GrUpdate } from "react-icons/gr";
+import { GrMapLocation } from "react-icons/gr";
 import { ImLocation, ImLocation2 } from "react-icons/im";
 
 const customStyles = {
@@ -338,10 +339,15 @@ class AddPlace extends Component {
                 </div>
               ))
             )}
-            <div className="container">
-              <button className="btn btn-success container w-75 d-block ">
-                ADD
-              </button>
+            <div className="form-group">
+              <div className="d-flex">
+                <RiImageAddFill size={70} className="pt-4 text-white" />
+                <div className="container">
+                  <button className="btn btn-success container d-block ">
+                    ADD <FaEdit className="pb-1" size={22} />
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>

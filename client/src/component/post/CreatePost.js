@@ -4,6 +4,14 @@ import { connect } from "react-redux";
 import Dataset from "../../utils/Data";
 import { addPost } from "../../store/actions/postAction";
 
+import { MdAddAPhoto, MdHotel } from "react-icons/md";
+import { RiImageAddFill } from "react-icons/ri";
+import { FaEdit } from "react-icons/fa";
+import { GrMapLocation } from "react-icons/gr";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { BiNotepad } from "react-icons/bi";
+import { ImLocation, ImLocation2 } from "react-icons/im";
+
 const customStyles = {
   content: {
     top: "55%",
@@ -12,7 +20,7 @@ const customStyles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    width: "60%",
+    width: "70%",
     height: "80%",
   },
 };
@@ -144,218 +152,279 @@ class CreatePost extends Component {
         onRequestClose={this.props.close}
         style={customStyles}
       >
-        <div className="row">
-          <div className="col-md-6 offset-md-3">
-            <h1 className="text-center display-4">Add A Review</h1>
-            <form onSubmit={this.submitHandler}>
-              <div className="form-group my-3">
-                <label htmlFor="division">Division:</label>
-                <select
-                  name="division"
-                  className={
-                    error?.division ? "form-control is-invalid" : "form-control"
-                  }
-                  id="division"
-                  onChange={this.changeHandler}
-                >
-                  <option value="">Default</option>
-                  {Dataset.division.map((division, i) => (
-                    <option key={i} value={division.name}>
-                      {division.name}
-                    </option>
-                  ))}
-                </select>
-                {error?.division && (
-                  <div className="invalid-feedback">{error.division}</div>
-                )}
-              </div>
-              {division.length === 0 ? (
-                <div className="form-group">
-                  <label htmlFor="district">District:</label>
+        <div className="col-md-6 offset-md-3">
+          <h1 className="text-center display-4">Add A Review</h1>
+          <form onSubmit={this.submitHandler}>
+            <div className="form-group my-2">
+              <div className="d-flex">
+                <GrMapLocation size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="division">Division:</label>
                   <select
-                    disabled
+                    name="division"
                     className={
-                      error?.district
+                      error?.division
                         ? "form-control is-invalid"
                         : "form-control"
                     }
+                    id="division"
+                    onChange={this.changeHandler}
                   >
-                    <option>Add Division First</option>
+                    <option value="">Default</option>
+                    {Dataset.division.map((division, i) => (
+                      <option key={i} value={division.name}>
+                        {division.name}
+                      </option>
+                    ))}
                   </select>
-                  {error?.district && (
-                    <div className="invalid-feedback">{error?.district}</div>
+                  {error?.division && (
+                    <div className="invalid-feedback">{error.division}</div>
                   )}
                 </div>
-              ) : (
-                ((divisionObject = this.getDivision(division)),
-                (
-                  <div className="form-group">
+              </div>
+            </div>
+            {division.length === 0 ? (
+              <div className="form-group">
+                <div className="d-flex">
+                  <ImLocation size={70} className="pt-4" />
+                  <div className="container">
                     <label htmlFor="district">District:</label>
                     <select
-                      name="district"
+                      disabled
                       className={
                         error?.district
                           ? "form-control is-invalid"
                           : "form-control"
                       }
-                      id="district"
-                      onChange={this.changeHandler}
                     >
-                      <option value="">Default</option>
-                      {divisionObject[0].district.map((dst, i) => (
-                        <option key={i} value={dst.name}>
-                          {dst.name}
-                        </option>
-                      ))}
+                      <option>Add Division First</option>
                     </select>
                     {error?.district && (
                       <div className="invalid-feedback">{error?.district}</div>
                     )}
                   </div>
-                ))
-              )}
-              {division.length === 0 || district.length === 0 ? (
-                <div className="form-group my-3">
-                  <label htmlFor="upazila">Upazila:</label>
-                  <select
-                    className={
-                      error?.upazila
-                        ? "form-control is-invalid"
-                        : "form-control"
-                    }
-                    disabled
-                  >
-                    <option>Add Division and District First</option>
-                  </select>
-                  {error?.upazila && (
-                    <div className="invalid-feedback">{error?.upazila}</div>
-                  )}
                 </div>
-              ) : (
-                ((districtObject = this.getDistrict(district, division)),
-                (
-                  <div className="form-group my-3">
+              </div>
+            ) : (
+              ((divisionObject = this.getDivision(division)),
+              (
+                <div className="form-group">
+                  <div className="d-flex">
+                    <ImLocation size={70} className="pt-4" />
+                    <div className="container">
+                      <label htmlFor="district">District:</label>
+                      <select
+                        name="district"
+                        className={
+                          error?.district
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        id="district"
+                        onChange={this.changeHandler}
+                      >
+                        <option value="">Default</option>
+                        {divisionObject[0].district.map((dst, i) => (
+                          <option key={i} value={dst.name}>
+                            {dst.name}
+                          </option>
+                        ))}
+                      </select>
+                      {error?.district && (
+                        <div className="invalid-feedback">
+                          {error?.district}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+            {division.length === 0 || district.length === 0 ? (
+              <div className="form-group my-3">
+                <div className="d-flex">
+                  <ImLocation2 size={70} className="pt-4" />
+                  <div className="container">
                     <label htmlFor="upazila">Upazila:</label>
                     <select
-                      name="upazila"
-                      id="upazila"
                       className={
                         error?.upazila
                           ? "form-control is-invalid"
                           : "form-control"
                       }
-                      onChange={this.changeHandler}
+                      disabled
                     >
-                      <option value="">Default</option>
-                      {districtObject[0].upazila.map((upz, i) => (
-                        <option key={i} value={upz}>
-                          {upz}
-                        </option>
-                      ))}
+                      <option>Add Division and District First</option>
                     </select>
                     {error?.upazila && (
                       <div className="invalid-feedback">{error?.upazila}</div>
                     )}
                   </div>
-                ))
-              )}
-
-              <div className="form-group my-3">
-                <label htmlFor="minimumCost">Minimum Cost:</label>
-                <input
-                  type="Number"
-                  placeholder="Enter Minimum Cost"
-                  name="minimumCost"
-                  id="minimumCost"
-                  className={
-                    error?.minimumCost
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
-                  value={minimumCost}
-                  onChange={this.changeHandler}
-                />
-                {error?.minimumCost && (
-                  <div className="invalid-feedback">{error?.minimumCost}</div>
-                )}
+                </div>
               </div>
-              <div className="form-group my-3">
-                <label htmlFor="coverPhoto">Cover Photo:</label>
+            ) : (
+              ((districtObject = this.getDistrict(district, division)),
+              (
+                <div className="form-group my-3">
+                  <div className="d-flex">
+                    <ImLocation2 size={70} className="pt-4" />
+                    <div className="container">
+                      <label htmlFor="upazila">Upazila:</label>
+                      <select
+                        name="upazila"
+                        id="upazila"
+                        className={
+                          error?.upazila
+                            ? "form-control is-invalid"
+                            : "form-control"
+                        }
+                        onChange={this.changeHandler}
+                      >
+                        <option value="">Default</option>
+                        {districtObject[0].upazila.map((upz, i) => (
+                          <option key={i} value={upz}>
+                            {upz}
+                          </option>
+                        ))}
+                      </select>
+                      {error?.upazila && (
+                        <div className="invalid-feedback">{error?.upazila}</div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
 
-                <input
-                  type="file"
-                  name="coverPhoto"
-                  className={
-                    error?.coverPhoto
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
-                  onChange={this.getPhotos}
-                />
-                {error?.coverPhoto && (
-                  <div className="invalid-feedback">{error?.coverPhoto}</div>
-                )}
+            <div className="form-group my-3">
+              <div className="d-flex">
+                <GiTakeMyMoney size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="minimumCost">Minimum Cost:</label>
+                  <input
+                    type="Number"
+                    placeholder="Enter Minimum Cost"
+                    name="minimumCost"
+                    id="minimumCost"
+                    className={
+                      error?.minimumCost
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    value={minimumCost}
+                    onChange={this.changeHandler}
+                  />
+                  {error?.minimumCost && (
+                    <div className="invalid-feedback">{error?.minimumCost}</div>
+                  )}
+                </div>
               </div>
-              <div className="form-group">
-                <label htmlFor="detailsPhoto">
-                  Add Some Additional Photos:{" "}
-                </label>
+            </div>
+            <div className="form-group my-3">
+              <div className="d-flex">
+                <MdAddAPhoto size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="coverPhoto">Cover Photo:</label>
+                  <input
+                    type="file"
+                    name="coverPhoto"
+                    className={
+                      error?.coverPhoto
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    onChange={this.getPhotos}
+                  />
+                  {error?.coverPhoto && (
+                    <div className="invalid-feedback">{error?.coverPhoto}</div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="d-flex">
+                <RiImageAddFill size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="detailsPhoto">Additional Photos: </label>
+                  <input
+                    type="file"
+                    name="detailsPhoto"
+                    className={
+                      error?.detailsPhoto
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    onChange={this.getPhotos}
+                    multiple
+                  />
+                  {error?.detailsPhoto && (
+                    <div className="invalid-feedback">
+                      {error?.detailsPhoto}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+            <div className="form-group my-3">
+              <div className="d-flex">
+                <MdHotel size={70} className="pt-4" />
+                <div className="container pt-2">
+                  <label htmlFor="residence">Residence Facility:</label>
+                  <input
+                    type="checkbox"
+                    name="residence"
+                    id="residence"
+                    className={
+                      error?.residence
+                        ? "form-check-input is-invalid"
+                        : "form-check-input"
+                    }
+                    checked={residence}
+                    onChange={() => this.checkHandler("residence")}
+                  />
 
-                <input
-                  type="file"
-                  name="detailsPhoto"
-                  className={
-                    error?.detailsPhoto
-                      ? "form-control is-invalid"
-                      : "form-control"
-                  }
-                  onChange={this.getPhotos}
-                  multiple
-                />
-                {error?.detailsPhoto && (
-                  <div className="invalid-feedback">{error?.detailsPhoto}</div>
-                )}
+                  {error?.residence && (
+                    <div className="invalid-feedback">{error?.residence}</div>
+                  )}
+                </div>
               </div>
-              <div className="form-group my-3">
-                <label htmlFor="residence">Residence Facility:</label>
-                <input
-                  type="checkbox"
-                  name="residence"
-                  id="residence"
-                  className={
-                    error?.residence
-                      ? "form-check-input is-invalid"
-                      : "form-check-input"
-                  }
-                  checked={residence}
-                  onChange={() => this.checkHandler("residence")}
-                />
+            </div>
+            <div className="form-group my-3">
+              <div className="d-flex">
+                <BiNotepad size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="details">Blog:</label>
+                  <textarea
+                    rows="6"
+                    name="details"
+                    id="details"
+                    placeholder="Write Details Note"
+                    className={
+                      error?.details
+                        ? "form-control is-invalid"
+                        : "form-control"
+                    }
+                    value={details}
+                    onChange={this.changeHandler}
+                  />
 
-                {error?.residence && (
-                  <div className="invalid-feedback">{error?.residence}</div>
-                )}
+                  {error?.details && (
+                    <div className="invalid-feedback">{error?.details}</div>
+                  )}
+                </div>
               </div>
-              <div className="form-group my-3">
-                <label htmlFor="details">Blog:</label>
-                <textarea
-                  rows="6"
-                  name="details"
-                  id="details"
-                  placeholder="Write Details Note"
-                  className={
-                    error?.details ? "form-control is-invalid" : "form-control"
-                  }
-                  value={details}
-                  onChange={this.changeHandler}
-                />
-
-                {error?.details && (
-                  <div className="invalid-feedback">{error?.details}</div>
-                )}
+            </div>
+            <div className="form-group">
+              <div className="d-flex">
+                <RiImageAddFill size={70} className="pt-4 text-white" />
+                <div className="container">
+                  <button className="btn btn-success container d-block ">
+                    ADD <FaEdit className="pb-1" size={22} />
+                  </button>
+                </div>
               </div>
-              <button className="btn btn-primary  apply">Create</button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </Modal>
     );
