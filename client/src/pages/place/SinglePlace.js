@@ -43,6 +43,7 @@ class SinglePlace extends Component {
     this.setState({
       createModalOpen: false,
     });
+    this.props.loadPost(this.state.placeID);
   };
 
   openReportModal = () => {
