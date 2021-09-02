@@ -6,7 +6,8 @@ import Dataset from "../../utils/Data";
 import { updatePlace } from "../../store/actions/placeAction";
 
 import { CgRename } from "react-icons/cg";
-import { MdAddAPhoto, MdPhoto } from "react-icons/md";
+import { MdAddAPhoto } from "react-icons/md";
+import { RiImageAddFill } from "react-icons/ri";
 import { GrMapLocation, GrUpdate } from "react-icons/gr";
 import { ImLocation, ImLocation2 } from "react-icons/im";
 
@@ -178,7 +179,7 @@ class UpdatePlace extends Component {
             </div>
             <div className="form-group">
               <div className="d-flex">
-                <MdPhoto size={70} className="pt-4" />
+                <RiImageAddFill size={70} className="pt-4" />
                 <div className="container">
                   <label htmlFor="detailsPhoto">Additional Photos: </label>
 
