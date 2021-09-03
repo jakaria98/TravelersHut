@@ -11,19 +11,21 @@ class AllReportedPosts extends Component {
     let { reportedPost } = this.props;
     return (
       <>
-        {reportedPost.length ? (
-          reportedPost.map((post) => (
-            <PostCard
-              coverPhoto={post.coverPhoto}
-              pathLink="/all-places/reported-posts"
-              _id={post._id}
-              createdAt={post.createdAt}
-              key={post._id}
-            />
-          ))
-        ) : (
-          <Loading />
-        )}
+        <div style={{marginTop:"120px"}}>
+          {reportedPost.length ? (
+            reportedPost.map((post) => (
+              <PostCard
+                coverPhoto={post.coverPhoto}
+                pathLink="/all-places/reported-posts"
+                _id={post._id}
+                createdAt={post.createdAt}
+                key={post._id}
+              />
+            ))
+          ) : (
+            <Loading />
+          )}
+        </div>
       </>
     );
   }

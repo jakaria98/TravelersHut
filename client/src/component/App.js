@@ -31,6 +31,7 @@ import { ProtectedRoute } from "./utils/ProtectedRouter";
 import AllAdmin from "../pages/Admin/AllAdmin";
 import SingleAdmin from "../pages/Admin/SingleAdmin";
 import UserProfile from "../pages/UserProfile";
+import ForgetPass from "../pages/ForgetPass";
 
 import UpdatePlace from "./place/UpdatePlace";
 class App extends Component {
@@ -59,14 +60,13 @@ class App extends Component {
           />
           <Route path="/register" component={visitorRegister} />
           <Route path="/login" component={visitorLogin} />
-
+           <Route path="/forget-password" component={ForgetPass} />
           {/* <Route path="/admin/register" component={adminRegister} /> */}
           <ProtectedRoute
             path="/admin/login"
             component={adminLogin}
             isAuth={onlyVisitor}
           />
-
           <ProtectedRoute
             path="/places/:placeName"
             component={SinglePlace}
@@ -82,7 +82,6 @@ class App extends Component {
             component={SinglePost}
             isAuth={anyone}
           />
-
           <ProtectedRoute
             path="/all-places/reported-places/:name"
             component={SingleReport}
@@ -93,7 +92,6 @@ class App extends Component {
             component={SingleReportedPost}
             isAuth={onlyAdmin}
           />
-
           <ProtectedRoute
             path="/guide/login"
             component={GuideLogin}
@@ -114,7 +112,6 @@ class App extends Component {
             component={SingleGuide}
             isAuth={onlyAdmin}
           />
-
           <ProtectedRoute
             exact
             path="/all-admin"
@@ -126,14 +123,12 @@ class App extends Component {
             component={SingleAdmin}
             isAuth={onlyAdmin}
           />
-
           <ProtectedRoute
             exact
             path="/all-places/reported-posts"
             component={AllReportedPosts}
             isAuth={onlyAdmin}
           />
-
           <ProtectedRoute
             exact
             path="/all-places/reported-places"

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrash } from "react-icons/fa";
 import { connect } from "react-redux";
@@ -9,9 +11,9 @@ import {
 
 import { removePost } from "../../store/actions/postAction";
 import PostInfo from "../../component/post/PostInfo";
+
 class SingleReportedPost extends Component {
   componentDidMount() {
-    console.log(this.props.location.state);
     const { postId } = this.props.location.state;
     this.props.getSingleReportedPost(postId);
   }
@@ -61,4 +63,4 @@ export default connect(mapStateToProps, {
   deleteReport,
   removePost,
   getSingleReportedPost,
-})(SingleReportedPost);
+})(withRouter(SingleReportedPost));

@@ -113,7 +113,14 @@ class Login extends React.Component {
               Login <GiCheckMark size={22} className="pb-1" />
             </button>
             <div className="container d-block my-1 text-center">
-              <Link to="#">Forget Password</Link>
+              <Link
+                to={{
+                  pathname: "/forget-password",
+                  state: { userType: "visitor" },
+                }}
+              >
+                Forget Password
+              </Link>
             </div>
           </form>
         </div>

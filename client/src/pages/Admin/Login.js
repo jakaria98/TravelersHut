@@ -113,7 +113,14 @@ class Login extends React.Component {
             </button>
           </form>
           <div className="container d-block my-1 text-center">
-            <Link to="#">Forget Password</Link>
+            <Link
+              to={{
+                pathname: "/forget-password",
+                state: { userType: "admin" },
+              }}
+            >
+              Forget Password
+            </Link>
           </div>
         </div>
       </div>
