@@ -24,6 +24,7 @@ app.use("/api/places", require("./routers/placeRouter"));
 app.use("/api/reportedPlaces", require("./routers/reportedPlaceRouter"));
 app.use("/api/reportedPost", require("./routers/reportedPostRouter"));
 app.use("/api/posts", require("./routers/postRouter"));
+app.use("/api/forget-password", require("./routers/forgetPassword"));
 
 app.get("/", (req, res) => {
   res.json({
