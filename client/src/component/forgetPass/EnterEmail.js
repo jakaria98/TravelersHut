@@ -12,6 +12,7 @@ class EnterEmail extends Component {
     error: {},
     invalidAction: "",
     userType: "",
+    submit: false,
   };
   componentDidMount() {
     if (this.props.location.state) {
@@ -36,6 +37,9 @@ class EnterEmail extends Component {
       });
     } else {
       this.props.resetRequest({ email, userType });
+      this.setState({
+        submit: true,
+      });
     }
   };
 
@@ -55,9 +59,10 @@ class EnterEmail extends Component {
   }
 
   render() {
-    let { email, error, invalidAction } = this.state;
-    console.log(this.props);
-
+    let { email, error, invalidAction, submit } = this.state;
+    if (submit && this.props.forgetPass._id) {
+      this.props.close();
+    }
     return (
       <div
         className="container"
@@ -69,7 +74,7 @@ class EnterEmail extends Component {
         }}
       >
         <div className="col-md-6 offset-md-3 pt-3 ">
-          <div className="div">
+          <div className="div text-center">
             <h2 style={{ margin: "5px" }}>Forgotten Password</h2>
             <div />
           </div>
@@ -112,7 +117,10 @@ class EnterEmail extends Component {
                 </div>
               )}
             </div>
-            <button className="btn btn-primary container d-block ">
+            <button
+              type="submit"
+              className="btn btn-primary container d-block "
+            >
               search
               <MdSearch className="pb-1" size={25} />
             </button>
