@@ -86,14 +86,16 @@ class Register extends React.Component {
                     placeholder="Enter Your Email"
                     name="email"
                     className={
-                      error?.email ? "form-control is-invalid" : "form-control"
+                      error?.R_email
+                        ? "form-control is-invalid"
+                        : "form-control"
                     }
                     id="email"
                     value={email}
                     onChange={this.changeHandler}
                   />
-                  {error?.email && (
-                    <div className="invalid-feedback">{error?.email}</div>
+                  {error?.R_email && (
+                    <div className="invalid-feedback">{error?.R_email}</div>
                   )}
                 </div>
               </div>
@@ -108,7 +110,7 @@ class Register extends React.Component {
                     placeholder="Enter Your Password"
                     name="password"
                     className={
-                      error?.password
+                      error?.R_password
                         ? "form-control is-invalid"
                         : "form-control"
                     }
@@ -117,7 +119,7 @@ class Register extends React.Component {
                     onChange={this.changeHandler}
                   />
                   {error?.password && (
-                    <div className="invalid-feedback">{error?.password}</div>
+                    <div className="invalid-feedback">{error?.R_password}</div>
                   )}
                 </div>
               </div>

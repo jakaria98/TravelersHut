@@ -8,15 +8,15 @@ const validate = (visitor) => {
   }
 
   if (!visitor.email) {
-    error.email = "Please Provide Your Email";
+    error.R_email = "Please Provide Your Email";
   } else if (!validator.isEmail(visitor.email)) {
-    error.email = "Please Provide a Valid Email";
+    error.R_email = "Please Provide a Valid Email";
   }
 
   if (!visitor.password) {
-    error.password = "Please Provide a Password";
+    error.R_password = "Please Provide a Password";
   } else if (visitor.password.length < 6) {
-    error.password = "Password Must be Greater or Equal 6 Character";
+    error.R_password = "Password Must be Greater or Equal 6 Character";
   }
 
   if (!visitor.confirmPassword) {
