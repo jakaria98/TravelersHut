@@ -10,11 +10,17 @@ class EnterOtp extends Component {
   state = {
     given_otp: "",
     stored_otp: "",
+    email: "",
+    userType: "",
     error: {},
     submit: false,
   };
   componentDidMount() {
-    this.setState({ stored_otp: this.props.forgetPass.otp });
+    this.setState({
+      stored_otp: this.props.forgetPass.otp,
+      email: this.props.forgetPass.email,
+      userType: this.props.forgetPass.userType,
+    });
   }
 
   changeHandler = (event) => {
@@ -32,7 +38,6 @@ class EnterOtp extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.forgetPass.error) {
-      console.log(nextProps.forgetPass);
       if (
         JSON.stringify(nextProps.forgetPass.error) !==
         JSON.stringify(prevState.error)
@@ -54,12 +59,12 @@ class EnterOtp extends Component {
       <div
         style={{
           width: "50%",
-          height: "280px",
+          height: "auto",
           background: "#cfecec",
           margin: "15% auto",
         }}
       >
-        <div className="col-md-6 offset-md-3 pt-3 ">
+        <div className="col-md-6 offset-md-3 py-3 ">
           <div className="div text-center">
             <h2 style={{ margin: "5px" }}>Enter OTP</h2>
             <div />

@@ -24,14 +24,6 @@ const guideSchema = new Schema({
   places: {
     type: [{ type: Schema.Types.ObjectId, ref: "Places" }],
   },
-  posts: {
-    type: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Posts",
-      },
-    ],
-  },
 });
 
 const Guide = mongoose.model("Guide", guideSchema);

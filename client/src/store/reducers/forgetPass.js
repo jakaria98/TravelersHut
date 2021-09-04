@@ -7,6 +7,9 @@ const forgetPassReducer = (state = init, action) => {
     case Types.RESET_REQUEST: {
       return action.payload.pass;
     }
+    case Types.RESET_SUCCESS: {
+      return action.payload.pass;
+    }
     case Types.PASS_ERROR: {
       return { error: action.payload.error };
     }

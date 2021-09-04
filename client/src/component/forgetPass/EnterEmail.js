@@ -66,12 +66,12 @@ class EnterEmail extends Component {
       <div
         style={{
           width: "50%",
-          height: "280px",
+          height: `auto`,
           background: "#cfecec",
           margin: "15% auto",
         }}
       >
-        <div className="col-md-6 offset-md-3 pt-3 ">
+        <div className="col-md-6 offset-md-3 py-3 ">
           <div className="div text-center">
             <h2 style={{ margin: "5px" }}>Forgotten Password</h2>
             <div />
@@ -115,7 +115,7 @@ class EnterEmail extends Component {
                 </div>
               )}
             </div>
-            <button className="btn btn-primary container d-block ">
+            <button className="btn btn-primary container d-block mb-3 ">
               search
               <MdSearch className="pb-1" size={25} />
             </button>
