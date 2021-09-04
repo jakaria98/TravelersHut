@@ -45,7 +45,7 @@ class Register extends React.Component {
     let { name, email, password, confirmPassword, error } = this.state;
     error = error?.message;
     return (
-      <div style={{ marginTop: "100px" }}>
+      <div style={{ margin: "10% auto" }}>
         <div className="col-md-6 offset-md-3">
           <div className="div text-center">
             <h1 className="text-center display-4" style={{ margin: "5px" }}>

@@ -431,6 +431,9 @@ li > a:only-child:after {
   }
 }
 @media all and (max-width: 1430px) {
+  nav a {
+    margin: 0;
+  }
   nav {
     margin: 0;
   }
@@ -519,6 +522,7 @@ li > a:only-child:after {
   }
   .check-btn {
     font-size: 20px;
+    margin-right: 15px;
   }
 }
 /* nav {
@@ -658,4 +662,32 @@ nav ul li:hover ul {
   margin: 0 auto;
   margin-bottom: 20px;
   background: var(--primaryColor);
+}
+.home-img-container {
+  position: relative;
+}
+.home-img-container img {
+  width: 100%;
+  display: block;
+}
+.text-top {
+  left: 4%;
+  position: absolute;
+  top: 30%;
+
+  color: var(--darkGrey);
+  padding: 0.3rem 0.6rem 0.5rem;
+  border-bottom-right-radius: 1rem;
+  text-align: center;
+}
+.text-top h2,
+h3 {
+  font-weight: 600;
+}
+@media (max-width: 450px) {
+  .text-top h2,
+  h3 {
+    font-weight: 300;
+    font-size: 0.8rem;
+  }
 }
