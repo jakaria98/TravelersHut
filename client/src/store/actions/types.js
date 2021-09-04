@@ -41,3 +41,4 @@ export const SINGLE_REPORTED_POST = "SINGLE_REPORTED_POST";
 
 export const RESET_REQUEST = "RESET_REQUEST";
 export const PASS_ERROR = "PASS_ERROR";
+export const OTP_SUBMIT = "OTP_SUBMIT";

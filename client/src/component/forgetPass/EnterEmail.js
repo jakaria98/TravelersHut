@@ -45,7 +45,6 @@ class EnterEmail extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.forgetPass.error) {
-      console.log(nextProps.forgetPass);
       if (
         JSON.stringify(nextProps.forgetPass.error) !==
         JSON.stringify(prevState.error)
@@ -60,17 +59,16 @@ class EnterEmail extends Component {
 
   render() {
     let { email, error, invalidAction, submit } = this.state;
-    if (submit && this.props.forgetPass._id) {
+    if (submit && this.props.forgetPass.email) {
       this.props.close();
     }
     return (
       <div
-        className="container"
         style={{
           width: "50%",
           height: "280px",
           background: "#cfecec",
-          marginTop: "15%",
+          margin: "15% auto",
         }}
       >
         <div className="col-md-6 offset-md-3 pt-3 ">
@@ -117,10 +115,7 @@ class EnterEmail extends Component {
                 </div>
               )}
             </div>
-            <button
-              type="submit"
-              className="btn btn-primary container d-block "
-            >
+            <button className="btn btn-primary container d-block ">
               search
               <MdSearch className="pb-1" size={25} />
             </button>

@@ -1,7 +1,12 @@
 const router = require("express").Router();
 
-const { resetRequest, reset } = require("../controller/forgetPassword");
+const {
+  resetRequest,
+  resetPassword,
+  otpSubmission,
+} = require("../controller/forgetPassword");
 
 router.post("/resetRequest", resetRequest);
-router.post("/reset", reset);
+router.post("/otpSubmission", otpSubmission);
+router.post("/reset", resetPassword);
 module.exports = router;
