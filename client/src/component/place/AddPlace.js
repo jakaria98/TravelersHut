@@ -35,18 +35,16 @@ class AddPlace extends Component {
     coverPhoto: "",
     detailsPhoto: [],
     error: {},
+    submitted: false,
   };
 
   changeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    if (event.target.name === "division" && event.target.value.length === 0) {
+    if (event.target.name === "division") {
       this.setState({ district: "", upazila: "" });
-    } else if (
-      event.target.name === "district" &&
-      event.target.value.length === 0
-    ) {
+    } else if (event.target.name === "district") {
       this.setState({ upazila: "" });
     }
   };
@@ -101,6 +99,7 @@ class AddPlace extends Component {
     formData.append("upazila", upazila);
 
     this.props.addPlace(formData, this.props.history);
+    this.setState({ submitted: true });
   };
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -116,8 +115,21 @@ class AddPlace extends Component {
   }
 
   render() {
-    let { name, division, district, error } = this.state;
+    let { name, division, district, upazila, error, submitted } = this.state;
     let divisionObject, districtObject;
+    if (submitted && this.props.place._id) {
+      this.props.close();
+      this.setState({
+        name: "",
+        division: "",
+        district: "",
+        upazila: "",
+        coverPhoto: "",
+        detailsPhoto: [],
+        error: {},
+        submitted: false,
+      });
+    }
     return (
       <Modal
         isOpen={this.props.isOpen}
@@ -206,6 +218,7 @@ class AddPlace extends Component {
                   <label htmlFor="division">Division:</label>
                   <select
                     name="division"
+                    value={division}
                     className={
                       error?.division
                         ? "form-control is-invalid"
@@ -235,6 +248,7 @@ class AddPlace extends Component {
                     <label htmlFor="district">District:</label>
                     <select
                       disabled
+                      value={district}
                       className={
                         error?.district
                           ? "form-control is-invalid"
@@ -259,6 +273,7 @@ class AddPlace extends Component {
                       <label htmlFor="district">District:</label>
                       <select
                         name="district"
+                        value={district}
                         className={
                           error?.district
                             ? "form-control is-invalid"
@@ -296,6 +311,7 @@ class AddPlace extends Component {
                           ? "form-control is-invalid"
                           : "form-control"
                       }
+                      value={upazila}
                       disabled
                     >
                       <option>Add Division and District First</option>
@@ -317,6 +333,7 @@ class AddPlace extends Component {
                       <select
                         name="upazila"
                         id="upazila"
+                        value={upazila}
                         className={
                           error?.upazila
                             ? "form-control is-invalid"

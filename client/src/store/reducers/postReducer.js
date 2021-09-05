@@ -9,9 +9,7 @@ const postReducer = (state = init, action) => {
       return action.payload.posts;
     }
     case Types.ADD_POST: {
-      let post = [...state];
-      post.unshift(action.payload.post);
-      return { post, error: {} };
+      return action.payload.post;
     }
     case Types.REMOVE_POST: {
       return action.payload.post;

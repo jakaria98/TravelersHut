@@ -12,12 +12,7 @@ const placeReducer = (state = init, action) => {
       return action.payload.places;
     }
     case Types.ADD_PLACE: {
-      let place = [...state];
-      place.unshift(action.payload.place);
-      return {
-        place,
-        error: {},
-      };
+      return action.payload.place;
     }
     case Types.REMOVE_PLACE: {
       return action.payload.place;

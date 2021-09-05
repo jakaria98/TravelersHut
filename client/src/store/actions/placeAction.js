@@ -25,6 +25,7 @@ export const addPlace = (place, history) => (dispatch) => {
         },
       });
       history.push("/all-places");
+      console.log("history called");
     })
     .catch((error) => {
       dispatch({

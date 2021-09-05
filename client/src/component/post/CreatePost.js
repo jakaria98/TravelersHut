@@ -35,6 +35,7 @@ class CreatePost extends Component {
     detailsPhoto: [],
     details: "",
     error: {},
+    submitted: false,
   };
 
   getPhotos = (event) => {
@@ -52,12 +53,9 @@ class CreatePost extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    if (event.target.name === "division" && event.target.value.length === 0) {
+    if (event.target.name === "division") {
       this.setState({ district: "", upazila: "" });
-    } else if (
-      event.target.name === "district" &&
-      event.target.value.length === 0
-    ) {
+    } else if (event.target.name === "district") {
       this.setState({ upazila: "" });
     }
   };
@@ -133,17 +131,32 @@ class CreatePost extends Component {
     formData.append("details", details);
 
     this.props.addPost(formData, placeID);
+    this.setState({ submitted: true });
   };
   render() {
     let {
       division,
       district,
-      upazila,
+      submitted,
       minimumCost,
+      upazila,
       residence,
       details,
       error,
     } = this.state;
+    if (submitted && this.props.post._id) {
+      this.props.close();
+      this.setState({
+        name: "",
+        division: "",
+        district: "",
+        upazila: "",
+        coverPhoto: "",
+        detailsPhoto: [],
+        error: {},
+        submitted: false,
+      });
+    }
 
     let divisionObject, districtObject;
     return (
@@ -168,6 +181,7 @@ class CreatePost extends Component {
                         : "form-control"
                     }
                     id="division"
+                    value={division}
                     onChange={this.changeHandler}
                   >
                     <option value="">Default</option>
@@ -191,6 +205,7 @@ class CreatePost extends Component {
                     <label htmlFor="district">District:</label>
                     <select
                       disabled
+                      value={district}
                       className={
                         error?.district
                           ? "form-control is-invalid"
@@ -215,6 +230,7 @@ class CreatePost extends Component {
                       <label htmlFor="district">District:</label>
                       <select
                         name="district"
+                        value={district}
                         className={
                           error?.district
                             ? "form-control is-invalid"
@@ -247,6 +263,7 @@ class CreatePost extends Component {
                   <div className="container">
                     <label htmlFor="upazila">Upazila:</label>
                     <select
+                      value={upazila}
                       className={
                         error?.upazila
                           ? "form-control is-invalid"
@@ -272,6 +289,7 @@ class CreatePost extends Component {
                       <label htmlFor="upazila">Upazila:</label>
                       <select
                         name="upazila"
+                        value={upazila}
                         id="upazila"
                         className={
                           error?.upazila

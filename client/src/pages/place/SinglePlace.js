@@ -11,6 +11,9 @@ import { loadPost } from "../../store/actions/postAction";
 import PostCard from "../../component/post/PostCard";
 import CreatePost from "../../component/post/CreatePost";
 import Loading from "../../component/utils/Loading";
+import Dataset from "../../utils/Data";
+import { GrMapLocation } from "react-icons/gr";
+import { ImLocation, ImLocation2 } from "react-icons/im";
 import {
   FaStar,
   FaRegStar,
@@ -20,8 +23,6 @@ import {
 } from "react-icons/fa";
 import { FcRating } from "react-icons/fc";
 import { MdRateReview } from "react-icons/md";
-
-import { RiMapPinAddFill } from "react-icons/ri";
 import { VscReport } from "react-icons/vsc";
 import Report from "../../component/place/Report";
 import { GrUpdate } from "react-icons/gr";
@@ -32,6 +33,43 @@ class SinglePlace extends Component {
     reportModalOpen: false,
     placeID: "",
     rating: 0,
+
+    division: "all",
+    district: "all",
+    upazila: "all",
+  };
+  changeHandler = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+    if (event.target.name === "division") {
+      this.setState({ district: "all", upazila: "all" });
+    } else if (event.target.name === "district") {
+      this.setState({ upazila: "all" });
+    }
+  };
+
+  getDivision = (division) => {
+    division = Dataset.division.filter((dvs) => dvs.name === division);
+    return division;
+  };
+
+  getDistrict = (district, division) => {
+    district = division[0].district.filter((dis) => dis.name === district);
+    return district;
+  };
+
+  postFilter = (post) => {
+    if (this.state.division !== "all") {
+      post = post.filter((plc) => plc.division === this.state.division);
+    }
+    if (this.state.district !== "all") {
+      post = post.filter((plc) => plc.district === this.state.district);
+    }
+    if (this.state.upazila !== "all") {
+      post = post.filter((plc) => plc.upazila === this.state.upazila);
+    }
+    return post;
   };
 
   openCreateModal = () => {
@@ -55,6 +93,7 @@ class SinglePlace extends Component {
     this.setState({
       reportModalOpen: false,
     });
+    this.props.loadPost(this.state.placeID);
   };
 
   componentDidMount() {
@@ -86,9 +125,6 @@ class SinglePlace extends Component {
     return elements;
   };
 
-  postFilter = (post) => {
-    post.filter((pst) => pst.place === this.state.placeId);
-  };
   personFilter = (obj, id) => {
     let x = 0;
     for (let i = 0; i < obj.length; i++) {
@@ -103,11 +139,16 @@ class SinglePlace extends Component {
   render() {
     console.log(this.props);
     let { place, post, visitor } = this.props;
+    post = this.postFilter(post);
     visitor = visitor.visitor;
-    let { rating, placeID } = this.state;
+    let { rating, placeID, division, district,upazila } = this.state;
     let averageRating = 0;
     let remainingRating = 5;
     let previousRating = 0;
+    let divisionObject, districtObject;
+    if (division !== "all") divisionObject = this.getDivision(division);
+    if (district !== "all")
+      districtObject = this.getDistrict(district, divisionObject);
     return (
       <>
         {place.length <= 0 ? (
@@ -439,6 +480,88 @@ class SinglePlace extends Component {
             {post.length ? "All Reviews" : "No Reviews"}
           </h1>
         </div>
+
+        <div className="container my-3">
+          <div className="div text-center">
+            <h1 className="display-4" style={{ margin: "5px" }}>
+              Search For A Review
+            </h1>
+            <div />
+          </div>
+          <form className="filter-form">
+            <div className="form-group">
+              <div className="d-flex">
+                <GrMapLocation size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="division">Your Division:</label>
+                  <select
+                    className="form-control"
+                    name="division"
+                    id="division"
+                    onChange={this.changeHandler}
+                    value={division}
+                  >
+                    <option value="all">All</option>
+                    {Dataset.division.map((div, i) => (
+                      <option key={i} value={div.name}>
+                        {div.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="d-flex">
+                <ImLocation size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="district">Your District:</label>
+                  <select
+                    className="form-control"
+                    name="district"
+                    value={district}
+                    id="district"
+                    onChange={this.changeHandler}
+                  >
+                    <option value="all">All</option>
+                    {divisionObject
+                      ? divisionObject[0].district.map((dis, i) => (
+                          <option key={i} value={dis.name}>
+                            {dis.name}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div className="form-group">
+              <div className="d-flex">
+                <ImLocation2 size={70} className="pt-4" />
+                <div className="container">
+                  <label htmlFor="upazila">Your Upazila:</label>
+                  <select
+                    className="form-control"
+                    name="upazila"
+                    id="upazila"
+                    value={upazila}
+                    onChange={this.changeHandler}
+                  >
+                    <option value="all">All</option>
+                    {districtObject
+                      ? districtObject[0].upazila.map((upz, i) => (
+                          <option key={i} value={upz}>
+                            {upz}
+                          </option>
+                        ))
+                      : null}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
         {post.length
           ? post.map((post, i) => (
               <PostCard

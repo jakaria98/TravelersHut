@@ -33,18 +33,16 @@ class AllPlaces extends Component {
     this.setState({
       createModalOpen: false,
     });
+    this.props.loadPlaces();
   };
 
   changeHandler = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    if (event.target.name === "division" && event.target.value === "all") {
+    if (event.target.name === "division") {
       this.setState({ district: "all", upazila: "all" });
-    } else if (
-      event.target.name === "district" &&
-      event.target.value === "all"
-    ) {
+    } else if (event.target.name === "district") {
       this.setState({ upazila: "all" });
     }
   };
@@ -72,11 +70,12 @@ class AllPlaces extends Component {
     return place;
   };
   render() {
+    console.log(this.state);
     let { place } = this.props;
     place = this.placeFilter(place);
     let placeRating = 0;
     let divisionObject, districtObject;
-    let { division, district } = this.state;
+    let { division, district, upazila } = this.state;
     if (division !== "all") divisionObject = this.getDivision(division);
     if (district !== "all")
       districtObject = this.getDistrict(district, divisionObject);
@@ -101,6 +100,7 @@ class AllPlaces extends Component {
                       name="division"
                       id="division"
                       onChange={this.changeHandler}
+                      value={division}
                     >
                       <option value="all">All</option>
                       {Dataset.division.map((div, i) => (
@@ -122,6 +122,7 @@ class AllPlaces extends Component {
                       name="district"
                       id="district"
                       onChange={this.changeHandler}
+                      value={district}
                     >
                       <option value="all">All</option>
                       {divisionObject
@@ -145,6 +146,7 @@ class AllPlaces extends Component {
                       name="upazila"
                       id="upazila"
                       onChange={this.changeHandler}
+                      value={upazila}
                     >
                       <option value="all">All</option>
                       {districtObject
@@ -170,25 +172,25 @@ class AllPlaces extends Component {
             </button>
           ) : null}
         </div>
-        {place.length > 0
-          ? place.map(
-              (plc) => (
-                (placeRating = Math.round(
-                  plc.ratingCount / plc.ratedBy.length
-                )),
-                (
-                  <PlaceCard
-                    name={plc.name}
-                    coverPhoto={plc.coverPhoto}
-                    placeRating={placeRating}
-                    _id={plc._id}
-                    pathLink="/places"
-                    key={plc._id}
-                  />
-                )
+        {place.length > 0 ? (
+          place.map(
+            (plc) => (
+              (placeRating = Math.round(plc.ratingCount / plc.ratedBy.length)),
+              (
+                <PlaceCard
+                  name={plc.name}
+                  coverPhoto={plc.coverPhoto}
+                  placeRating={placeRating}
+                  _id={plc._id}
+                  pathLink="/places"
+                  key={plc._id}
+                />
               )
             )
-          : (this.props.loadPlaces(), (<Loading />))}
+          )
+        ) : (
+          <Loading />
+        )}
         <AddPlace
           isOpen={this.state.createModalOpen}
           close={this.closeCreateModal}
