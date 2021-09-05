@@ -23,7 +23,9 @@ module.exports = {
     Visitor.findOne({ email })
       .then((user) => {
         if (!user) {
-          return notFound(res, "User not found");
+          let error = {};
+          error.invalidAccess = "Invalid Credential";
+          return notFound(res, error);
         }
         bcrypt.compare(password, user.password, (err, result) => {
           if (err) return serverError(res, error);

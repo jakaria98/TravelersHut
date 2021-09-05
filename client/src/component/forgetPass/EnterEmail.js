@@ -73,7 +73,7 @@ class EnterEmail extends Component {
       >
         <div className="col-md-6 offset-md-3 py-3 ">
           <div className="div text-center">
-            <h2 style={{ margin: "5px" }}>Forgotten Password</h2>
+            <h2 style={{ margin: "5px" }}>Find Your ID</h2>
             <div />
           </div>
           <form onSubmit={this.submitHandler}>

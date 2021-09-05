@@ -9,6 +9,7 @@ import {
 import { GiCheckMark } from "react-icons/gi";
 import { FaTrash } from "react-icons/fa";
 import Loading from "../../component/utils/Loading";
+import { withRouter } from "react-router-dom";
 class SingleReport extends Component {
   componentDidMount() {
     let { keyVal } = this.props.location.state;
@@ -36,7 +37,7 @@ class SingleReport extends Component {
         {reportedPlace ? (
           <div className="container mb-5 mt-3">
             <button
-              className="btn btn-success w-100 my-1"
+              className="btn btn-success d-block w-75 container my-1"
               onClick={() =>
                 this.props.removeReport(reportedPlace._id, this.props.history)
               }
@@ -44,7 +45,7 @@ class SingleReport extends Component {
               Everything OK <GiCheckMark size={22} className="pb-1" />
             </button>
             <button
-              className="btn btn-danger w-100 my-1"
+              className="btn btn-danger w-75 d-block container my-1"
               onClick={() => {
                 this.props.removePlace(reportedPlace.placeID);
                 this.props.removeReport(reportedPlace._id, this.props.history);
@@ -68,4 +69,4 @@ export default connect(mapStateToProps, {
   getSingleReport,
   removeReport,
   removePlace,
-})(SingleReport);
+})(withRouter(SingleReport));

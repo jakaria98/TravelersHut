@@ -120,7 +120,7 @@ class Login extends React.Component {
                   state: { userType: "guide" },
                 }}
               >
-                Forget Password
+                Forgotten Password
               </Link>
             </div>
           </form>
