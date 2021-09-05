@@ -101,6 +101,7 @@ class SinglePlace extends Component {
   };
 
   render() {
+    console.log(this.props);
     let { place, post, visitor } = this.props;
     visitor = visitor.visitor;
     let { rating, placeID } = this.state;
@@ -406,7 +407,8 @@ class SinglePlace extends Component {
         >
           Add A Review <MdRateReview size={22} />
         </button>
-        {this.props.guide.guide._id === place.creatorGuide ? (
+        {this.props.guide.guide._id === place.creatorGuide &&
+        this.props.guide.isAuthenticated ? (
           <Link
             to={{
               pathname: "/update-place",

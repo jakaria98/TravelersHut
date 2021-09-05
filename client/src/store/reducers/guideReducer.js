@@ -29,7 +29,7 @@ const guideReducer = (state = init, action) => {
     case Types.SINGLE_GUIDE: {
       return {
         guide: action.payload.guide,
-        isAuthenticated: Object.keys(action.payload.guide).length !== 0,
+        isAuthenticated: false,
       };
     }
     case Types.DELETE_GUIDE: {
