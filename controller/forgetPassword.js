@@ -1,13 +1,7 @@
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcrypt");
 
-const {
-  badRequest,
-  serverError,
-  notFound,
-  createdSuccessfully,
-  everythingOk,
-} = require("../utils/error");
+const { badRequest, serverError, everythingOk } = require("../utils/error");
 
 const Guide = require("../model/Guide");
 const Admin = require("../model/Admin");

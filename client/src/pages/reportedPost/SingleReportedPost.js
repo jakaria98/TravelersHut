@@ -21,15 +21,17 @@ class SingleReportedPost extends Component {
     let { reportedPost } = this.props;
     return (
       <>
-        <PostInfo
-          coverPhoto={reportedPost.coverPhoto}
-          detailsPhoto={reportedPost.detailsPhoto}
-          residence={reportedPost.residence}
-          details={reportedPost.details}
-          minimumCost={reportedPost.minimumCost}
-          report={reportedPost.reportProblem}
-          id={reportedPost._id}
-        />
+        <div style={{ marginTop: "109px" }}>
+          <PostInfo
+            coverPhoto={reportedPost.coverPhoto}
+            detailsPhoto={reportedPost.detailsPhoto}
+            residence={reportedPost.residence}
+            details={reportedPost.details}
+            minimumCost={reportedPost.minimumCost}
+            report={reportedPost.reportProblem}
+            id={reportedPost._id}
+          />
+        </div>
 
         <div className="container mb-5 mt-3">
           <button

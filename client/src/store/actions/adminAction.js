@@ -111,7 +111,7 @@ export const adminLogout = (history) => (dispatch) => {
       admin: {},
     },
   });
-  history.push("/");
+  history.push("/admin/login");
 };
 
 export const logoutTimer = (dispatch, timer, history) => {

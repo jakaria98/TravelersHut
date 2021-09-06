@@ -118,7 +118,7 @@ class Register extends React.Component {
                     value={password}
                     onChange={this.changeHandler}
                   />
-                  {error?.password && (
+                  {error?.R_password && (
                     <div className="invalid-feedback">{error?.R_password}</div>
                   )}
                 </div>

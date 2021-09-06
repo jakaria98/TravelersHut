@@ -23,16 +23,18 @@ class SingleReport extends Component {
           (this.props.getSingleReport(this.props.location.state.keyVal),
           (<Loading />))
         ) : (
-          <PlaceInfo
-            coverPhoto={reportedPlace.coverPhoto}
-            name={reportedPlace.name}
-            division={reportedPlace.division}
-            district={reportedPlace.district}
-            upazila={reportedPlace.upazila}
-            createdAt={reportedPlace.createdAt}
-            detailsPhoto={reportedPlace.detailsPhoto}
-            report={reportedPlace.reportProblem}
-          />
+          <div style={{ marginTop: "109px" }}>
+            <PlaceInfo
+              coverPhoto={reportedPlace.coverPhoto}
+              name={reportedPlace.name}
+              division={reportedPlace.division}
+              district={reportedPlace.district}
+              upazila={reportedPlace.upazila}
+              createdAt={reportedPlace.createdAt}
+              detailsPhoto={reportedPlace.detailsPhoto}
+              report={reportedPlace.reportProblem}
+            />
+          </div>
         )}
         {reportedPlace ? (
           <div className="container mb-5 mt-3">

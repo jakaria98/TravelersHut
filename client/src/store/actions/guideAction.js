@@ -77,7 +77,7 @@ export const guideLogout = (history) => (dispatch) => {
       guide: {},
     },
   });
-  history.push("/");
+  history.push("/guide/login");
 };
 export const loadGuide = () => (dispatch) => {
   Axios.get("/api/guide/allGuide")

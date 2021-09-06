@@ -137,6 +137,7 @@ h6 {
 }
 .placeDetailsImg-container img {
   width: 100%;
+  height: 250px;
   display: block;
   transition: var(--mainTransition);
 }
