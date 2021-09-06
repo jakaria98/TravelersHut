@@ -177,7 +177,7 @@ class UserEdit extends Component {
             </div>
             <div className="my-4 container d-block text-center bg-light ">
               <hr />
-              FIll The Field Below If You Want To Change Your Profile Photo
+              Fill The Field Below If You Want To Change Your Profile Photo
               <hr />
             </div>
             <div className="form-group my-2">
@@ -196,7 +196,7 @@ class UserEdit extends Component {
             </div>
             <div className="my-4 container d-block text-center bg-light ">
               <hr />
-              FIll All The Fields Below If You Want To Change Your Password
+              Fill All The Fields Below If You Want To Change Your Password
               <hr />
             </div>
             <div className="form-group">

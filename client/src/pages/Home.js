@@ -80,6 +80,9 @@ class Home extends Component {
             <h1 style={{ margin: "5px", fontWeight: 600 }}>Thank You</h1>
             <div />
           </div>
+          <p className="text-center my-0">
+            &copy;All Rights Reserved By JAKARIA & SALMAN
+          </p>
           <hr />
         </div>
       </div>

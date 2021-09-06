@@ -202,6 +202,11 @@ class UpdatePlace extends Component {
                 </div>
               </div>
             </div>
+            <div className="my-4 container d-block text-center bg-light ">
+              <hr />
+              Fill All The Fields Below If You Want To Change The Location
+              <hr />
+            </div>
             <div className="form-group my-2">
               <div className="d-flex">
                 <GrMapLocation size={70} className="pt-4" />
