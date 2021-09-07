@@ -10,9 +10,12 @@ class AllAdmin extends Component {
   render() {
     let { admin } = this.props.admin;
     return (
-      <>
-        <div className="info">
-          <h1 className="placeName">All Admins</h1>
+      <div style={{ marginTop: "120px" }}>
+        <div className="div text-center">
+          <h1 className="display-4" style={{ margin: "5px" }}>
+            Admin Panel
+          </h1>
+          <div />
         </div>
         {admin.length > 0
           ? admin.map((admin) => (
@@ -25,7 +28,7 @@ class AllAdmin extends Component {
               />
             ))
           : (this.props.allAdmin(), (<Loading />))}
-      </>
+      </div>
     );
   }
 }

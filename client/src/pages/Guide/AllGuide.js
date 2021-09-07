@@ -10,9 +10,12 @@ class AllGuide extends Component {
   render() {
     let { guide } = this.props.guide;
     return (
-      <>
-        <div className="info">
-          <h1 className="placeName">All Guides</h1>
+      <div style={{ marginTop: "120px" }}>
+        <div className="div text-center">
+          <h1 className="display-4" style={{ margin: "5px" }}>
+            Guide Panel
+          </h1>
+          <div />
         </div>
         {guide.length > 0
           ? guide.map((gd) => (
@@ -25,7 +28,7 @@ class AllGuide extends Component {
               />
             ))
           : (this.props.loadGuide(), (<Loading />))}
-      </>
+      </div>
     );
   }
 }
