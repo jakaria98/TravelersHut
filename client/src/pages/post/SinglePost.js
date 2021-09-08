@@ -12,7 +12,7 @@ class SinglePost extends Component {
   render() {
     let { post } = this.props;
     return (
-      <div style={{ marginTop: "80px" }}>
+      <div style={{ marginTop: "109px" }}>
         <PostInfo
           coverPhoto={post.coverPhoto}
           detailsPhoto={post.detailsPhoto}

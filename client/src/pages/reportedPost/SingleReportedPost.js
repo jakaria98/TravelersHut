@@ -33,7 +33,7 @@ class SingleReportedPost extends Component {
           />
         </div>
 
-        <div className="container mb-5 mt-3">
+        <div className="container text-center mb-5 mt-3">
           <button
             className="btn btn-success w-75 container my-1"
             onClick={() =>

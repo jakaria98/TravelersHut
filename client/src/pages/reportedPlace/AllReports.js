@@ -12,6 +12,12 @@ class AllReports extends Component {
     return (
       <>
         <div style={{ marginTop: "120px" }}>
+          <div className="div text-center">
+            <h1 className="display-4" style={{ margin: "5px" }}>
+              Reported Places
+            </h1>
+            <div />
+          </div>
           {reportedPlace.length
             ? reportedPlace.map((report) => (
                 <PlaceCard

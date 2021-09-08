@@ -11,7 +11,13 @@ class AllReportedPosts extends Component {
     let { reportedPost } = this.props;
     return (
       <>
-        <div style={{marginTop:"120px"}}>
+        <div style={{ marginTop: "120px" }}>
+          <div className="div text-center">
+            <h1 className="display-4" style={{ margin: "5px" }}>
+              Reported Posts
+            </h1>
+            <div />
+          </div>
           {reportedPost.length ? (
             reportedPost.map((post) => (
               <PostCard

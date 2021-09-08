@@ -41,7 +41,7 @@ class Login extends React.Component {
     error = error?.message;
 
     return (
-      <div style={{ margin: "10% auto" }}>
+      <div style={{ margin: "130px auto" }}>
         <div className="col-md-6 offset-md-3">
           <div className="div text-center">
             <h1 className="text-center display-4" style={{ margin: "5px" }}>
