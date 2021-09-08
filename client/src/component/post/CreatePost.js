@@ -21,7 +21,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "70%",
-    height: "80%",
+    height: "90%",
   },
 };
 class CreatePost extends Component {
@@ -172,7 +172,7 @@ class CreatePost extends Component {
               <div className="d-flex">
                 <GrMapLocation size={70} className="pt-4" />
                 <div className="container">
-                  <label htmlFor="division">Division:</label>
+                  <label htmlFor="division">Your Division:</label>
                   <select
                     name="division"
                     className={
@@ -202,7 +202,7 @@ class CreatePost extends Component {
                 <div className="d-flex">
                   <ImLocation size={70} className="pt-4" />
                   <div className="container">
-                    <label htmlFor="district">District:</label>
+                    <label htmlFor="district">Your District:</label>
                     <select
                       disabled
                       value={district}
@@ -227,7 +227,7 @@ class CreatePost extends Component {
                   <div className="d-flex">
                     <ImLocation size={70} className="pt-4" />
                     <div className="container">
-                      <label htmlFor="district">District:</label>
+                      <label htmlFor="district">Your District:</label>
                       <select
                         name="district"
                         value={district}
@@ -261,7 +261,7 @@ class CreatePost extends Component {
                 <div className="d-flex">
                   <ImLocation2 size={70} className="pt-4" />
                   <div className="container">
-                    <label htmlFor="upazila">Upazila:</label>
+                    <label htmlFor="upazila">Your Upazila:</label>
                     <select
                       value={upazila}
                       className={
@@ -286,7 +286,7 @@ class CreatePost extends Component {
                   <div className="d-flex">
                     <ImLocation2 size={70} className="pt-4" />
                     <div className="container">
-                      <label htmlFor="upazila">Upazila:</label>
+                      <label htmlFor="upazila">Your Upazila:</label>
                       <select
                         name="upazila"
                         value={upazila}
