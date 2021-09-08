@@ -21,7 +21,7 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     width: "70%",
-    height: "90%",
+    height: "80%",
   },
 };
 class CreatePost extends Component {
