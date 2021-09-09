@@ -14,7 +14,7 @@ class AllReportedPosts extends Component {
         <div style={{ marginTop: "120px" }}>
           <div className="div text-center">
             <h1 className="display-4" style={{ margin: "5px" }}>
-              Reported Posts
+              Reported Reviews
             </h1>
             <div />
           </div>
