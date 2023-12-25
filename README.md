@@ -5,6 +5,8 @@ Welcome to the TravelersHut! This web application, built with ReactJS, Express, 
 Role-Specific Sections: The app has dedicated sections for Visitors, Guides, and Admins, each with role-specific functionalities and rules.
 Detailed Destination Information: Users can access detailed information about various tourist destinations.
 Rating System and Reviews: Users can provide destination ratings and reviews, facilitating informed travel decisions.
+You can recover passwords with recovery code through email.
+Registering mobile numbers is also verified through OTP sent to mobile numbers.
 
 **Installation**
 
